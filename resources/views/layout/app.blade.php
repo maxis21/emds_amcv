@@ -18,7 +18,7 @@
     </header>
     <div class="d-flex">
         <aside>
-            @include('layout.sidenav')
+            @yield('sidemenu')
         </aside>
 
         <main>

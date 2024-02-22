@@ -6,7 +6,7 @@
 @endsection
 
 @section('sidemenu')
-    @include('super_admin.sidenav')
+    @include('admin.sidenav')
 @endsection
 
 @section('body-content')
