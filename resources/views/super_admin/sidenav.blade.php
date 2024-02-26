@@ -70,11 +70,9 @@
     </div>
 </div>
 
-@section('scripts')
 <script>
     document.getElementById('toggleLink').addEventListener('click', function() {
         var dropElement = document.querySelector('.drops-down');
         dropElement.classList.toggle('show');
     });
 </script>
-@endsection
