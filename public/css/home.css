@@ -1,43 +1,15 @@
-.box-con {
-    display: flex;
-    gap: 10px;
-    flex-flow: wrap;
-}
 
-.table-box {
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    /* border-radius: 10px; */
-    /* background-color: white; */
-    /* border-bottom: solid 2px orange; */
+.table-box{
+    background-color: rgb(255,255,255, 0.5);
+
 }
 
 .table-wrap {
-    border-radius: 10px;
-    height: 100%;
-    width: 100%;
-}
-
-.table-wrap table {
-    border-collapse: collapse;
-    width: 100%;
+    padding: 20px;
     background-color: white;
     border-radius: 10px;
-    overflow: hidden;
 }
 
-.table-wrap th {
-    height: 70px;
-    background-color: #015581;
-    color: white;
-}
-
-.table-wrap th, td {
-    padding: 1.3rem;
-    text-align: left;
-}
-
-tr:nth-child(even) {
-    background-color: #ececec;
+.rounded{
+    border-radius: 10px;
 }
