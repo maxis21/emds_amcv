@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     @yield('styles')
+    <link rel="stylesheet" href="{{ asset('css/logout.css') }}">
 </head>
 
 <body>
@@ -33,7 +34,7 @@
     </header>
     <div class="d-flex">
         <aside>
-            <div class="side-container">
+            {{-- <div class="side-container">
                 <div class="side-content">
                     <div class="divider"></div>
                     <div class="nav-menu">
@@ -113,7 +114,8 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> --}}
+            @include('super_admin.sidenav')
         </aside>
 
         <main>
@@ -122,7 +124,8 @@
             </div>
         </main>
     </div>
- 
+    @include('modals.logout')
+    @yield('scripts')
 </body>
 <script src="{{ asset('js/jquery3.js') }}"></script>
 @yield('scripts')
