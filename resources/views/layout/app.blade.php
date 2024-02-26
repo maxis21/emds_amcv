@@ -9,8 +9,8 @@
     <!-- CSS Links -->
 
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    @yield('styles')
     <link rel="stylesheet" href="{{ asset('css/logout.css') }}">
+    @yield('styles')
 </head>
 
 <body>
