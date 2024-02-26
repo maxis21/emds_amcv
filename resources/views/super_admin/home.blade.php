@@ -5,9 +5,7 @@
 <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 @endsection
 
-@section('sidemenu')
-    @include('super_admin.sidenav')
-@endsection
+
 
 @section('body-content')
 <div class="contentcon">

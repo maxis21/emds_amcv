@@ -9,6 +9,7 @@
     <!-- CSS Links -->
     @yield('styles')
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/logout.css') }}">
 </head>
 
 <body>
@@ -18,7 +19,7 @@
     </header>
     <div class="d-flex">
         <aside>
-            @yield('sidemenu')
+            @include('super_admin.sidenav')
         </aside>
 
         <main>
@@ -27,7 +28,7 @@
             </div>
         </main>
     </div>
-
+    @include('modals.logout')
     @yield('scripts')
 </body>
 

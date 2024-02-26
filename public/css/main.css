@@ -16,7 +16,7 @@ header {
     position: sticky;
     top: 0;
     width: 100%;
-    z-index: 9999;
+    z-index: 999;
 }
 
 aside {
@@ -182,8 +182,30 @@ main {
         border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.btn:hover {
-    background-color: #006977;
+.btn-primary-hover:hover {
+    background-color: #1f8bff;
+    cursor: pointer;
+}
+.btn-secondary-hover:hover {
+    background-color: #9ba6b1;
+    cursor: pointer;
+}
+.btn-success-hover:hover {
+    background-color: #30c553;
+    color: white;
+    cursor: pointer;
+}
+.btn-danger-hover:hover {
+    background-color: #fc3b4f;
+    color: white;
+    cursor: pointer;
+}
+.btn-warning-hover:hover {
+    background-color: #fdce40;
+    cursor: pointer;
+}
+.btn-info-hover:hover {
+    background-color: #1ed1ec;
     cursor: pointer;
 }
 
