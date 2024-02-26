@@ -34,8 +34,7 @@
     </header>
     <div class="d-flex">
         <aside>
-            @include('super_admin.sidenav')
-            <!-- <div class="side-container">
+            {{-- <div class="side-container">
                 <div class="side-content">
                     <div class="divider"></div>
                     <div class="nav-menu">
@@ -115,7 +114,8 @@
                         </ul>
                     </div>
                 </div>
-            </div> -->
+            </div> --}}
+            @include('super_admin.sidenav')
         </aside>
 
         <main>
@@ -130,4 +130,7 @@
     @yield('scripts')
     
 </body>
+
+</body>
+
 </html>
