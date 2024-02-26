@@ -1,4 +1,4 @@
-.modal-container {
+.logout-account {
     display: none;
     position: fixed;
     top: 0;
@@ -52,7 +52,7 @@
     color: white;
 }
 
-.modal-container:target {
+.logout-account:target {
     display: flex;
 }
 

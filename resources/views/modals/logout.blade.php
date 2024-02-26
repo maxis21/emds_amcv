@@ -1,4 +1,4 @@
-<div id="modal-container" class="modal-container">
+<div id="logout-account" class="logout-account">
     <div class="modal">
         <div class="header-modal">
             <p>Logout</p>

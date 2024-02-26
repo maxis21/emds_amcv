@@ -22,8 +22,8 @@
                 </a>
             </div>
             <div class="top-text d-flex">
-                <p> 
-                    <span class="fs-3 fw-2">A</span>DVENTIST 
+                <p>
+                    <span class="fs-3 fw-2">A</span>DVENTIST
                     <span class="fs-3 fw-2">M</span>EDICAL
                     <span class="fs-3 fw-2">C</span>ENTER-
                     <span class="fs-3 fw-2">V</span>ALENCIA
@@ -125,9 +125,9 @@
         </main>
     </div>
     @include('modals.logout')
-    @yield('scripts')
-</body>
-<script src="{{ asset('js/jquery3.js') }}"></script>
-@yield('scripts')
 
+    <script src="{{ asset('js/jquery3.js') }}"></script>
+    @yield('scripts')
+    
+</body>
 </html>
