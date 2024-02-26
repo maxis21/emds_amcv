@@ -125,7 +125,6 @@
         </main>
     </div>
     @include('modals.logout')
-    @yield('scripts')
 </body>
 <script src="{{ asset('js/jquery3.js') }}"></script>
 @yield('scripts')
