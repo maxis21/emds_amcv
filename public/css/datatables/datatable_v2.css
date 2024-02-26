@@ -1,0 +1,133 @@
+* {
+    font-family: Helvetica;
+}
+
+.card {
+    border-radius: 0.2rem;
+    height: fit-content;
+    border: 5px;
+}
+
+.card-body {
+    width: max-content;
+}
+
+.inv-modal {
+    width: 45rem;
+    overflow: auto;
+}
+
+.deleteModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+.restoreModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.inv {
+    min-width: 10rem;
+}
+
+.table-input-btn {
+    float: left;
+    text-align: left;
+    left: 2rem;
+    margin-top: -10px;
+    height: 2.5rem;
+}
+
+table {
+    width: 100%;
+    border-radius: 10px !important;
+    color: rgb(1, 85, 129);
+    border-collapse: collapse;
+
+}
+
+@media print {
+    #dataTable tr {
+        /* Inherit dynamic background color */
+        background-color: inherit !important;
+        /* Inherit dynamic text color */
+        color: inherit !important;
+    }
+}
+
+.table-content th,
+.table-content td {
+    padding: 10px;
+    text-align: left;
+
+    
+}
+
+.table-content th {
+    background-color: #015581;
+    color: white;
+}
+
+td {
+    color: rgb(14, 14, 14);
+}
+
+.table-input-btn-select{
+    position: absolute;
+    margin-top: -10px;
+    left: .2rem;
+    margin-inline-start: 19.7rem;
+    height: 2.5rem; /* Adjust as needed */
+}
+
+.table-input-btn-print:hover {
+     background-color: #012f46;
+}
+
+.btn.delete:hover{
+    background-color: #9D1B28;
+    cursor: pointer;
+}
+
+.btn.edit:hover{
+    background-color: #013f5f;
+    cursor: pointer;
+}
+
+.btn.restore:hover{
+    background-color: #1D7B33;
+    cursor: pointer;
+}
+
+body .btnDash:hover{
+    background-color: #013f5f;
+    cursor: pointer;
+}
+
+button.dt-button:hover{
+    background-color: #013f5f;
+    cursor: pointer;
+}
+
+.modalBtnCon .save:hover{
+    background-color: #013f5f;
+    cursor: pointer;
+}
+
+.modalBtnCon .cancel:hover{
+    background-color: #d1cbcb;
+    cursor: pointer;
+}
+
