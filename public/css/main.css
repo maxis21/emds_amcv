@@ -57,18 +57,19 @@ main {
 .menu-content li a {
     text-decoration: none;
     margin-top: 10px;
-    color: rgb(216, 216, 216);
+    color: rgb(196, 196, 196);
     gap: 10px;
     display: flex;
     align-items: center;
     padding: 10px;
     border-radius: 5px;
     font-weight: 550;
+    transition: 0.3s;
 }
 
 .menu-content li a:hover {
-    transition: 0.3s;
     color: white;
+
 }
 
 .badge {
@@ -97,18 +98,18 @@ main {
 }
 
 .drop-container{
-    background-color: transparent;
+    background-color: white;
     padding: 0.5rem;
 }
 
 .drop-container a{
-    color: rgb(216, 216, 216) !important;
+    color: #888888 !important;
     margin-top: 0 !important;
 }
 
 .drop-container a:hover{
     background-color: white;
-    color: #015581 !important;
+    color: #06282D !important;
 }
 
 .drops-down.show {
