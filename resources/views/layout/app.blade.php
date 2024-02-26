@@ -7,23 +7,24 @@
     <title>@yield('title')</title>
 
     <!-- CSS Links -->
-
+    @yield('styles')
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/logout.css') }}">
-    @yield('styles')
+
+    <script src="{{ asset('js/jquery3.js') }}"></script>
 </head>
 
 <body>
     <header>
         <div class="top-content d-flex">
             <div class="img-logo d-flex">
-                <a href="{{--route('goto.dashboard')--}}">
+                <a href="{{-- route('goto.dashboard') --}}">
                     <img src="{{ asset('img/amcvLogo.png') }}" alt="AMCV Logo" style="width: 55px; height: 55px">
                 </a>
             </div>
             <div class="top-text d-flex">
-                <p> 
-                    <span class="fs-3 fw-2">A</span>DVENTIST 
+                <p>
+                    <span class="fs-3 fw-2">A</span>DVENTIST
                     <span class="fs-3 fw-2">M</span>EDICAL
                     <span class="fs-3 fw-2">C</span>ENTER-
                     <span class="fs-3 fw-2">V</span>ALENCIA
@@ -125,8 +126,9 @@
         </main>
     </div>
     @include('modals.logout')
+
+    @yield('scripts')
 </body>
-<script src="{{ asset('js/jquery3.js') }}"></script>
-@yield('scripts')
+
 
 </html>
