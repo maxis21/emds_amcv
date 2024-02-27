@@ -27,13 +27,13 @@
                     <div class="top-right">
                         <img src="{{asset('img/amcvLogo.png')}}" alt="amcvLogo">
                         <div class="divider"></div>
-                        <h4>User Login</h4>
+                        <h4>Sign-in Your Account</h4>
                     </div>
                     <div class="log-form">
                         <form action="">
                             <div class="form-group">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" name="" id="" class="form-control">
+                                <input type="text" name="username" id="username" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="form-label">Password</label>

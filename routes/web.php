@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\RequestController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +19,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('users.users_home');
-});
+/*
+------------------------------------------------------------------------
+    Show Routes
+------------------------------------------------------------------------
+*/
+Route::get('/', [AuthController::class, 'login'])->name('to.Login');
+Route::get('/Dashboard', [DashboardController::class, 'show'])->name('to.Dashboard');
+Route::get('/Departments', [DepartmentController::class, 'show'])->name('to.Departments');
+Route::get('/Documents', [DocumentController::class, 'show'])->name('to.Documents');
+Route::get('/Request', [RequestController::class, 'show'])->name('to.Request');
+Route::get('/Users', [UsersController::class, 'show'])->name('to.Users');
