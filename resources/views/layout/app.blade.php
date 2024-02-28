@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
 
     <!-- CSS Links -->
@@ -38,8 +39,24 @@
     </header>
     <div class="d-flex">
         <aside>
-
+            {{-- @if (Auth()->user()->access == 2)
+               
+           @else
+               
+           @endif --}}
             @include('super_admin.sidenav')
+
+            <ul>
+
+                    <li>
+                        <div>
+                            <div>
+                                <a href=""> jkahskda</a>
+                            </div>
+                        </div>
+                    </li>
+
+            </ul>
         </aside>
 
         <main>

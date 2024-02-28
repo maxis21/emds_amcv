@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tbl_roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->timestamps();
+            $table->string('name', 50);
+            $table->string('description');
         });
     }
 
@@ -23,6 +23,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints(); // Disable foreign key constraints
         Schema::dropIfExists('tbl_roles');
     }
 };

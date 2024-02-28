@@ -25,6 +25,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints(); // Disable foreign key constraints
         Schema::dropIfExists('tbl_documents');
     }
 };
