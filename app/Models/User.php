@@ -45,7 +45,7 @@ class User extends Authenticatable
     ];
 
     public function role(){
-        return $this->belongsTo(UserRole::class);
+        return $this->hasOne(UserRole::class);
     }
 
     public function request(){
@@ -53,6 +53,6 @@ class User extends Authenticatable
     }
 
     public function department(){
-        return $this->hasOne(Department::class);
+        return $this->belongsTo(Department::class);
     }
 }
