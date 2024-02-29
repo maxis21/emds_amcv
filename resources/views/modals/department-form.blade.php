@@ -11,7 +11,7 @@
                 @csrf
                 <div class="form-group d-flex dept-form">
                     <label for="">Name: </label>
-                    <input class="form-control" name="name" type="text">
+                    <input class="form-control" name="name" type="text" required>
                 </div>
         </div>
         <div class="modal-footer">

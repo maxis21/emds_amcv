@@ -16,9 +16,37 @@
     height: 15vh;
     border-radius: 5px;
     background-color: white;
-    border-left: solid 5px cyan;
     padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.1);
+    color: rgb(100, 100, 100);
+}
+
+.dash-1{
+    border-left: solid 5px #015c57;
+}
+.dash-1 span, .card-icon{
+    color: #015c57;  
+}
+.dash-2{
+    border-left: solid 5px #d64106 ;
+}
+.dash-2 span, .dash-2 .card-icon{
+    color: #d64106;  
+}
+.dash-3{
+    border-left: solid 5px #69140e;
+}
+.dash-3 span, .dash-3 .card-icon{
+    color: #69140e;  
+}
+.dash-4{
+    border-left: solid 5px #0058bd;
+}
+.dash-4 span, .dash-4 .card-icon{
+    color: #0058bd;  
 }
 
 .body-content{
