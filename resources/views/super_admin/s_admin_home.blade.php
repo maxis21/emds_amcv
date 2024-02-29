@@ -24,11 +24,9 @@
                 <table id="dataTable" class="table-content display">
                     <thead>
                         <tr>
-                            <th>Column 1</th>
-                            <th>Column 2</th>
-                            <th>Column 3</th>
-                            <th>Column 4</th>
-                            <th>Column 5</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Date uploaded</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,36 +34,6 @@
                             <td>Data 1</td>
                             <td>Data 2</td>
                             <td>Data 3</td>
-                            <td>Data 4</td>
-                            <td>Data 5</td>
-                        </tr>
-                        <tr>
-                            <td>Data 1</td>
-                            <td>Data 2</td>
-                            <td>Data 3</td>
-                            <td>Data 4</td>
-                            <td>Data 5</td>
-                        </tr>
-                        <tr>
-                            <td>Data 1</td>
-                            <td>Data 2</td>
-                            <td>Data 3</td>
-                            <td>Data 4</td>
-                            <td>Data 5</td>
-                        </tr>
-                        <tr>
-                            <td>Data 1</td>
-                            <td>Data 2</td>
-                            <td>Data 3</td>
-                            <td>Data 4</td>
-                            <td>Data 5</td>
-                        </tr>
-                        <tr>
-                            <td>Data 1</td>
-                            <td>Data 2</td>
-                            <td>Data 3</td>
-                            <td>Data 4</td>
-                            <td>Data 5</td>
                         </tr>
                     </tbody>
                 </table>

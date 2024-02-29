@@ -25,11 +25,15 @@ use App\Http\Controllers\AuthController;
 ------------------------------------------------------------------------
 */
 Route::get('/', [AuthController::class, 'login'])->name('to.Login');
-Route::get('/Dashboard', [DashboardController::class, 'show'])->name('to.Dashboard');
-Route::get('/Departments', [DepartmentController::class, 'show'])->name('to.Departments');
-Route::get('/Documents', [DocumentController::class, 'show'])->name('to.Documents');
-Route::get('/Request', [RequestController::class, 'show'])->name('to.Request');
-Route::get('/Users', [UsersController::class, 'show'])->name('to.Users');
+Route::post('/user/register', [AuthController::class,'register'])->name('to.Add');
+Route::post('/user/login', [AuthController::class,'postLogin'])->name('to.Auth');
+Route::get('/user/logout', [AuthController::class,'logout'])->name('to.Logout');
+
+Route::get('/dashboard', [DashboardController::class, 'show'])->name('to.Dashboard');
+Route::get('/departments', [DepartmentController::class, 'show'])->name('to.Departments');
+Route::get('/documents', [DocumentController::class, 'show'])->name('to.Documents');
+Route::get('/request', [RequestController::class, 'show'])->name('to.Request');
+Route::get('/users', [UsersController::class, 'show'])->name('to.Users');
 
 /*
 ----------------------------------------------------------------------

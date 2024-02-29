@@ -9,11 +9,8 @@
             <p>Are you sure you want to logout?</p>
         </div>
         <div class="modal-footer">
-            <form action="">
-                @csrf
-                <button class="btn bg-success btn-success-hover" type="submit">Yes</button>
-            </form>
-            <button class="btn bg-danger btn-danger-hover" onclick="location.href=''">No</button>
+            <a style="text-decoration: none" class="btn bg-danger btn-danger-hover" href="{{route('to.Logout')}}">Yes</a>
+            <a style="text-decoration: none" class="btn bg-success btn-success-hover" onclick="location.href=''">No</a>
         </div>
     </div>
 </div>

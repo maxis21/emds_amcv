@@ -17,11 +17,11 @@ class Transaction extends Model
     ];
 
     public function requests(){
-        return $this->hasMany(Request::class);
+        return $this->hasMany(Request::class, 'id');
     }
 
     public function document(){
-        return $this->hasOne(Document::class);
+        return $this->belongsTo(Document::class);
     }
 
     

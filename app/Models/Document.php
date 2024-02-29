@@ -15,9 +15,9 @@ class Document extends Model
         'department_id'
     ];
 
-    public function deparment()
+    public function department()
     {
-        return $this->hasOne(Department::class);
+        return $this->belongsTo(Department::class);
     }
 
     public function requests()
@@ -27,7 +27,7 @@ class Document extends Model
 
     public function transaction()
     {
-        return $this->belongsTo(Transaction::class);
+        return $this->hasOne(Transaction::class);
     }
 
     public function document_versions()

@@ -4,12 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
 
     <!-- CSS Links -->
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/logout.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/add.css') }}">
     @yield('styles')
 
     <!-- Jquery -->
@@ -39,7 +41,11 @@
     </header>
     <div class="d-flex">
         <aside>
-
+            {{-- @if (Auth()->user()->access == 2)
+               
+           @else
+               
+           @endif --}}
             @include('super_admin.sidenav')
         </aside>
 

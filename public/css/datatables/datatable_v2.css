@@ -96,6 +96,50 @@ td {
      background-color: #012f46;
 }
 
+.dropdown a{
+    cursor: pointer;
+}
+
+/* Position the dropdown absolutely */
+.dropdown-menu {
+    position: absolute;
+    background-color: rgb(247, 244, 244);
+    display: none;
+    border-radius: 10px;
+}
+
+.dropdown-menu li{
+    margin: 0;
+    padding: 10px;
+    width: 100px;
+    border-radius: 5px;
+}
+
+.dropdown-menu li:hover{
+    background-color: lightgrey;
+}
+
+.dropdown-menu ul{
+    padding: 0;
+    margin: 0;
+}
+
+/* Position the dropdown absolutely */
+.dropdown-menu a, ul{
+    color: black;
+    text-decoration: none;
+    list-style: none;
+}
+
+/* Position the dropdown above the table */
+.dropdown-menu.show {
+    display: block;
+    position: absolute;
+    right: 25px;
+    margin-top: -25px;
+}
+
+
 .btn.delete:hover{
     background-color: #9D1B28;
     cursor: pointer;

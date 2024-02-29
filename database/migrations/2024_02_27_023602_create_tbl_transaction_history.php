@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('reference_id');
             $table->foreign('reference_id')->references('id')->on('tbl_requests')->onDelete('cascade');
             $table->string('action_taken', 50);
+            $table->unsignedBigInteger('document_id');
+            $table->foreign('document_id')->references('id')->on('tbl_documents')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +27,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints(); // Disable foreign key constraints
         Schema::dropIfExists('tbl_transaction_history');
     }
 };

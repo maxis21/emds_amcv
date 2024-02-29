@@ -19,11 +19,11 @@ class Request extends Model
     ];
 
     public function document(){
-        return $this->hasOne(Document::class);
+        return $this->belongsTo(Document::class);
     }
 
     public function user(){
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function transaction(){

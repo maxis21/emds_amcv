@@ -48,6 +48,9 @@
                             <a href="">
                                 Users
                             </a>
+                            <a id="open-modal-btn"  onclick="location.href='#add-account'">
+                                Add Users
+                            </a>
                         </div>
                     </div>
                 </li>
@@ -75,4 +78,5 @@
         var dropElement = document.querySelector('.drops-down');
         dropElement.classList.toggle('show');
     });
+    
 </script>
