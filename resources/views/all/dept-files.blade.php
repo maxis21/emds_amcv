@@ -12,10 +12,11 @@
     <div class="contentcon">
         <div class="container-fluid d-flex" style="justify-content: space-between;">
             <div style="display: flex; justify-content: space-between; align-items: center; width: 100%">
-                <p style="color: grey"><b>DOCUMENTS</b></p>
+                <p style="color: grey"><b>{{$dptData->name}}</b></p>
                 <ul class="breadcrumbs">
-                    <li class="text-white"><a href="#">Dashboard</a></li>
-                    <li class="text-white active"> Documents </li>
+                    <li class="text-white"><a href="{{ route('to.Dashboard') }}">Dashboard</a></li>
+                    <li class="text-white"><a href="{{ route('to.Departments') }}"> Departments </a></li>
+                    <li class="text-white active"> {{$dptData->name}} </li>
                 </ul>
             </div>
         </div>          
@@ -83,8 +84,6 @@
         <!-- -->
     </div>
     <!-- -->
-        <!-- Add more rows as needed -->
-    </table>
 @endsection
 
 

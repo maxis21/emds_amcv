@@ -7,13 +7,14 @@
     <title>@yield('title')</title>
 
     <!-- CSS Links -->
-    @yield('styles')
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/logout.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
     @yield('styles')
 
     <!-- Jquery -->
     <script src="{{ asset('js/jquery3.js') }}"></script>
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
 
 </head>
 

@@ -30,3 +30,11 @@ Route::get('/Departments', [DepartmentController::class, 'show'])->name('to.Depa
 Route::get('/Documents', [DocumentController::class, 'show'])->name('to.Documents');
 Route::get('/Request', [RequestController::class, 'show'])->name('to.Request');
 Route::get('/Users', [UsersController::class, 'show'])->name('to.Users');
+
+/*
+----------------------------------------------------------------------
+Department Routes
+----------------------------------------------------------------------
+*/ 
+Route::get('/Departments/{id}/Files', [DepartmentController::class, 'showFiles'])->name('show.deptFiles');
+Route::post('/Departments/Add-Department', [DepartmentController::class, 'addDept'])->name('add.dept');

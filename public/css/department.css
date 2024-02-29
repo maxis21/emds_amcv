@@ -1,0 +1,58 @@
+.list-con {
+    background-color: white;
+    padding: 0.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-radius: 5px;
+}
+
+.list-group {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 0;
+}
+
+.dept-buttons {
+    text-decoration: none;
+    padding: 0.3rem;
+}
+
+.dept-buttons a{
+    text-decoration: none;
+    background-color: #007F90;
+    color: #fcfcfc;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 17%;
+    padding: 0.5rem;
+}
+
+.dept-buttons a:hover{
+    color: #003941;
+    background-color: #01a5bb;
+}
+
+.list-group a {
+    display: flex;
+    border-radius: 10px;
+    flex-direction: column;
+    height: 15vh;
+    justify-content: center;
+    text-decoration: none;
+    transition: 0.3s;
+    color: rgb(75, 75, 75);
+    box-sizing: border-box;
+    flex-basis: calc(25% - 10px);
+    margin: 5px;
+    border: 1px solid #ccc;
+}
+
+.list-group a:hover {
+    background-color: #006b79;
+    color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    scale: 1.06;
+}
