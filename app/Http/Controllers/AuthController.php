@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,8 +26,8 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            Auth::logoutOtherDevices($request->input('password'));
             $request->session()->regenerate();
-
             return redirect()->intended('to.Dashboard');
         }
 
@@ -39,5 +40,21 @@ class AuthController extends Controller
         Auth::logout();
 
         return redirect()->intended('/');
+    }
+
+    public function register(Request $request){
+        $this->validate($request, [
+            'username' => ['required'],
+            'password'=> ['required', 'string|min: 8'],
+            'fname' => ['required'],
+            'mname' => ['required'],
+            'lname' => ['required'],
+        ]);
+
+        $user = User::create(
+            $request->all()
+        );
+        
+        return redirect()->back()->with('success','');
     }
 }

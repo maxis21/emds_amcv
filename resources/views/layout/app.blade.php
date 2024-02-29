@@ -11,6 +11,7 @@
     @yield('styles')
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/logout.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/add.css') }}">
     @yield('styles')
 
     <!-- Jquery -->
@@ -45,18 +46,6 @@
                
            @endif --}}
             @include('super_admin.sidenav')
-
-            <ul>
-
-                    <li>
-                        <div>
-                            <div>
-                                <a href=""> jkahskda</a>
-                            </div>
-                        </div>
-                    </li>
-
-            </ul>
         </aside>
 
         <main>
