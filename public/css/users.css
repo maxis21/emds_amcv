@@ -1,0 +1,41 @@
+.body-con{
+    background-color: white;
+    padding: 0.5rem;
+    padding-top: 30px;
+    border-radius: 0.3rem;
+    flex-direction: column;
+}
+
+.top-con{
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    border-radius: 0.4rem;
+    justify-content: space-between;
+}
+
+.table-groupBtn{
+    position: absolute;
+    margin-top: -50px;
+    float: left;
+    height: 2.5rem; /* Adjust as needed */
+}
+
+.roleSelect{
+    width: 150px;
+}
+
+.userAdd{
+    text-decoration: none;
+    background-color: #007F90;
+    color: white;
+    gap: 0.5rem;
+    left: 10rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.userAdd:hover{
+    cursor: pointer;
+    background-color: #0193a7;
+}

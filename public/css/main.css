@@ -86,37 +86,6 @@ main {
     background-color: #dc3545;
 }
 
-.drops-down {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    gap: 5px;
-    flex-direction: column;
-    overflow: hidden;    
-    max-height: 0;
-    transition: max-height .5s ease-in-out;
-}
-
-.drop-container{
-    background-color: white;
-    padding: 0.5rem;
-}
-
-.drop-container a{
-    color: #888888 !important;
-    margin-top: 0 !important;
-}
-
-.drop-container a:hover{
-    background-color: white;
-    color: #06282D !important;
-}
-
-.drops-down.show {
-    display: flex;
-    max-height: 100vh;
-}
-
 .drops-btn {
     background-color: #28a745;
     width: 100%;

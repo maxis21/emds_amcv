@@ -42,3 +42,11 @@ Department Routes
 */ 
 Route::get('/Departments/{id}/Files', [DepartmentController::class, 'showFiles'])->name('show.deptFiles');
 Route::post('/Departments/Add-Department', [DepartmentController::class, 'addDept'])->name('add.dept');
+
+
+/*
+----------------------------------------------------------------------
+Users Routes
+----------------------------------------------------------------------
+*/
+Route::get('/Users', [UsersController::class, 'Users'])->name('display.Users');

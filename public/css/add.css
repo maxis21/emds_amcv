@@ -51,6 +51,7 @@
 
 .modal-footer button{
     color: white;
+    width: 100%;
 }
 
 .add-account:target {
@@ -81,4 +82,5 @@
     color: #000000;
     position: absolute;
 }
+
 

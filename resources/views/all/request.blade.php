@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Home')
+@section('title', 'Request')
 
 @section('styles')
     <!-- <link rel="stylesheet" href="{{ asset('css/datatables/jquery.dataTables.css') }}">

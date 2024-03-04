@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/logout.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/add.css') }}">
+
     @yield('styles')
 
     <!-- Jquery -->
@@ -56,7 +56,6 @@
         </main>
     </div>
     @include('modals.logout')
-    @include('modals.addUser')
 
     @yield('scripts')
     <script>
