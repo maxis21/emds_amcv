@@ -32,8 +32,8 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'username' => 'The provided credentials do not match our records.',
-        ])->onlyInput('username');
+            'error' => 'The provided credentials do not match our records.',
+        ]);
     }
 
     public function logout(){
@@ -45,16 +45,17 @@ class AuthController extends Controller
     public function register(Request $request){
         $this->validate($request, [
             'username' => ['required'],
-            'password'=> ['required', 'string|min: 8'],
+            'password'=> ['required', 'string', 'min: 8'],
             'fname' => ['required'],
             'mname' => ['required'],
             'lname' => ['required'],
         ]);
 
-        $user = User::create(
-            $request->all()
-        );
-        
+        $user = User::create($request->all());
+
+        dd($user);
+
         return redirect()->back()->with('success','');
+       
     }
 }
