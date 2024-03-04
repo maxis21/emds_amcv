@@ -36,7 +36,7 @@
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" name="username" id="username" class="form-control"
                                 value="{{old('username')}}">
-                                @error('username')
+                                @error('error')
                                 <p style="color: red; font-size: 0.8rem;"><i>Your account does not exist or wrong combination of credentials. </i></p>
                                 @enderror
                             </div>
