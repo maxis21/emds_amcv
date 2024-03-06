@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,11 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'password',
+        'fname',
+        'mname',
+        'lname',
+        'password',
+        'department_id'
     ];
 
     /**
@@ -54,4 +60,20 @@ class User extends Authenticatable
     public function department(){
         return $this->belongsTo(Department::class);
     }
+
+    public static function boot(){
+        parent::boot();
+
+        static::creating(function($user){
+            $username = Str::lower($user->fname) . Str::lower($user->mname[0] ?? '') . Str::lower($user->lname);
+            
+            $count = static::where('username', $username)->count();
+
+            if($count > 0){
+                $username .= $count + 1;
+            }
+
+            $user->username = $username;
+        });
+    } 
 }

@@ -44,16 +44,26 @@ class AuthController extends Controller
 
     public function register(Request $request){
         $this->validate($request, [
-            'username' => ['required'],
-            'password'=> ['required', 'string', 'min: 8'],
             'fname' => ['required'],
             'mname' => ['required'],
             'lname' => ['required'],
+            'department' => ['required'],
+            'userrole' => ['required']
         ]);
 
-        $user = User::create($request->all());
+        $userpass = 'amcv1234';
 
-        dd($user);
+        $user = new User();
+
+        $user->fill([
+            'fname' => $request->input('fname'),
+            'mname' => $request->input('mname'),
+            'lname' => $request->input('lname'),
+            'password' => $userpass,
+            'department_id' => $request->input('department')
+        ]);
+
+        $user->save();
 
         return redirect()->back()->with('success','');
        

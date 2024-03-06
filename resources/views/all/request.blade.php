@@ -2,8 +2,8 @@
 @section('title', 'Request')
 
 @section('styles')
-    <!-- <link rel="stylesheet" href="{{ asset('css/datatables/jquery.dataTables.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/datatables/datatable_v2.css') }}"> -->
+    <link rel="stylesheet" href="{{ asset('css/datatables/jquery.dataTables.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/datatable_v2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 @endsection
 
@@ -20,7 +20,60 @@
             </div>
         </div>          
         <!-- -->
-        
+        <div class="box-con">
+            <!-- -->
+            <div class="table-box">
+                <!-- -->
+                <div class="table-wrap">
+                    <!-- -->
+                    <table id="dataTable" class="table-content display">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Document</th>
+                                <th>Status</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                            </tr>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                            </tr>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                            </tr>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                            </tr>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- -->
+                </div>
+                <!-- -->
+            </div>
+            <!-- -->
+        </div>
         <!-- -->
     </div>
     <!-- -->
@@ -28,7 +81,7 @@
 
 
 @section('scripts')
-    <!-- <script src="{{ asset('js/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('js/datatables/jquery.dataTables.js') }}"></script>
 
     <script>
         $(document).ready(function() {
@@ -40,5 +93,5 @@
             });
 
         });
-    </script> -->
+    </script>
 @endsection
