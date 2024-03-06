@@ -33,9 +33,10 @@
         </div>
         <div class="list-group d-flex">
             @foreach($departments as $department)
-            <a href="{{ route('show.deptFiles', ['id' => $department->id]) }}" class="btn">
+            <a href="{{ route('show.deptFiles', $department->id) }}" class="btn">
                 <div class="btn-name">
                     <h3 style="margin: 0;">{{$department->name}}</h3>
+
                 </div>
                 <div class="btn-footer">
                 </div>

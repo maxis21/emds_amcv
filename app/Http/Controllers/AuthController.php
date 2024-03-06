@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,28 +45,39 @@ class AuthController extends Controller
 
     public function register(Request $request){
         $this->validate($request, [
-            'fname' => ['required'],
-            'mname' => ['required'],
-            'lname' => ['required'],
-            'department' => ['required'],
-            'userrole' => ['required']
+            'fname' => 'required',
+            'mname' => 'required',
+            'lname' => 'required',
         ]);
 
-        $userpass = 'amcv1234';
+        $lastname = $request->input('lname');
+        $firstname = $request->input('fname');
+        $middlename = $request->input('mname');
 
-        $user = new User();
+        // Get the first letter of the last name
+        $firstLetterLastName = substr($lastname, 0, 1);
 
-        $user->fill([
-            'fname' => $request->input('fname'),
-            'mname' => $request->input('mname'),
-            'lname' => $request->input('lname'),
-            'password' => $userpass,
-            'department_id' => $request->input('department')
+        // Get the first letter of the middle name
+        $firstLetterMiddleName = substr($middlename, 0, 1);
+
+        // Create the username
+        $username = $firstLetterLastName . '.' . $firstname . $firstLetterMiddleName;
+        $username = strtolower($username);
+        $user = User::create([
+            'fname' => $firstname,
+            'mname' => $middlename,
+            'lname' => $lastname,
+            'username' => $username, // Assign the created username
+            'password' => bcrypt('amcv-edms123'),
+            'department_id'=> $request->input('department'),
         ]);
 
-        $user->save();
+        $userRole = UserRole::create([
+            'user_id' => $user->id,
+            'role_id' => $request->input('role')
+        ]);
 
-        return redirect()->back()->with('success','');
+        return redirect()->back()->with('success');
        
     }
 }

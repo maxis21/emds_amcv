@@ -7,42 +7,55 @@
             <table id="dataTable" class="table-content display">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Active</th>
+                        <th>Username</th>
+                        <th>Fullname</th>
                         <th>Department</th>
-                        <th>Date uploaded</th>
-                        <th>Date updated</th>
+                        <th>Date registered</th>
                         <th style="max-width: 10px"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Data 1</td>
-                        <td>Data 2</td>
-                        <td>Data 3</td>
-                        <td>Data 4</td>
-                        <td style="align-content: center">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle action-button" role="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                                    </svg>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <ul>
-                                        <a href="">
-                                            <li>Info</li>
+                    @if (isset($users))
+                        @foreach ($users as $collection)
+                            <tr>
+                                <td>{{ $collection->isActive }}</td>
+                                <td>{{ $collection->username }}</td>
+                                @php
+                                    $fullname =
+                                        $collection->fname . ' ' . $collection->mname . ' ' . $collection->lname;
+                                @endphp
+                                <td>{{ $fullname }}</td>
+                                <td>{{ $collection->department->name }}</td>
+                                <td>{{  date('d M Y', strtotime($collection->created_at))}}</td>
+                                <td style="align-content: center">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle action-button" role="button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-three-dots-vertical"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                            </svg>
                                         </a>
-                                        <a href="">
-                                            <li>Request</li>
-                                        </a>
-                                        <a href="">
-                                            <li>More</li>
-                                        </a>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <ul>
+                                                <a href="">
+                                                    <li>View info</li>
+                                                </a>
+                                                <a href="">
+                                                    <li>Edit</li>
+                                                </a>
+                                                <a href="">
+                                                    <li>Delete</li>
+                                                </a>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
             <!-- -->

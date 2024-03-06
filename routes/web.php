@@ -40,7 +40,7 @@ Route::get('/users', [UsersController::class, 'show'])->name('to.Users');
 Department Routes
 ----------------------------------------------------------------------
 */ 
-Route::get('/Departments/{id}/Files', [DepartmentController::class, 'showFiles'])->name('show.deptFiles');
+Route::get('/Departments/{id}/files', [DepartmentController::class, 'showFiles'])->name('show.deptFiles');
 Route::post('/Departments/Add-Department', [DepartmentController::class, 'addDept'])->name('add.dept');
 
 

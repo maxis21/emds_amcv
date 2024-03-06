@@ -2,7 +2,7 @@
 @section('title', 'Documents')
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/datatables/jquery.dataTables.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/document.dataTables.css') }}">
     <link rel="stylesheet" href="{{ asset('css/datatables/datatable_v2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 @endsection
@@ -33,7 +33,7 @@
                                 <th>Department</th>
                                 <th>Date uploaded</th>
                                 <th>Date updated</th>
-                                <th style="max-width: 10px"></th>
+                                <th style="max-width: 10px;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,7 +85,7 @@
             // Your code to be executed when the DOM is ready
             $('#dataTable').DataTable({
                 "lengthChange": false,
-                "pageLength": 10,
+                "pageLength": 15,
                 "searching": true,
                 "columnDefs": [{
                     "targets": -1, // Target the last column
