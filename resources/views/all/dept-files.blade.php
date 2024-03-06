@@ -2,9 +2,9 @@
 @section('title', 'Documents')
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/datatables/jquery.dataTables.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/datatables/datatable_v2.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+<link rel="stylesheet" href="{{ asset('css/datatables/document.dataTables.css') }}">
+<link rel="stylesheet" href="{{ asset('css/datatables/datatable_v2.css') }}">
+<link rel="stylesheet" href="{{ asset('css/home.css') }}">
 @endsection
 
 @section('body-content')
@@ -30,14 +30,91 @@
                     <table id="dataTable" class="table-content display">
                         <thead>
                             <tr>
-                                <th>Column 1</th>
-                                <th>Column 2</th>
-                                <th>Column 3</th>
+                                <th>Name</th>
+                                <th>Date modified</th>
+                                <th>Date uploaded</th>
                                 <th>Column 4</th>
                                 <th>Column 5</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                                <td>Data 5</td>
+                            </tr>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                                <td>Data 5</td>
+                            </tr>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                                <td>Data 5</td>
+                            </tr>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                                <td>Data 5</td>
+                            </tr>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                                <td>Data 5</td>
+                            </tr>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                                <td>Data 5</td>
+                            </tr>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                                <td>Data 5</td>
+                            </tr>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                                <td>Data 5</td>
+                            </tr>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                                <td>Data 5</td>
+                            </tr>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                                <td>Data 5</td>
+                            </tr>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                                <td>Data 3</td>
+                                <td>Data 4</td>
+                                <td>Data 5</td>
+                            </tr>
                             <tr>
                                 <td>Data 1</td>
                                 <td>Data 2</td>
@@ -95,7 +172,7 @@
             // Your code to be executed when the DOM is ready
             $('#dataTable').DataTable({
                 "lengthChange": false,
-                "pageLength": 10,
+                "pageLength": 15,
                 "searching": true
             });
 

@@ -41,6 +41,12 @@
 
 @section('scripts')
 <script src="{{ asset('js/datatables/jquery.dataTables.js') }}"></script>
+@if(session('success'))
+<script>
+    toastr.success('{{ session('
+        success ') }}', 'Success');
+</script>
+@endif
 
 <script>
     $(document).ready(function() {
