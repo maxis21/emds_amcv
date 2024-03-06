@@ -61,7 +61,7 @@ class AuthController extends Controller
         $firstLetterMiddleName = substr($middlename, 0, 1);
 
         // Create the username
-        $username = $firstLetterLastName . '.' . $firstname . $firstLetterMiddleName;
+        $username = $firstLetterLastName . '.' . $firstname.$firstLetterMiddleName;
         $username = strtolower($username);
         $user = User::create([
             'fname' => $firstname,
@@ -77,7 +77,7 @@ class AuthController extends Controller
             'role_id' => $request->input('role')
         ]);
 
-        return redirect()->back()->with('success');
+        return redirect()->back()->with('success', 'User Added Successfully.');
        
     }
 }

@@ -59,4 +59,21 @@ class UsersController extends Controller
 
     }
 
+    public function userRoles(Request $request){
+
+        if($request->roles == ''){
+            return redirect(route('to.Users'));
+        }
+
+        $userrole = $request->input('roles');
+        $users = User::join('tbl_user_roles', 'tbl_users.id', '=', 'tbl_user_roles.user_id')
+            ->join('tbl_roles', 'tbl_user_roles.role_id', '=', 'tbl_roles.id')
+            ->where('tbl_roles.name', $userrole)
+            ->get();
+
+        $departments = Department::get();
+        return view('all.users', compact('users','departments'));;
+
+    }
+
 }

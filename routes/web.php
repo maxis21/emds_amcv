@@ -50,3 +50,4 @@ Users Routes
 ----------------------------------------------------------------------
 */
 Route::get('/Users', [UsersController::class, 'Users'])->name('display.Users');
+Route::get('/Users', [UsersController::class, 'UserRoles'])->name('select.Role');

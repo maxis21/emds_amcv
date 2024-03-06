@@ -7,7 +7,7 @@
             <table id="dataTable" class="table-content display">
                 <thead>
                     <tr>
-                        <th>Active</th>
+                        <th>Status</th>
                         <th>Username</th>
                         <th>Fullname</th>
                         <th>Department</th>
@@ -19,7 +19,13 @@
                     @if (isset($users))
                         @foreach ($users as $collection)
                             <tr>
-                                <td>{{ $collection->isActive }}</td>
+                                <td>
+                                    @if ($collection->isActive == true)
+                                        Active
+                                    @else
+                                        Inactive
+                                    @endif
+                                </td>
                                 <td>{{ $collection->username }}</td>
                                 @php
                                     $fullname =
