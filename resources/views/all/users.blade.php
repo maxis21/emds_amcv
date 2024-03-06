@@ -101,9 +101,6 @@
 
         });
 
-        $(document).on('click', '#userAdd', function() {
-            location.href = '#add-account';
-        });
     </script>
 
     <script>
