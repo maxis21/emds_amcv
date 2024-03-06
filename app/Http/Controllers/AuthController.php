@@ -29,7 +29,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             Auth::logoutOtherDevices($request->input('password'));
             $request->session()->regenerate();
-            return redirect()->intended('to.Dashboard');
+            return redirect()->intended(route('to.Dashboard'));
         }
 
         return back()->withErrors([
