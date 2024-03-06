@@ -308,3 +308,7 @@ main {
 .d-flex {
     display: flex;
 }
+
+.rounded-pill {
+    border-radius: 50px;
+}

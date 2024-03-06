@@ -26,6 +26,8 @@ use App\Http\Controllers\AuthController;
 */
 Route::get('/', [AuthController::class, 'login'])->name('to.Login');
 Route::post('/user/register', [AuthController::class,'register'])->name('to.Add');
+
+Route::post('/update', [UsersController::class,'active'])->name('to.Set');
 Route::post('/user/login', [AuthController::class,'postLogin'])->name('to.Auth');
 Route::get('/user/logout', [AuthController::class,'logout'])->name('to.Logout');
 

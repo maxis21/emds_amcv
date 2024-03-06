@@ -2,13 +2,11 @@
 @section('title', 'Home')
 
 @section('styles')
-<!-- <link rel="stylesheet" href="{{ asset('css/datatables/jquery.dataTables.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/datatables/datatable_v2.css') }}"> -->
-<link rel="stylesheet" href="{{ asset('css/users.css') }}">
-<link rel="stylesheet" href="{{ asset('css/datatables/jquery.dataTables.css') }}">
-<link rel="stylesheet" href="{{ asset('css/datatables/datatable_v2.css') }}">
-<link rel="stylesheet" href="{{ asset('css/home.css') }}">
-<link rel="stylesheet" href="{{ asset('css/add.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/users.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/jquery.dataTables.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/datatable_v2.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/add.css') }}">
 @endsection
 
 @section('body-content')
@@ -56,48 +54,63 @@
 
 
 @section('scripts')
-<script src="{{ asset('js/datatables/jquery.dataTables.js') }}"></script>
-@if(session('success'))
-<script>
-    toastr.success('{{ session('
-        success ') }}', 'Success');
-</script>
+    <script src="{{ asset('js/datatables/jquery.dataTables.js') }}"></script>
+    @if (session('success'))
+        <script>
+            toastr.success('{{ session('success ') }}', 'Record updated successfully!');
+        </script>
+    @endif
+    @if (session('fail'))
+    <script>
+        toastr.error('{{ session('fail ') }}', 'Something went wrong!');
+    </script>
 @endif
 
-<script>
-    $(document).ready(function() {
-        // Your code to be executed when the DOM is ready
-        $('#dataTable').DataTable({
-            "lengthChange": false,
-            "pageLength": 10,
-            "searching": true,
-            "columnDefs": [{
-                "targets": -1, // Target the last column
-                "orderable": false // Disable sorting for the last column
-            }]
-        });
-
-
-        $('.action-button').on('click', function(e) {
-            e.preventDefault();
-            var $dropdown = $(this).closest('.dropdown');
-            var $dropdownMenu = $dropdown.find('.dropdown-menu');
-
-            // Toggle the visibility of the dropdown menu
-            $dropdownMenu.toggleClass('show');
-
-            // Close other dropdowns if any
-            $('.dropdown-menu').not($dropdownMenu).removeClass('show');
-
-            // Close the dropdown when clicking outside
-            $(document).on('click', function(e) {
-                if (!$(e.target).closest('.dropdown').length) {
-                    $dropdownMenu.removeClass('show');
-                }
+    <script>
+        $(document).ready(function() {
+            // Your code to be executed when the DOM is ready
+            $('#dataTable').DataTable({
+                "lengthChange": false,
+                "pageLength": 10,
+                "searching": true,
+                "columnDefs": [{
+                    "targets": -1, // Target the last column
+                    "orderable": false // Disable sorting for the last column
+                }]
             });
+
+
+            $('.action-button').on('click', function(e) {
+                e.preventDefault();
+                var $dropdown = $(this).closest('.dropdown');
+                var $dropdownMenu = $dropdown.find('.dropdown-menu');
+
+                // Toggle the visibility of the dropdown menu
+                $dropdownMenu.toggleClass('show');
+
+                // Close other dropdowns if any
+                $('.dropdown-menu').not($dropdownMenu).removeClass('show');
+
+                // Close the dropdown when clicking outside
+                $(document).on('click', function(e) {
+                    if (!$(e.target).closest('.dropdown').length) {
+                        $dropdownMenu.removeClass('show');
+                    }
+                });
+            });
+
         });
 
-    });
-</script>
+        $(document).on('click', '#userAdd', function() {
+            location.href = '#add-account';
+        });
+    </script>
+
+    <script>
+        function submitForm(item) {
+            let submitForm = document.getElementById('formUser' + item);
+            submitForm.submit();
+        }
+    </script>
 
 @endsection

@@ -55,14 +55,15 @@ class AuthController extends Controller
         $middlename = $request->input('mname');
 
         // Get the first letter of the last name
-        $firstLetterLastName = substr($lastname, 0, 1);
+        $firstLetterLastName = strtolower(substr($lastname, 0, 1));
 
         // Get the first letter of the middle name
-        $firstLetterMiddleName = substr($middlename, 0, 1);
+        $firstLetterMiddleName = strtolower(substr($middlename, 0, 1));
+
 
         // Create the username
-        $username = $firstLetterLastName . '.' . $firstname.$firstLetterMiddleName;
-        $username = strtolower($username);
+        $username = $firstLetterLastName.'.'. strtolower($firstname).$firstLetterMiddleName;
+        
         $user = User::create([
             'fname' => $firstname,
             'mname' => $middlename,
