@@ -19,44 +19,13 @@ class UsersController extends Controller
     {
 
     }
-
-    public function register(Request $request)
+    public function active(Request $request)
     {
-        $this->validate($request, [
-            'fname' => 'required',
-            'mname' => 'required',
-            'lname' => 'required',
-        ]);
+        $user = User::findOrFail($request->input('id'));
+        $user->isActive = $request->input('status');
+        $user->update();
 
-        $lastname = $request->input('lname');
-        $firstname = $request->input('fname');
-        $middlename = $request->input('mname');
-
-        // Get the first letter of the last name
-        $firstLetterLastName = substr($lastname, 0, 1);
-
-        // Get the first letter of the middle name
-        $firstLetterMiddleName = substr($middlename, 0, 1);
-
-        // Create the username
-        $username = $firstLetterLastName . '.' . $firstname . $firstLetterMiddleName;
-
-        $user = User::create([
-            'fname' => $firstname,
-            'mname' => $middlename,
-            'lname' => $lastname,
-            'username' => $username, // Assign the created username
-            'password' => bcrypt('amcv-edms123'),
-            'department_id'=> $request->input('dept_id'),
-            'isActive'=> 1,
-        ]);
-
-        return response()->json(['success']);
-    }
-
-    public function destroy($id)
-    {
-
+        return back()->with('success','Record has been updated successfully!');
     }
 
 }

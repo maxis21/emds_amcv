@@ -7,7 +7,7 @@
             <table id="dataTable" class="table-content display">
                 <thead>
                     <tr>
-                        <th>Active</th>
+                        <th>Status</th>
                         <th>Username</th>
                         <th>Fullname</th>
                         <th>Department</th>
@@ -18,8 +18,26 @@
                 <tbody>
                     @if (isset($users))
                         @foreach ($users as $collection)
-                            <tr>
-                                <td>{{ $collection->isActive }}</td>
+                            @php
+                                $color = 'none';
+                                if (!$collection->isActive) {
+                                    # code...
+                                    $color ='#dddddd';
+                                }
+                            @endphp
+                            <tr style="background-color: {{$color}}">
+                                @if ($collection->isActive)
+                                    <td style="width: 25px">
+                                        <p id="idActive{{ $collection->id }}" class="rounded-pill bg-success"
+                                            style="text-align: center; padding: 5px"> Active </p>
+                                    </td>
+                                @else
+                                    <td style="width: 25px">
+                                        <p id="idActive{{ $collection->id }}" class="rounded-pill"
+                                            style="text-align: center; padding: 5px; background-color: rgb(180, 180, 180); color: whitesmoke">
+                                            Disabled </p>
+                                    </td>
+                                @endif
                                 <td>{{ $collection->username }}</td>
                                 @php
                                     $fullname =
@@ -27,7 +45,7 @@
                                 @endphp
                                 <td>{{ $fullname }}</td>
                                 <td>{{ $collection->department->name }}</td>
-                                <td>{{  date('d M Y', strtotime($collection->created_at))}}</td>
+                                <td>{{ date('d M Y', strtotime($collection->created_at)) }}</td>
                                 <td style="align-content: center">
                                     <div class="dropdown">
                                         <a class="dropdown-toggle action-button" role="button">
@@ -46,8 +64,19 @@
                                                 <a href="">
                                                     <li>Edit</li>
                                                 </a>
-                                                <a href="">
-                                                    <li>Delete</li>
+                                                <form action="{{ route('to.Set') }}" method="POST"
+                                                    id="formUser{{ $collection->id }}">
+                                                    @csrf
+                                                    <input type="hidden" value="{{ $collection->id }}" name="id">
+                                                    <input type="hidden"
+                                                        value="{{ $collection->isActive == 1 ? 0 : 1 }}" name="status">
+                                                </form>
+                                                <a onclick="submitForm('{{ $collection->id }}')">
+                                                    @if ($collection->isActive)
+                                                        <li>Disable</li>
+                                                    @else
+                                                        <li>Enable</li>
+                                                    @endif
                                                 </a>
                                             </ul>
                                         </div>
