@@ -58,7 +58,7 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                             <ul>
-                                                <a href="{{route('to.Fetch', $collection->id)}}" onclick="">
+                                                <a href="javascript:void(0);" onclick="openModalUser('{{ route('to.Fetch', $collection->id) }}')">
                                                     <li>View info</li>
                                                 </a>
                                                 <a href="">
