@@ -21,6 +21,56 @@
         </div>
     </div>
     <!-- -->
+        <div id="info-account" class="info-account" style="display: none;">
+            <div class="modal-global">
+                <div class="header-modal-global">
+                    <p>User details</p>
+                </div>
+                <div class="modal-content-global">
+                    <form action="{{ route('to.Add') }}" method="POST">
+                        @csrf
+                        <input type="hidden" id="id">
+                        <div class="d-flex" style="gap: 0.5rem;">
+                            <div class="form-group">
+                                <label for="First-Name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" name="fname" id="fname">
+                            </div>
+                            <div class="form-group">
+                                <label for="Middle-Name" class="form-label">Middle Name</label>
+                                <input type="text" class="form-control" name="mname" id="mname">
+                            </div>
+                            <div class="form-group">
+                                <label for="Last-Name" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" name="lname" id="lname">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="role" class="form-label">Department</label>
+                            <select style="height: 38px; padding-left: 0.5rem;" name="department" id="department"
+                                class="form-control">
+                                @foreach ($departments as $dept)
+                                    <option value="{{ $dept->id }}">{{ $dept->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="role" class="form-label">Role</label>
+                            <select style="height: 38px; padding-left: 0.5rem;" name="role" id="role"
+                                class="form-control">
+                                <option value="3">Super Admin</option>
+                                <option value="2">Admin</option>
+                                <option value="1">User</option>
+                            </select>
+                        </div>
+                </div>
+                <div class="modal-footer-global">
+                    <button class="btn bg-success btn-success-hover" type="submit">Yes</button>
+                    </form>
+                    &nbsp;
+                    <button class="btn bg-danger btn-danger-hover" onclick="location.href=''">No</button>
+                </div>
+            </div>
+        </div>
 
     <div class="body-con d-flex">
         <form action="{{ route('select.Role') }}" method="get" >
@@ -50,6 +100,9 @@
 
 @include('modals.addUser')
 
+
+
+
 @endsection
 
 
@@ -57,14 +110,14 @@
     <script src="{{ asset('js/datatables/jquery.dataTables.js') }}"></script>
     @if (session('success'))
         <script>
-            toastr.success('{{ session('success ') }}', 'Record updated successfully!');
+           toastr.success('{{ session('success') }}');
         </script>
     @endif
     @if (session('fail'))
-    <script>
-        toastr.error('{{ session('fail ') }}', 'Something went wrong!');
-    </script>
-@endif
+        <script>
+            toastr.error('{{ session('fail ') }}',  $message);
+        </script>
+    @endif
 
     <script>
         $(document).ready(function() {
@@ -101,12 +154,34 @@
 
         });
 
-    </script>
 
-    <script>
         function submitForm(item) {
             let submitForm = document.getElementById('formUser' + item);
             submitForm.submit();
+        }
+
+        function openModalUser(url) {
+            $.ajax({
+                url: url, // Replace with your API endpoint URL
+                method: 'GET',
+                success: function(response) {
+                    // If request succeeds, display the modal or the element
+                    $('#fname').val(response.fname);
+                    $('#mname').val(response.mname);
+                    $('#lname').val(response.lname);
+                    $('#department').val(response.department_id); 
+                    // Assuming the response contains department ID
+                    $('#role').val(response.role);
+                    $('#id').val(userId);
+                    let userInfo = document.getElementById('info-account'); 
+                    userInfo.style.display = 'block';
+                },
+                error: function(xhr, status, error) {
+                    // If request fails, handle the error (e.g., show error message)
+                    console.error('Error fetching user data:', error);
+                }
+            });
+
         }
     </script>
 

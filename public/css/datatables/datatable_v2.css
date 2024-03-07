@@ -105,13 +105,13 @@ td {
     position: absolute;
     background-color: rgb(247, 244, 244);
     display: none;
+    transform: translateX(-10px);
     border-radius: 10px;
 }
 
 .dropdown-menu li{
     margin: 0;
     padding: 10px;
-    width: 100px;
     border-radius: 5px;
 }
 
