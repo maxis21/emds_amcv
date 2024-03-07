@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('/user/register', [AuthController::class, 'register'])->name('to.Add');
 
     Route::post('/update', [UsersController::class, 'active'])->name('to.Set');
+    Route::get('/fetch/{id}', [UsersController::class,'fetch'])->name('to.Fetch');
     Route::get('/user/logout', [AuthController::class, 'logout'])->name('to.Logout');
 
     Route::get('/dashboard', [DashboardController::class, 'show'])->name('to.Dashboard');
