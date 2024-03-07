@@ -58,11 +58,11 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                             <ul>
-                                                <a href="">
+                                                <a href="{{route('to.Fetch', $collection->id)}}" onclick="">
                                                     <li>View info</li>
                                                 </a>
                                                 <a href="">
-                                                    <li>Edit</li>
+                                                    <li>Reset password</li>
                                                 </a>
                                                 <form action="{{ route('to.Set') }}" method="POST"
                                                     id="formUser{{ $collection->id }}">
