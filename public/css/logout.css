@@ -37,7 +37,7 @@
 .header-modal {
     display: flex;
     align-items: center;
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(240, 240, 240) !important;
     justify-content: space-between;
     padding: 1rem;
 }
@@ -50,19 +50,24 @@
 
 .modal-content{
     padding: 1rem;
+    justify-content: center;
     padding-bottom: solid 1px black;
 }
 
 .modal-footer{
     padding: 0.5rem;
     display: flex;
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(240, 240, 240) !important;
     justify-content: center;
     gap: 5px;
 }
 
 .modal-footer button{
     color: white;
+}
+
+.modal-footer a{
+    width: 100%;
 }
 
 .logout-account:target {

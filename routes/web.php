@@ -60,4 +60,6 @@ Users Routes
 */
     Route::get('/Users', [UsersController::class, 'Users'])->name('display.Users');
     Route::get('/Users', [UsersController::class, 'UserRoles'])->name('select.Role');
+    Route::put('/Users/update', [UsersController::class, 'UserUpdate'])->name('update.User');
+    Route::put('/Users/password-reset', [UsersController::class, 'resetPassword'])->name('password.reset');
 });

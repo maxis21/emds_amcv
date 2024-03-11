@@ -43,9 +43,9 @@
                 </div>
         </div>
         <div class="modal-footer">
-            <button class="btn bg-success btn-success-hover" type="submit">Yes</button>
+            <button class="btn bg-success btn-success-hover" type="submit">Submit</button>
             </form>
-            <button class="btn bg-danger btn-danger-hover" onclick="location.href=''">No</button>
+            <button class="btn bg-danger btn-danger-hover" onclick="location.href=''">Cancel</button>
         </div>
     </div>
 </div>

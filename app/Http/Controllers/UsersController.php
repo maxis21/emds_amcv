@@ -49,6 +49,7 @@ class UsersController extends Controller
             'lname'=> $lastname,
             'department_id'=> $department_id,
             'role'=> $roles->role_id,
+            'id'=> $id
         ]);
     }
 
@@ -69,4 +70,37 @@ class UsersController extends Controller
 
     }
 
-}
+    public function userUpdate(Request $request){
+        $userID = $request->input('uid');
+        $userData = User::findOrFail($userID);
+        $userRole = UserRole::where('user_id', $userID);
+
+        $userData->update([
+            'fname' => $request->input('fname'),
+            'mname' => $request->input('mname'),
+            'lname' => $request->input('lname'),
+            'department_id' => $request->input('department')
+        ]);
+
+        $userRole->update([
+            'role_id' => $request->input('role')
+        ]);
+
+        $success_message = 'User updated successfully.';
+        return back()->with('success', $success_message);
+    }
+
+    public function resetPassword(Request $request){
+        $validateID = $request->validate([
+            'resetid' => 'required'
+        ]);
+
+        $thisUser = User::findOrFail($validateID['resetid']);
+        $thisUser->password = bcrypt('amcv-edms123');
+        $thisUser->save();
+
+        $success_message = 'Password updated successfully.';
+        return back()->with('success', $success_message);
+    }
+
+} 

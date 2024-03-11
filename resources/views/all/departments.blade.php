@@ -14,7 +14,7 @@
 <div class="contentcon">
     <div class="container-fluid d-flex" style="justify-content: space-between;">
         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%">
-            <p style="color: grey"><b>DEPARTMENTS</b></p>
+            <p style="color: grey"><b>{{Auth()->user()->username}}</b></p>
             <ul class="breadcrumbs">
                 <li class="text-white"><a href="{{ route('to.Dashboard') }}">Dashboard</a></li>
                 <li class="text-white active"> Departments </li>

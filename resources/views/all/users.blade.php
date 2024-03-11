@@ -27,9 +27,10 @@
                 <p>User Details</p>
             </div>
             <div class="modal-content-global">
-                <form action="{{ route('to.Add') }}" method="POST">
+                <form action="{{ route('update.User') }}" method="POST">
                     @csrf
-                    <input type="hidden" id="id">
+                    @method('PUT')
+                    <input type="hidden" name="uid" id="id">
                     <div class="d-flex" style="gap: 0.5rem;">
                         <div class="form-group">
                             <label for="First-Name" class="form-label">First Name</label>
@@ -62,13 +63,14 @@
                     </div>
             </div>
             <div class="modal-footer-global">
-                <button class="btn bg-success btn-success-hover" type="submit">Yes</button>
+                <button class="btn bg-success btn-success-hover" type="submit">Update</button>
                 </form>
                 &nbsp;
-                <button class="btn bg-danger btn-danger-hover" onclick="closeInfoModal()">No</button>
+                <button class="btn bg-danger btn-danger-hover" onclick="closeInfoModal()">Close</button>
             </div>
         </div>
     </div>
+
 
     <div class="body-con d-flex">
         <form action="{{ route('select.Role') }}" method="get">
@@ -95,7 +97,27 @@
 
 </div>
 
-
+<div id="resetter" class="resetter">
+    <div class="modal">
+        <div class="header-modal">
+            <p>Reset Password</p>
+            <!-- Close Layout - Commented -->
+            <!-- <span class="modal-close" onclick="location.href='#'">&times;</span> -->
+        </div>
+        <div class="modal-content d-flex" style="justify-content: center;">
+            <form action="{{ route('password.reset') }}" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="resetid" id="resetid">
+                <h4 style="font-weight: normal;">Reset this users password to default?</h4>
+        </div>
+        <div class="modal-footer">
+            <button class="btn bg-success btn-success-hover" type="submit">Yes</button>
+            </form>
+            <button class="btn bg-danger btn-danger-hover" onclick="location.href=''">No</button>
+        </div>
+    </div>
+</div>
 @include('modals.addUser')
 
 
@@ -108,8 +130,8 @@
 <script src="{{ asset('js/datatables/jquery.dataTables.js') }}"></script>
 @if (session('success'))
 <script>
-    toastr.success('{{ session('
-        success ') }}');
+    toastr.success('{{session('
+        success ')}}', 'Success');
 </script>
 @endif
 @if (session('fail'))
@@ -192,8 +214,16 @@
 </script>
 
 <script>
-    function closeInfoModal(){
+    function closeInfoModal() {
         document.getElementById('info-account').style.display = 'none';
+    }
+</script>
+
+<script>
+    function resetModal(resetID){
+        document.getElementById("resetid").value = resetID;
+        this.href = '#resetter';
+        window.location.href = this.href;
     }
 </script>
 
