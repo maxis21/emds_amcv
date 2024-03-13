@@ -41,12 +41,13 @@
     </header>
     <div class="d-flex">
         <aside>
-            {{-- @if (Auth()->user()->access == 2)
-               
-           @else
-               
-           @endif --}}
-            @include('super_admin.sidenav')
+            @if(Auth::user()->role->role->name == 'super-admin')
+                @include('super_admin.sidenav')
+            @elseif(Auth::user()->role->role->name == 'admin')
+                @include('admin.sidenav')
+            @else
+                @include('users.sidenav')
+            @endif
         </aside>
 
         <main>

@@ -7,6 +7,10 @@
     <title>Login</title>
     <link rel="stylesheet" href="{{asset('css/login.css')}}">
     <link rel="stylesheet" href="{{asset('css/main.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
+    
+    <script src="{{ asset('js/jquery3.js') }}"></script>
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
 </head>
 
 <body>
@@ -34,8 +38,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" name="username" id="username" class="form-control"
-                                value="{{old('username')}}">
+                                <input type="text" name="username" id="username" class="form-control" value="{{old('username')}}">
                                 @error('error')
                                 <p style="color: red; font-size: 0.8rem;"><i>Your account does not exist or wrong combination of credentials. </i></p>
                                 @enderror
@@ -55,13 +58,21 @@
                             </div>
                             <button type="submit" class="login-btn btn btn-mainColor">Login</button>
                         </form>
-                      
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>
+</body> 
+
+@if (session('error'))
+<script>
+    toastr.options.positionClass = "toast-top-center";
+    toastr.error('{{ session('error') }}', 'Failed!');
+
+</script>
+@endif 
 
 <script>
     function togglePasswordShow() {
@@ -97,6 +108,5 @@
         `;
     }
 </script>
-
 
 </html>

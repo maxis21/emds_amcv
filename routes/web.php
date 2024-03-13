@@ -19,47 +19,50 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-/*
-------------------------------------------------------------------------
+
+/*------------------------------------------------------------------------
     Show Routes
-------------------------------------------------------------------------
-*/
+------------------------------------------------------------------------*/
 Route::get('/', [AuthController::class, 'login'])->name('to.Login');
 Route::post('/user/login', [AuthController::class, 'postLogin'])->name('to.Auth');
+Route::get('/user/logout', [AuthController::class, 'logout'])->name('to.Logout');
+
 
 
 /*---------------------------------MIDDLEWARE------------------------------------------------*/
-Route::group(['middleware' => 'auth'], function (){
-
-
+Route::group(['middleware' => ['auth', 'role:super-admin,admin']], function () {
     Route::post('/user/register', [AuthController::class, 'register'])->name('to.Add');
-
     Route::post('/update', [UsersController::class, 'active'])->name('to.Set');
-    Route::get('/fetch/{id}', [UsersController::class,'fetch'])->name('to.Fetch');
-    Route::get('/user/logout', [AuthController::class, 'logout'])->name('to.Logout');
-
-    Route::get('/dashboard', [DashboardController::class, 'show'])->name('to.Dashboard');
-    Route::get('/departments', [DepartmentController::class, 'show'])->name('to.Departments');
-    Route::get('/documents', [DocumentController::class, 'show'])->name('to.Documents');
-    Route::get('/request', [RequestController::class, 'show'])->name('to.Request');
+    Route::get('/fetch/{id}', [UsersController::class, 'fetch'])->name('to.Fetch');
     Route::get('/users', [UsersController::class, 'show'])->name('to.Users');
 
-    /*
-----------------------------------------------------------------------
-Department Routes
-----------------------------------------------------------------------
-*/
-    Route::get('/Departments/{id}/files', [DepartmentController::class, 'showFiles'])->name('show.deptFiles');
-    Route::post('/Departments/Add-Department', [DepartmentController::class, 'addDept'])->name('add.dept');
 
-
-    /*
-----------------------------------------------------------------------
-Users Routes
-----------------------------------------------------------------------
-*/
+/*----------------------------------------------------------------------
+    Users Routes
+----------------------------------------------------------------------*/
     Route::get('/Users', [UsersController::class, 'Users'])->name('display.Users');
     Route::get('/Users', [UsersController::class, 'UserRoles'])->name('select.Role');
     Route::put('/Users/update', [UsersController::class, 'UserUpdate'])->name('update.User');
     Route::put('/Users/password-reset', [UsersController::class, 'resetPassword'])->name('password.reset');
+});
+
+
+Route::group(['middleware' => ['auth', 'role:super-admin']], function () {
+
+/*----------------------------------------------------------------------
+    Department Routes
+----------------------------------------------------------------------*/
+    Route::get('/departments', [DepartmentController::class, 'show'])->name('to.Departments');
+    Route::get('/Departments/{id}/files', [DepartmentController::class, 'showFiles'])->name('show.deptFiles');
+    Route::post('/Departments/Add-Department', [DepartmentController::class, 'addDept'])->name('add.dept');
+
+});
+
+
+Route::group(['middleware' => ['auth', 'role:super-admin,admin,user']], function () {
+
+    Route::get('/dashboard', [DashboardController::class, 'show'])->name('to.Dashboard');
+    Route::get('/documents', [DocumentController::class, 'show'])->name('to.Documents');
+    Route::get('/request', [RequestController::class, 'show'])->name('to.Request');
+
 });
