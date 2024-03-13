@@ -570,36 +570,35 @@ table.dataTable td {
     text-align: center;
     text-decoration: none !important;
     cursor: pointer;
-    color: grey;
+    color: rgb(128, 128, 128);
     border: 1px solid transparent;
-    border-radius: 2px;
+    border-radius: 5px;
     background: transparent;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.current,
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    color: rgb(102, 102, 102);
+    color: rgb(0, 0, 0);
+    background-color: rgb(177, 196, 221);
     /*  background: #015581;Chrome,Safari4+ */
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
     cursor: default;
-    color: black !important;
+    color: rgb(0, 0, 0) !important;
     border: 1px solid transparent;
-    background: transparent;
+    background-color: transparent;
     box-shadow: none;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    color: black;
-    border: 1px solid rgb(226, 226, 226);
-    background-color: green;
-    background: rgb(226, 226, 226); /* Chrome,Safari4+ */
+    color: white;
+    background: rgb(82, 108, 138); /* Chrome,Safari4+ */
     transition: 0.3s;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button:active {
     outline: none;
-    color: rgb(0, 0, 0);
-    background-color: #0c0c0c;
+    color: rgb(255, 255, 255);
+    background-color: #0180c5;
 
 }
 .dataTables_wrapper .dataTables_paginate .ellipsis {
@@ -768,7 +767,7 @@ html.dark
     .paginate_button.current:hover {
     border: 1px solid rgb(89, 91, 94);
     background: rgba(255, 255, 255, 0.15);
-}
+} 
 html.dark .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
 html.dark
     .dataTables_wrapper
@@ -778,7 +777,7 @@ html.dark
     .dataTables_wrapper
     .dataTables_paginate
     .paginate_button.disabled:active {
-    color: #666 !important;
+    color: #666666 !important;
 }
 html.dark .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     border: 1px solid rgb(53, 53, 53);
