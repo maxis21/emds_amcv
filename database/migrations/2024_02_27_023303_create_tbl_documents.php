@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tbl_documents', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('id');
             $table->foreign('department_id')->references('id')->on('tbl_departments');
             $table->timestamps();
         });

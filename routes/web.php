@@ -7,6 +7,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\WebScrapingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,9 +38,9 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin']], function () {
     Route::get('/users', [UsersController::class, 'show'])->name('to.Users');
 
 
-/*----------------------------------------------------------------------
-    Users Routes
-----------------------------------------------------------------------*/
+    /*----------------------------------------------------------------------
+        Users Routes
+    ----------------------------------------------------------------------*/
     Route::get('/Users', [UsersController::class, 'Users'])->name('display.Users');
     Route::get('/Users', [UsersController::class, 'UserRoles'])->name('select.Role');
     Route::put('/Users/update', [UsersController::class, 'UserUpdate'])->name('update.User');
@@ -49,9 +50,9 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin']], function () {
 
 Route::group(['middleware' => ['auth', 'role:super-admin']], function () {
 
-/*----------------------------------------------------------------------
-    Department Routes
-----------------------------------------------------------------------*/
+    /*----------------------------------------------------------------------
+        Department Routes
+    ----------------------------------------------------------------------*/
     Route::get('/departments', [DepartmentController::class, 'show'])->name('to.Departments');
     Route::get('/Departments/{id}/files', [DepartmentController::class, 'showFiles'])->name('show.deptFiles');
     Route::post('/Departments/Add-Department', [DepartmentController::class, 'addDept'])->name('add.dept');
@@ -60,9 +61,17 @@ Route::group(['middleware' => ['auth', 'role:super-admin']], function () {
 
 
 Route::group(['middleware' => ['auth', 'role:super-admin,admin,user']], function () {
-
     Route::get('/dashboard', [DashboardController::class, 'show'])->name('to.Dashboard');
     Route::get('/documents', [DocumentController::class, 'show'])->name('to.Documents');
     Route::get('/request', [RequestController::class, 'show'])->name('to.Request');
+
+    /*----------------------------------------------------------------------
+        Document Routes
+    ----------------------------------------------------------------------*/
+    Route::post('/document/addFile', [DocumentController::class, 'uploadFile'])->name('upload.file');
+    Route::post('/document/requestFile', [DocumentController::class, 'requestFile'])->name('request.File');
+
+    // Test Route
+    Route::get('/phDownload', [WebScrapingController::class, 'phPDF'])->name('try.This');
 
 });

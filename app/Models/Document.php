@@ -22,7 +22,7 @@ class Document extends Model
 
     public function requests()
     {
-        return $this->hasMany(Request::class);
+        return $this->hasMany(DocRequest::class);
     }
 
     public function transaction()
@@ -34,4 +34,10 @@ class Document extends Model
     {
         return $this->hasMany(DocumentVersion::class);
     }
+
+    // public function getLatestVersionUpdatedAtAttribute()
+    // {
+    //     Attempt to get the latest document_version's updated_at, or return 'N/A'
+    //     return $this->document_versions->sortByDesc('updated_at')->first()->updated_at ?? 'N/A';
+    // }
 }

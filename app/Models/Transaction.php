@@ -17,7 +17,7 @@ class Transaction extends Model
     ];
 
     public function requests(){
-        return $this->hasMany(Request::class, 'id');
+        return $this->hasMany(DocRequest::class, 'id');
     }
 
     public function document(){

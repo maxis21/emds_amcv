@@ -1,0 +1,141 @@
+.box-con{
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.phDocs{
+    padding: 1rem;
+    margin-top: 0.5rem;
+    background-color: white;
+    border-radius: 1rem;
+}
+
+.phDocs .docHeader{
+    width: 100%;
+    justify-content: center;
+}
+
+.phwebFiles ul{
+    padding: 0;
+}
+
+.phwebFiles ul li{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.top-buttons a{
+    background-color: #007f90;
+    color: white;
+    cursor: pointer;
+}
+
+.top-buttons a:hover{
+    background-color: #019baf;
+}
+
+
+/* -------------------Add Document Modal-------------------- */
+
+.add-doc {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.modal {
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+    max-width: 600px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.header-modal {
+    display: flex;
+    align-items: center;
+    background-color: rgb(240, 240, 240) !important;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.header-modal p {
+    padding: 0;
+    margin: 0;
+    font-weight: 550;
+}
+
+.modal-content{
+    padding: 1rem;
+    justify-content: center;
+    padding-bottom: solid 1px black;
+    text-align: left;
+}
+
+.modal-footer{
+    padding: 0.5rem;
+    display: flex;
+    background-color: rgb(240, 240, 240) !important;
+    justify-content: center;
+    gap: 5px;
+}
+
+.modal-footer button{
+    color: white;
+    width: 100%;
+}
+
+
+.add-doc:target {
+    display: flex;
+}
+
+
+.modal-close {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 550;
+    color: #DC3545;
+}
+
+#open-modal-btn {
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.file-upload {
+    margin-bottom: 20px;
+}
+
+.upload-btn {
+    background-color: #007f90;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.upload-btn:hover{
+    background-color: #019baf;
+    
+}
+
+#file-chosen {
+    margin-left: 10px;
+    font-family: Arial, sans-serif;
+    color: gray;
+}
+
