@@ -22,7 +22,11 @@
     </div>
     <!-- -->
     <div class="top-buttons" style="margin: 0.5rem;">
-        <a onclick="location.href='#add-doc'" class="btn" style="font-size: 15px;">Upload File</a>
+        <a onclick="location.href='#add-doc'" class="btn d-flex" style="font-size: 15px; font-size: 15px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16">
+                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707z" />
+            </svg> Upload File
+        </a>
     </div>
     <div class="box-con">
         <!-- -->
@@ -63,22 +67,16 @@
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <ul>
                                             @php
-                                                $originalFile = $document->document_versions()->first();
+                                            $originalFile = $document->document_versions()->first();
                                             @endphp
-                                            <a href="{{$originalFile->file_url}}" target="_blank">
-                                                <li>Info</li>
-                                            </a>
                                             <form id="requestForm" action="{{ route('request.File') }}" method="POST">
                                                 @csrf
-                                                <input name="docID" value="{{$document->id}}" hidden>
-                                                <input name="docURL" value="{{$originalFile->file_url}}" hidden>
+                                                <input name="docID" value="{{ $document->id }}" hidden>
+                                                <input name="docURL" value="{{ $originalFile->file_url }}" hidden>
                                                 <button type="submit" style="background: none; color: inherit; border: none; padding: 0; margin: 0; font: inherit; cursor: pointer; outline: inherit;">
                                                     <li>Request</li>
                                                 </button>
                                             </form>
-                                            <a href="">
-                                                <li>More</li>
-                                            </a>
                                         </ul>
                                     </div>
                                 </div>
@@ -95,7 +93,7 @@
     </div>
     <!----------------------------TEST UI------------------------------>
 
-    <div class="phDocs">
+    <!-- <div class="phDocs">
         <div class="docHeader d-flex">
             <h3>PhilHealth Documents</h3>
         </div>
@@ -107,8 +105,8 @@
                 <li>PMRF-FN: PhilHealth Member Registration Form for Foreign Nationals</li>
             </ul>
         </div>
-        <!-- <a href="{{ route('try.This') }}" class="btn bg-success btn-success-hover">Print this</a> -->
-    </div>
+        <a href="{{ route('try.This') }}" class="btn bg-success btn-success-hover">Print this</a>
+    </div> -->
 
     <!-- ----------------------------------------------------------- -->
 </div>
@@ -116,6 +114,7 @@
 <!-- Add more rows as needed -->
 
 @include('modals.addDoc')
+@include('modals.docInfo')
 @endsection
 
 

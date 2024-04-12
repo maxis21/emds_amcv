@@ -60,19 +60,19 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class);
     }
 
-    public static function boot(){
-        parent::boot();
+    // public static function boot(){
+    //     parent::boot();
 
-        static::creating(function($user){
-            $username = Str::lower($user->fname) . Str::lower($user->mname[0] ?? '') . Str::lower($user->lname);
+    //     static::creating(function($user){
+    //         $username = Str::lower($user->fname) . Str::lower($user->mname[0] ?? '') . Str::lower($user->lname);
             
-            $count = static::where('username', $username)->count();
+    //         $count = static::where('username', $username)->count();
 
-            if($count > 0){
-                $username .= $count + 1;
-            }
+    //         if($count > 0){
+    //             $username .= $count + 1;
+    //         }
 
-            $user->username = $username;
-        });
-    } 
+    //         $user->username = $username;
+    //     });
+    // } 
 }

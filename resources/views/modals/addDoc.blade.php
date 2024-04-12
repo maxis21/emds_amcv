@@ -6,7 +6,18 @@
             <!-- <span class="modal-close" onclick="location.href='#'">&times;</span> -->
         </div>
         <div class="modal-content">
-            <form action="{{ route('upload.file') }}" method="POST" enctype="multipart/form-data">
+            @php
+                $roleName = Auth::user()->role->role->name;
+                if($roleName == "user")
+                {
+                    $thisRoute = "route('user.upload.file')";
+                }
+                else
+                {
+                    $thisRoute = route('upload.file');
+                }
+            @endphp
+            <form action="{{ $thisRoute }}" method="POST" enctype="multipart/form-data">
                 @method('POST')
                 @csrf
                 <div class="form-group">
@@ -15,16 +26,16 @@
                 </div>
                 <div class="file-upload">
                     <input type="file" id="doc" name="docfile" accept=".pdf" style="display:none;" required>
-                    <label for="doc"  class="upload-btn">Upload a file</label>
+                    <label for="doc" class="upload-btn">Upload a file</label>
                     <span id="file-chosen">No file chosen</span>
                 </div>
         </div>
         <div class="modal-footer">
 
 
-                <button class="btn bg-success btn-success-hover" type="submit">Submit</button>
+            <button class="btn bg-success btn-success-hover" type="submit">Submit</button>
             </form>
             <button class="btn bg-danger btn-danger-hover" onclick="location.href=''">Cancel</button>
         </div>
-    </ div>
+    </div>
 </div>

@@ -29,7 +29,22 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             Auth::logoutOtherDevices($request->input('password'));
             $request->session()->regenerate();
-            return redirect()->intended(route('to.Dashboard'));
+
+            if(Auth::user()->role->role->name == 'super-admin'){
+                return redirect()->intended(route('to.Dashboard'));
+            }
+            elseif(Auth::user()->role->role->name == 'admin'){
+                return redirect()->intended(route('to.DashAdmin'));
+            }
+            elseif(Auth::user()->role->role->name == 'user'){
+                return redirect()->intended(route('to.DashUser'));
+            }
+            else{
+                return back()->withErrors([
+                    'error' => 'There is a problem upon logging in.',
+                ]);
+            }
+            
         }
 
         return back()->withErrors([

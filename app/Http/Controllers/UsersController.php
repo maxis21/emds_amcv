@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\User;
 use App\Models\UserRole;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -13,7 +14,19 @@ class UsersController extends Controller
     {
         $departments = Department::get();
         $users = User::get();
-        return view('all.users', compact('departments', 'users'));
+        return view('super_admin.users', compact('departments', 'users'));
+    }
+
+    public function Users_adminView(){
+        $departments = Department::get();
+
+        $authDept = Auth::user()->department_id;
+        $users = User::whereHas('role.role', function ($query) {
+            $query->where('name', '=', 'user');
+        })->where('department_id', $authDept)->get();
+
+
+        return view('admin.users', compact('departments', 'users'));
     }
 
     public function update(Request $request, $id)

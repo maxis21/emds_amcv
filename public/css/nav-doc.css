@@ -1,0 +1,25 @@
+.nav-box{
+    background-color: aqua;
+    height: auto;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    flex-direction: column;
+}
+
+.top-box{
+    background-color: blueviolet;
+    width: 100%;
+}
+
+.body-box{
+    background-color: brown;
+    width: 100%;
+    gap: 1rem;
+}
+
+.item-box{
+    background-color: yellowgreen;
+    min-width: 100px;
+    height: 50px;
+    padding: 1rem;
+}

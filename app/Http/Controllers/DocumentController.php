@@ -19,7 +19,20 @@ class DocumentController extends Controller
     public function show()
     {
         $DocDatas = Document::with(['document_versions', 'department'])->get();
-        return view('all.documents', compact('DocDatas'));
+        return view('super_admin.documents', compact('DocDatas'));
+    }
+
+    public function show_docADminview(){
+
+        $userDept = Auth::user()->department_id;
+        $DocDatas = Document::where('department_id', $userDept)->with(['document_versions', 'department'])->get();
+        return view('admin.documents', compact('DocDatas'));
+    }
+
+    public function show_docUserview(){
+        $userDept = Auth::user()->department_id;
+        $DocDatas = Document::where('department_id', $userDept)->with(['document_versions', 'department'])->get();
+        return view('users.documents', compact('DocDatas'));
     }
 
     public function uploadFile(Request $request){
@@ -112,4 +125,6 @@ class DocumentController extends Controller
 
         return back()->with('success', 'Document requested successfully.');
     }
+
+    
 }

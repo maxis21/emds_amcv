@@ -16,7 +16,8 @@
         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%">
             <p style="color: grey"><b>USERS</b></p>
             <ul class="breadcrumbs">
-                <li class="text-white active"><a href="{{ route('to.Dashboard') }}">Users</a></li>
+                <li class="text-white"><a href="{{ route('to.Dashboard') }}">Dashboard</a></li>
+                <li class="text-white active"> Users </li>
             </ul>
         </div>
     </div>
@@ -73,22 +74,13 @@
 
 
     <div class="body-con d-flex">
-        <form action="{{ route('select.Role') }}" method="get">
-            @csrf
-            <select name="roles" id="roles" class="form-control roleSelect table-groupBtn d-flex" onchange="this.form.submit()">
-                <option value="">All</option>
-                <option value="super-admin" {{ request('roles') == 'super-admin' ? 'selected' : '' }}>Super Admin</option>
-                <option value="admin" {{ request('roles') == 'admin' ? 'selected' : '' }}>Admin</option>
-                <option value="user" {{ request('roles') == 'user' ? 'selected' : '' }}>User</option>
-            </select>
-        </form>
-        <a class="btn d-flex userAdd table-groupBtn" id="userAdd" onclick="location.href='#add-account'">
+        <a class="btn d-flex userAdd-admin table-groupBtn" id="userAdd" onclick="location.href='#add-account'">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
                 <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                 <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
             </svg> Add User
         </a>
-        @include('all.userTable')
+        @include('admin.userTable')
     </div>
     <!-- -->
 </div>
@@ -177,8 +169,6 @@
 
         // DataTables pagination may require you to re-initiate the plugin or features
         // This code would need to run after DataTables has redrawn the table, e.g. in a 'drawCallback'
-
-
     });
 
 
@@ -209,7 +199,6 @@
                 console.error('Error fetching user data:', error);
             }
         });
-
     }
 </script>
 
