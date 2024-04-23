@@ -1,25 +1,243 @@
 .nav-box{
-    background-color: aqua;
     height: auto;
     border-radius: 0.5rem;
     padding: 1rem;
     flex-direction: column;
+    gap: 1rem;
 }
 
 .top-box{
-    background-color: blueviolet;
     width: 100%;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.top-box a{
+    text-decoration: none;
+    color: white;
+    background-color: #015581;
+    padding: 0.5rem;
+    display: flex;
+    font-size: 14px;
+    font-weight: bold;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.3rem;
+    min-width: 130px;
+    height: 48px;
+    transition: 0.3;
+}
+
+.top-box a:hover{
+    background-color: #014163;
+    cursor: pointer;
 }
 
 .body-box{
-    background-color: brown;
     width: 100%;
     gap: 1rem;
 }
 
-.item-box{
-    background-color: yellowgreen;
-    min-width: 100px;
-    height: 50px;
+.file-box{
+    background-color: white;
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+/* Custom CSS to adjust the width of the DataTables search input */
+.dataTables_filter input {
+    width: 20%!important; /* Set the width as desired */
+    height: 35px !important;
+}
+
+/* Remove borders from the DataTable */
+#dataTable {
+    border-collapse: collapse; /* Collapse borders */
+}
+
+#dataTable thead th,
+#dataTable tbody td {
+    border: none; /* Remove borders from table headers and cells */
     padding: 1rem;
 }
+
+#dataTable tbody td{
+    border-bottom: solid 1px #bebebe;
+}
+
+#dataTable thead th{
+    border-bottom: solid 2px #afafaf;
+    color: rgb(44, 44, 44);
+}
+
+#dataTable tbody tr .tdCustom{
+    gap: 0.5rem;
+    text-align: center;
+    align-items: center;
+}
+
+#dataTable tbody tr{
+    color: #2b2b2b;
+    transition: 0.3s;
+}
+
+#dataTable tbody tr:hover{
+    background-color: rgb(241, 241, 241);
+}
+
+#dataTable{
+    font-size: 15px;
+}
+
+
+/* Create Folder Modal CSS */
+.create-file {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+
+.add-doc {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background-color: white;
+    border-radius: 0.5rem;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.header-modal {
+    display: flex;
+    align-items: center;
+    background-color: white !important;
+    justify-content: space-between;
+    padding: 1rem;
+    color: rgb(51, 51, 51);
+}
+
+.header-modal p {
+    padding: 0;
+    margin: 0;
+    font-weight: 550;
+}
+
+.modal-content{
+    padding: 1rem;
+    justify-content: center;
+    padding-bottom: solid 1px black;
+    text-align: left;
+}
+
+.modal-footer{
+    padding: 0.5rem;
+    display: flex;
+    background-color: white !important;
+    justify-content: left;
+    padding-left: 1rem;
+    padding-bottom: 1.5rem;
+}
+
+.modal-footer button{
+    color: white;
+    width: 20%;
+    background-color: #015581;
+
+}
+
+.modal-footer button:hover{
+    background-color:  #014163;
+}
+
+.modal-close {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 550;
+    color: #757575;
+}
+
+.modal-close:hover{
+    color: #DC3545;
+}
+
+#open-modal-btn {
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+/* Upload File CSS */
+.file-upload {
+    margin-bottom: 20px;
+}
+
+.upload-btn {
+    background-color: #007f90;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.upload-btn:hover{
+    background-color: #019baf;
+    
+}
+
+#file-chosen {
+    margin-left: 10px;
+    font-family: Arial, sans-serif;
+    color: gray;
+}
+
+
+/* Context Menu */
+.dropdown-content {
+    background-color: #f9f9f9;
+    display: none;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    cursor: pointer;
+    width: 100px;
+    border: 1px solid #ccc;
+    position: absolute;
+    border-radius: 0.5rem;
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    color: black;
+}
+
+.dropdown-content a:hover {background-color: #d8d8d8}
+
+

@@ -21,4 +21,10 @@ class Department extends Model
     public function documents(){
         return $this->hasMany(Document::class);
     }
+
+    public function folders()
+    {
+        return $this->hasMany(Folder::class);
+    }
+
 }

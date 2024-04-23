@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin']], function () {
     ----------------------------------------------------------------------*/
     Route::get('/admin/documents', [DocumentController::class, 'show_docADminview'])->name('to.Documents-admin');
     Route::post('/document/addFile', [DocumentController::class, 'uploadFile'])->name('upload.file');
+    Route::get('/View/File/{originalFile}', [DocumentController::class, 'viewFile'])->name('view.file');
 
     /*----------------------------------------------------------------------
         Request Routes
@@ -99,7 +100,10 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin,user']], function
     /*----------------------------------------------------------------------
         Document Routes
     ----------------------------------------------------------------------*/
-    
+    Route::post('/Create-Folder', [DocumentController::class, 'createFolder'])->name('create.folder');
+    Route::get('/path-to-documents', [DocumentController::class, 'showFolders']);
+    Route::get('/documents/{name}/{folderId}', [DocumentController::class, 'trackFile'])->name('folders.show');
+
 
     /*----------------------------------------------------------------------
         Requests Routes
@@ -111,7 +115,7 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin,user']], function
 });
 
 // *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
-Route::group(['middleware' => ['auth', 'role:user']], function (){
+Route::group(['middleware' => ['auth', 'role:user']], function () {
 
     /*----------------------------------------------------------------------
         Dashboard Routes
@@ -131,6 +135,4 @@ Route::group(['middleware' => ['auth', 'role:user']], function (){
     ----------------------------------------------------------------------*/
     Route::get('/request-user', [RequestController::class, 'show_requestUser'])->name('to.request-user');
     Route::get('request/document/{id}/download', [RequestController::class, 'download_document'])->name('download.Docs');
-
-
 });

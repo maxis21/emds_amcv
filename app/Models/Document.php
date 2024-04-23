@@ -12,7 +12,8 @@ class Document extends Model
 
     protected $fillable = [
         'name',
-        'department_id'
+        'department_id',
+        'folder_id'
     ];
 
     public function department()
@@ -33,6 +34,10 @@ class Document extends Model
     public function document_versions()
     {
         return $this->hasMany(DocumentVersion::class);
+    }
+
+    public function folderparent(){
+        return $this->belongsTo(Folder::class, 'folder_id');
     }
 
     // public function getLatestVersionUpdatedAtAttribute()

@@ -69,7 +69,7 @@
                                             <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
                                         </svg>
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="margin-right: 0.5rem; background-color: #DFE0E0;">
                                         <ul>
                                             <form action="{{route('approve.request', $requested->id)}}" method="post">
                                                 @csrf

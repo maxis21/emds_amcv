@@ -3,7 +3,7 @@
         <div class="header-modal">
             <p>Add File</p>
             <!-- Close Layout - Commented -->
-            <!-- <span class="modal-close" onclick="location.href='#'">&times;</span> -->
+            <span class="modal-close">&times;</span>
         </div>
         <div class="modal-content">
             @php
@@ -21,6 +21,7 @@
                 @method('POST')
                 @csrf
                 <div class="form-group">
+                    <input type="hidden" name="parent_id" class="form-control" placeholder="Enter Parent ID" type="number" value="">
                     <label class="form-label" for="name">Name:</label>
                     <input name="name" class="form-control" type="text" required>
                 </div>
@@ -35,7 +36,6 @@
 
             <button class="btn bg-success btn-success-hover" type="submit">Submit</button>
             </form>
-            <button class="btn bg-danger btn-danger-hover" onclick="location.href=''">Cancel</button>
         </div>
     </div>
 </div>
