@@ -115,11 +115,48 @@ class DocumentController extends Controller
     ------------------------------------------------------------
     */
 
-    public function show_docUserview()
+    public function show_docUserview($folderId = null)
     {
+
+        $folders = null;
+        $breadcrumbs = [];
+        $departments = Department::get();
         $userDept = Auth::user()->department_id;
-        $DocDatas = Document::where('department_id', $userDept)->with(['document_versions', 'department'])->get();
-        return view('users.documents', compact('DocDatas'));
+
+
+        if ($folderId) {
+            $currentFolder = Folder::where('department_id', $userDept)->with('department', 'documents')->findOrFail($folderId);
+            $folders = $currentFolder->children;
+            $documents = $currentFolder->documents;
+            $breadcrumbs = $currentFolder->getAncestors();
+        } else {
+            $folders = Folder::where('department_id', $userDept)->with('department', 'documents')->whereNull('parent_id')->get();
+            $documents = Document::where('department_id', $userDept)->whereNull('folder_id')->get();
+        }
+
+
+        return view('users.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
+    }
+
+    public function userTrackFile($name, $folderId = null)
+    {
+        $folders = null;
+        $breadcrumbs = [];
+        $departments = Department::get();
+        $userDept = Auth::user()->department_id;
+
+
+        if ($folderId) {
+            $currentFolder = Folder::where('department_id', $userDept)->with('department', 'documents')->findOrFail($folderId);
+            $folders = $currentFolder->children;
+            $documents = $currentFolder->documents;
+            $breadcrumbs = $currentFolder->getAncestors();
+        } else {
+            $folders = Folder::where('department_id', $userDept)->whereNull('parent_id')->get();
+        }
+
+
+        return view('users.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
     }
 
     public function createFolder(Request $request)

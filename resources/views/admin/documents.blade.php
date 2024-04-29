@@ -137,7 +137,7 @@
     // Assuming you have jQuery
     $(document).ready(function() {
 
-        if (window.location.pathname === '/documents' || window.location.pathname === '/') {
+        if (window.location.pathname === '/admin/documents' || window.location.pathname === '/') {
             sessionStorage.removeItem('current_folder_id');
         }
 
@@ -174,7 +174,6 @@
 
         $('.open-ud-modal').click(function() {
             var currentFolderId = sessionStorage.getItem('current_folder_id');
-            alert(currentFolderId);
             if (currentFolderId != null) {
                 $('#add-doc').find('input[name="parent_id"]').val(currentFolderId);
             } else {

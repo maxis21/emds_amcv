@@ -134,7 +134,7 @@ Route::group(['middleware' => ['auth', 'role:user']], function () {
     ----------------------------------------------------------------------*/
     Route::get('/user/documents', [DocumentController::class, 'show_docUserview'])->name('to.Documents-user');
     Route::post('/document/requestFile', [DocumentController::class, 'requestFile'])->name('request.File');
-
+    Route::get('/user/documents/{name}/{folderId}', [DocumentController::class, 'userTrackFile'])->name('userFolders.show');
 
     /*----------------------------------------------------------------------
         Request Routes
