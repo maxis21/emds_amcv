@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin']], function () {
     Route::get('/admin/documents', [DocumentController::class, 'show_docADminview'])->name('to.Documents-admin');
     Route::post('/document/addFile', [DocumentController::class, 'uploadFile'])->name('upload.file');
     Route::get('/View/File/{originalFile}', [DocumentController::class, 'viewFile'])->name('view.file');
+    Route::get('/admin/documents/{name}/{folderId}', [DocumentController::class, 'adminTrackFile'])->name('adminFolders.show');
 
     /*----------------------------------------------------------------------
         Request Routes
@@ -77,12 +78,19 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin']], function () {
 
 // *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
 Route::group(['middleware' => ['auth', 'role:super-admin']], function () {
+
+    /*----------------------------------------------------------------------
+        Dashboard Routes
+    ----------------------------------------------------------------------*/
     Route::get('/documents', [DocumentController::class, 'show'])->name('to.Documents');
+    Route::get('/documents/{name}/{folderId}', [DocumentController::class, 'trackFile'])->name('folders.show');
+
 
     /*----------------------------------------------------------------------
         Dashboard Routes
     ----------------------------------------------------------------------*/
     Route::get('/dashboard', [DashboardController::class, 'show'])->name('to.Dashboard');
+
 
     /*----------------------------------------------------------------------
         Department Routes
@@ -101,8 +109,6 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin,user']], function
         Document Routes
     ----------------------------------------------------------------------*/
     Route::post('/Create-Folder', [DocumentController::class, 'createFolder'])->name('create.folder');
-    Route::get('/path-to-documents', [DocumentController::class, 'showFolders']);
-    Route::get('/documents/{name}/{folderId}', [DocumentController::class, 'trackFile'])->name('folders.show');
 
 
     /*----------------------------------------------------------------------

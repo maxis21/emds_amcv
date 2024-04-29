@@ -16,7 +16,7 @@ class DocumentController extends Controller
 {
     /*
     ------------------------------------------------------------
-    Document View
+    Document View - FOR SUPER-ADMIN
     ------------------------------------------------------------
     */
     public function show($folderId = null)
@@ -36,8 +36,7 @@ class DocumentController extends Controller
         }
 
 
-        $DocDatas = Document::with(['document_versions', 'department'])->get();
-        return view('super_admin.documents', compact('DocDatas', 'folders', 'breadcrumbs', 'departments', 'documents'));
+        return view('super_admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
     }
 
     public function trackFile($name, $folderId = null)
@@ -57,16 +56,64 @@ class DocumentController extends Controller
         }
 
 
-        $DocDatas = Document::with(['document_versions', 'department'])->get();
         return view('super_admin.documents', compact('DocDatas', 'folders', 'breadcrumbs', 'departments', 'documents'));
     }
 
-    public function show_docADminview()
+    /*
+    ------------------------------------------------------------
+    Document View - FOR ADMIN
+    ------------------------------------------------------------
+    */
+
+    public function show_docADminview($folderId = null)
     {
+        $folders = null;
+        $breadcrumbs = [];
+        $departments = Department::get();
         $userDept = Auth::user()->department_id;
-        $DocDatas = Document::where('department_id', $userDept)->with(['document_versions', 'department'])->get();
-        return view('admin.documents', compact('DocDatas'));
+
+
+        if ($folderId) {
+            $currentFolder = Folder::where('department_id', $userDept)->with('department', 'documents')->findOrFail($folderId);
+            $folders = $currentFolder->children;
+            $documents = $currentFolder->documents;
+            $breadcrumbs = $currentFolder->getAncestors();
+        } else {
+            $folders = Folder::where('department_id', $userDept)->with('department', 'documents')->whereNull('parent_id')->get();
+            $documents = Document::where('department_id', $userDept)->whereNull('folder_id')->get();
+        }
+
+
+        return view('admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
     }
+
+    public function adminTrackFile($name, $folderId = null)
+    {
+        $folders = null;
+        $breadcrumbs = [];
+        $departments = Department::get();
+        $userDept = Auth::user()->department_id;
+
+
+        if ($folderId) {
+            $currentFolder = Folder::where('department_id', $userDept)->with('department', 'documents')->findOrFail($folderId);
+            $folders = $currentFolder->children;
+            $documents = $currentFolder->documents;
+            $breadcrumbs = $currentFolder->getAncestors();
+        } else {
+            $folders = Folder::where('department_id', $userDept)->whereNull('parent_id')->get();
+        }
+
+
+        return view('admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    Document View - FOR USERS
+    ------------------------------------------------------------
+    */
 
     public function show_docUserview()
     {
@@ -77,17 +124,28 @@ class DocumentController extends Controller
 
     public function createFolder(Request $request)
     {
+        $userDept = Auth::user()->department_id;
+        $userRole = Auth::user()->role->role->name;
         $validatedData = $request->validate([
             'name' => 'required|string',
             'parent_id' => 'nullable',
             'dptFolder' => 'nullable'
         ]);
         $currentFolderId = $validatedData['parent_id'];
-        $folder = Folder::create([
-            'name' => $validatedData['name'],
-            'parent_id' => $currentFolderId,
-            'department_id' => $validatedData['dptFolder']
-        ]);
+
+        if ($userRole == 'super-admin') {
+            $folder = Folder::create([
+                'name' => $validatedData['name'],
+                'parent_id' => $currentFolderId,
+                'department_id' => $validatedData['dptFolder']
+            ]);
+        } else {
+            $folder = Folder::create([
+                'name' => $validatedData['name'],
+                'parent_id' => $currentFolderId,
+                'department_id' => $userDept
+            ]);
+        }
 
         return back()->with('success', 'Document uploaded successfully.');
     }
@@ -108,9 +166,6 @@ class DocumentController extends Controller
         );
 
         $docID = $document->id;
-
-
-
 
         // Check if the doc exist through name search
         // $docExist = Document::where('name', $docName)
@@ -185,7 +240,8 @@ class DocumentController extends Controller
     }
 
 
-    public function viewFile($originalFile){
+    public function viewFile($originalFile)
+    {
         $docuFile = DocumentVersion::findOrFail($originalFile);
         $fileUrl = ltrim($docuFile->file_url, '/');
         $fileUrlEdit = str_replace('storage/', '', $fileUrl);

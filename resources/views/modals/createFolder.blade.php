@@ -23,12 +23,14 @@
                 <div class="form-group">
                     <input type="hidden" name="parent_id" class="form-control" placeholder="Enter Parent ID" type="number" value="">
                     <input name="name" class="form-control" placeholder="Enter folder name" type="text" style="margin-bottom: 0.5rem;" required>
+                    @if($roleName == "super-admin")
                     <select name="dptFolder" class="form-control" placeholder="Enter folder name">
                         <option value="" selected>Department</option>
                         @foreach($departments as $department)
                         <option value="{{$department->id}}">{{$department->name}}</option>
                         @endforeach
                     </select>
+                    @endif
                 </div>
         </div>
         <div class="modal-footer">
