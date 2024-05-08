@@ -21,4 +21,11 @@ class DocumentVersion extends Model
     public function document(){
         return $this->belongsTo(Document::class);
     }
+
+    public function uploader(){
+        return $this->belongsTo(User::class, 'uploaded_by');
+    }
+
 }
+
+

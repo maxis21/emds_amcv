@@ -147,6 +147,10 @@
         $('#dataTable').DataTable({
             "lengthChange": false,
             "pageLength": 10,
+            "language": {
+                "search": "",
+                "searchPlaceholder": "Search files..."
+            },
             "searching": true,
             "columnDefs": [{
                 "targets": -1, // Target the last column

@@ -32,7 +32,7 @@
         </form>
         <div class="table-box bg-light" style="border-radius: 1rem; margin-top: 1rem;">
             <!-- -->
-            <div class="table-wrap">
+            <div class="table-wrap" style="padding: 1rem;">
                 <!-- -->
                 <table id="dataTable" class="table-content display">
                     <thead>
@@ -50,14 +50,16 @@
                     <tbody>
                         @foreach($requestedDocs as $requested)
                         <tr>
-                            <td>{{$requested->user->username}}</td>
+                            <td>
+                                {{$requested->user->username}}
+                            </td>
                             <td>{{$requested->user->department->name}}</td>
                             <td>{{$requested->document->name}}</td>
                             <td>
                                 @if ($requested->request_status == true)
-                                Approved
+                                <span style="background-color: #28A745; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Approved</span>
                                 @else
-                                Pending
+                                <span style="background-color: #b44554; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Pending</span>
                                 @endif
                             </td>
                             <!-- <td>Data 4</td> -->
@@ -69,23 +71,27 @@
                                             <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
                                         </svg>
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    @if ($requested->request_status == false)
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style=" background-color: #e4e4e4;">
                                         <ul>
                                             <form action="{{route('approve.request', $requested->id)}}" method="post">
                                                 @csrf
                                                 @method('PUT')
-                                                @if ($requested->request_status == false && Auth::user()->role->role->name == 'super-admin' || Auth::user()->role->role->name == 'admin')
-                                                <button button type="submit" style="background: none; color: inherit; border: none; padding: 0; margin: 0; font: inherit; cursor: pointer; outline: inherit;">
-                                                    <li>Approve</li>
+
+                                                <button class="rq-btn" button type="submit" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit;">
+                                                    Approve
                                                 </button>
-                                                @elseif( Auth::user()->username == $requested->user->username && $requested->request_status == true)
-                                                <button button type="submit" style="background: none; color: inherit; border: none; padding: 0; margin: 0; font: inherit; cursor: pointer; outline: inherit;">
-                                                    <li>Download</li>
-                                                </button>
-                                                @endif
                                             </form>
+                                            <!-- <form action="{{--route('approve.request', $requested->id)--}}" method="post">
+                                                @csrf
+                                                @method('PUT')
+                                                <button class="rq-btn" button type="submit" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%;">
+                                                    Deny
+                                                </button>
+                                            </form> -->
                                         </ul>
                                     </div>
+                                    @endif
                                 </div>
                             </td>
 
@@ -123,6 +129,10 @@
         $('#dataTable').DataTable({
             "lengthChange": false,
             "pageLength": 10,
+            "language": {
+                "search": "",
+                "searchPlaceholder": "Search files..."
+            },
             "searching": true
         });
 

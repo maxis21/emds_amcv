@@ -10,7 +10,7 @@
                 $roleName = Auth::user()->role->role->name;
                 if($roleName == "user")
                 {
-                    $thisRoute = "route('user.upload.file')";
+                    $thisRoute = route('upload.file');
                 }
                 else
                 {

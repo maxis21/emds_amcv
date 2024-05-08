@@ -79,7 +79,7 @@ class UsersController extends Controller
             ->get();
 
         $departments = Department::get();
-        return view('all.users', compact('users','departments'));;
+        return view('super_admin.users', compact('users','departments'));;
 
     }
 

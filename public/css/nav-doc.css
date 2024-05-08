@@ -240,4 +240,10 @@
 
 .dropdown-content a:hover {background-color: #d8d8d8}
 
+.rq-btn:hover{
+    background-color: green;
+}
 
+.context-btn{
+    background-color: green;
+}

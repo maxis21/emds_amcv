@@ -45,6 +45,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Department</th>
+                        <th>Uploaded by</th>
                         <!-- <th style="max-width: 10px;"></th> -->
                     </tr>
                 </thead>
@@ -60,9 +61,10 @@
                             <div class="fileText">{{ $folder->name }}</div>
                         </td>
                         <td>{{ $folder->department->name ?? 'No Department' }}</td>
+                        <td></td>
                         <!-- <td style="display: flex; justify-content: right;">
                             <div class="dropdown">
-                                
+
                             </div>
                         </td> -->
                     </tr>
@@ -70,7 +72,7 @@
 
                     @foreach ($documents as $document)
                     @php
-                        $originalFile = $document->document_versions()->first();
+                    $originalFile = $document->document_versions()->first();
                     @endphp
                     <tr class="docu" data-docu-id="{{ $document->id }}" data-dhref="{{ route('view.file', ['originalFile' => $originalFile]) }}" style="cursor: pointer;" target="_blank">
                         <td class="tdCustom d-flex" style="position: relative;">
@@ -82,20 +84,27 @@
                             <div class="fileText">{{ $document->name }}</div>
                         </td>
                         <td>{{ $document->department->name ?? 'No Department' }}</td>
+                        <td>
+                                {{$originalFile->uploader->username}}
+                        </td>
                         <!-- <td style="display: flex; justify-content: right;">
                             <div class="dropdown">
                                 
                             </div>
                         </td> -->
                     </tr>
+                    <div class="dropdown-content" style="z-index: 99;">
+                        <form id="requestForm" action="{{ route('request.File') }}" method="POST">
+                            @csrf
+                            <input name="docID" value="{{ $document->id }}" hidden>
+                            <input name="docURL" value="{{ $originalFile->file_url }}" hidden>
+                            <button class="context-btn" type="submit" style="background: none; padding: 0.5rem; color: inherit; border: none; margin: 0; font: inherit; outline: inherit; width: 100%;">Request</button>
+                        </form>
+                    </div>
                     @endforeach
                 </tbody>
             </table>
-            <div class="dropdown-content">
-                <a href="#">Edit</a>
-                <a href="#">Delete</a>
-                <a href="#">Move</a>
-            </div>
+
         </div>
     </div>
 </div>
@@ -158,7 +167,7 @@
             var url = $(this).data('dhref');
             // Store the folderId in the session using an AJAX call or store it in a hidden input field
 
-            window.location.href = url;
+            // window.location.href = url;
 
         });
 

@@ -19,7 +19,10 @@
                 </li>
                 <li>
                     @php
-                    $totalReq = \App\Models\DocRequest::where('request_status', false)->count();
+                    $userDept = Auth::user()->department_id;
+                    $totalReq = \App\Models\DocRequest::wherehas('user', function ($query) use ($userDept) {
+                    $query->where('department_id', $userDept);
+                    })->where('request_status', false)->count();
                     @endphp
                     <a href="{{ route('to.Request.admin') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">

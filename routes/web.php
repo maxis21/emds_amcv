@@ -58,7 +58,6 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin']], function () {
         Document Routes
     ----------------------------------------------------------------------*/
     Route::get('/admin/documents', [DocumentController::class, 'show_docADminview'])->name('to.Documents-admin');
-    Route::post('/document/addFile', [DocumentController::class, 'uploadFile'])->name('upload.file');
     Route::get('/View/File/{originalFile}', [DocumentController::class, 'viewFile'])->name('view.file');
     Route::get('/admin/documents/{name}/{folderId}', [DocumentController::class, 'adminTrackFile'])->name('adminFolders.show');
 
@@ -109,6 +108,7 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin,user']], function
         Document Routes
     ----------------------------------------------------------------------*/
     Route::post('/Create-Folder', [DocumentController::class, 'createFolder'])->name('create.folder');
+    Route::post('/document/addFile', [DocumentController::class, 'uploadFile'])->name('upload.file');
 
 
     /*----------------------------------------------------------------------
@@ -135,6 +135,8 @@ Route::group(['middleware' => ['auth', 'role:user']], function () {
     Route::get('/user/documents', [DocumentController::class, 'show_docUserview'])->name('to.Documents-user');
     Route::post('/document/requestFile', [DocumentController::class, 'requestFile'])->name('request.File');
     Route::get('/user/documents/{name}/{folderId}', [DocumentController::class, 'userTrackFile'])->name('userFolders.show');
+    Route::post('/user/documents/uploadfile/', [DocumentController::class, 'userUploads'])->name('user.upload.file');
+    
 
     /*----------------------------------------------------------------------
         Request Routes

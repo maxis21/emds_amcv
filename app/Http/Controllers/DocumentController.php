@@ -26,15 +26,14 @@ class DocumentController extends Controller
         $departments = Department::get();
 
         if ($folderId) {
-            $currentFolder = Folder::with('department', 'documents')->findOrFail($folderId);
+            $currentFolder = Folder::with('department', 'documents.document_versions')->findOrFail($folderId);
             $folders = $currentFolder->children;
             $documents = $currentFolder->documents;
             $breadcrumbs = $currentFolder->getAncestors();
         } else {
-            $folders = Folder::with('department', 'documents')->whereNull('parent_id')->get();
-            $documents = Document::whereNull('folder_id')->get();
+            $folders = Folder::with('department', 'documents.document_versions')->whereNull('parent_id')->get();
+            $documents = Document::with('document_versions')->whereNull('folder_id')->get();
         }
-
 
         return view('super_admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
     }
@@ -47,7 +46,7 @@ class DocumentController extends Controller
 
 
         if ($folderId) {
-            $currentFolder = Folder::with('department', 'documents')->findOrFail($folderId);
+            $currentFolder = Folder::with('department', 'documents.document_versions')->findOrFail($folderId);
             $folders = $currentFolder->children;
             $documents = $currentFolder->documents;
             $breadcrumbs = $currentFolder->getAncestors();
@@ -56,7 +55,7 @@ class DocumentController extends Controller
         }
 
 
-        return view('super_admin.documents', compact('DocDatas', 'folders', 'breadcrumbs', 'departments', 'documents'));
+        return view('super_admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
     }
 
     /*
@@ -74,13 +73,13 @@ class DocumentController extends Controller
 
 
         if ($folderId) {
-            $currentFolder = Folder::where('department_id', $userDept)->with('department', 'documents')->findOrFail($folderId);
+            $currentFolder = Folder::where('department_id', $userDept)->with('department', 'documents.document_versions')->findOrFail($folderId);
             $folders = $currentFolder->children;
             $documents = $currentFolder->documents;
             $breadcrumbs = $currentFolder->getAncestors();
         } else {
-            $folders = Folder::where('department_id', $userDept)->with('department', 'documents')->whereNull('parent_id')->get();
-            $documents = Document::where('department_id', $userDept)->whereNull('folder_id')->get();
+            $folders = Folder::where('department_id', $userDept)->with('department', 'documents.document_versions')->whereNull('parent_id')->get();
+            $documents = Document::with('document_versions')->where('department_id', $userDept)->whereNull('folder_id')->get();
         }
 
 
@@ -96,7 +95,7 @@ class DocumentController extends Controller
 
 
         if ($folderId) {
-            $currentFolder = Folder::where('department_id', $userDept)->with('department', 'documents')->findOrFail($folderId);
+            $currentFolder = Folder::where('department_id', $userDept)->with('department', 'documents.document_versions')->findOrFail($folderId);
             $folders = $currentFolder->children;
             $documents = $currentFolder->documents;
             $breadcrumbs = $currentFolder->getAncestors();
@@ -125,13 +124,13 @@ class DocumentController extends Controller
 
 
         if ($folderId) {
-            $currentFolder = Folder::where('department_id', $userDept)->with('department', 'documents')->findOrFail($folderId);
+            $currentFolder = Folder::where('department_id', $userDept)->with('department', 'documents.document_versions')->findOrFail($folderId);
             $folders = $currentFolder->children;
             $documents = $currentFolder->documents;
             $breadcrumbs = $currentFolder->getAncestors();
         } else {
-            $folders = Folder::where('department_id', $userDept)->with('department', 'documents')->whereNull('parent_id')->get();
-            $documents = Document::where('department_id', $userDept)->whereNull('folder_id')->get();
+            $folders = Folder::where('department_id', $userDept)->with('department', 'documents.document_versions')->whereNull('parent_id')->get();
+            $documents = Document::with('document_versions')->where('department_id', $userDept)->whereNull('folder_id')->get();
         }
 
 
@@ -147,7 +146,7 @@ class DocumentController extends Controller
 
 
         if ($folderId) {
-            $currentFolder = Folder::where('department_id', $userDept)->with('department', 'documents')->findOrFail($folderId);
+            $currentFolder = Folder::where('department_id', $userDept)->with('department', 'documents.document_versions')->findOrFail($folderId);
             $folders = $currentFolder->children;
             $documents = $currentFolder->documents;
             $breadcrumbs = $currentFolder->getAncestors();
@@ -158,6 +157,12 @@ class DocumentController extends Controller
 
         return view('users.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
     }
+
+    /*
+    ------------------------------------------------------------
+    Creating Folders
+    ------------------------------------------------------------
+    */
 
     public function createFolder(Request $request)
     {
@@ -187,6 +192,13 @@ class DocumentController extends Controller
         return back()->with('success', 'Document uploaded successfully.');
     }
 
+
+    /*
+    ------------------------------------------------------------
+    Uploading Files
+    ------------------------------------------------------------
+    */
+
     public function uploadFile(Request $request)
     {
         $userID = Auth::user()->id;
@@ -194,6 +206,7 @@ class DocumentController extends Controller
         $thisFile = $request->file('docfile');
         $docName = $request->input('name');
         $folderID = $request->input('parent_id');
+        $userRole = Auth::user()->role->role->name;
         // $fileName = $docName . '.pdf';
 
 
@@ -261,6 +274,13 @@ class DocumentController extends Controller
 
     }
 
+
+
+    /*
+    ------------------------------------------------------------
+    Requesting Files - For Users Only
+    ------------------------------------------------------------
+    */
     public function requestFile(Request $request)
     {
         $userID = Auth::user()->id;
@@ -277,6 +297,11 @@ class DocumentController extends Controller
     }
 
 
+    /*
+    ------------------------------------------------------------
+    View File
+    ------------------------------------------------------------
+    */
     public function viewFile($originalFile)
     {
         $docuFile = DocumentVersion::findOrFail($originalFile);

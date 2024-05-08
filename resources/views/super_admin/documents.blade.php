@@ -45,6 +45,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Department</th>
+                        <th>Uploaded by</th>
                         <!-- <th style="max-width: 10px;"></th> -->
                     </tr>
                 </thead>
@@ -65,6 +66,7 @@
                                 
                             </div>
                         </td> -->
+                        <td></td>
                     </tr>
                     @endforeach
 
@@ -82,9 +84,11 @@
                             <div class="fileText">{{ $document->name }}</div>
                         </td>
                         <td>{{ $document->department->name ?? 'No Department' }}</td>
+                        <td>
+                                {{$originalFile->uploader->username}}
+                        </td>
                         <!-- <td style="display: flex; justify-content: right;">
                             <div class="dropdown">
-                                
                             </div>
                         </td> -->
                     </tr>
@@ -93,7 +97,7 @@
             </table>
             <div class="dropdown-content">
                 <a href="#">Edit</a>
-                <a href="#">Delete</a>
+                <a href="#">Delete</a> 
                 <a href="#">Move</a>
             </div>
         </div>
@@ -153,7 +157,7 @@
         });
 
         // When a docu is clicked, update the current folder context
-        $('.docu').click(function() {
+        $('.docu').dblclick(function() {
             var docuId = $(this).data('docu-id');
             var url = $(this).data('dhref');
             // Store the folderId in the session using an AJAX call or store it in a hidden input field

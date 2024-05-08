@@ -32,7 +32,7 @@
         </form>
         <div class="table-box bg-light" style="border-radius: 1rem; margin-top: 1rem;">
             <!-- -->
-            <div class="table-wrap">
+            <div class="table-wrap" style="padding: 1rem;">
                 <!-- -->
                 <table id="dataTable" class="table-content display">
                     <thead>
@@ -50,14 +50,16 @@
                     <tbody>
                         @foreach($requestedDocs as $requested)
                         <tr>
-                            <td>{{$requested->user->username}}</td>
+                            <td>
+                                {{$requested->user->username}}
+                            </td>
                             <td>{{$requested->user->department->name}}</td>
                             <td>{{$requested->document->name}}</td>
                             <td>
                                 @if ($requested->request_status == true)
-                                Approved
+                                <span style="background-color: #28A745; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Approved</span>
                                 @else
-                                Pending
+                                <span style="background-color: #b44554; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Pending</span>
                                 @endif
                             </td>
                             <!-- <td>Data 4</td> -->
@@ -69,18 +71,17 @@
                                             <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
                                         </svg>
                                     </a>
+                                    @if (Auth::user()->username == $requested->user->username && $requested->request_status == true)
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <ul>
-                                            @if (Auth::user()->username == $requested->user->username && $requested->request_status == true)
                                             <a href="{{route('download.Docs', $requested->id)}}" style="background: none; color: inherit; border: none; padding: 0; margin: 0; font: inherit; cursor: pointer; outline: inherit;">
                                                 <li>Download</li>
                                             </a>
-                                            @endif
                                         </ul>
                                     </div>
+                                    @endif
                                 </div>
                             </td>
-
 
                         </tr>
                         @endforeach
@@ -115,6 +116,10 @@
         $('#dataTable').DataTable({
             "lengthChange": false,
             "pageLength": 10,
+            "language": {
+                "search": "",
+                "searchPlaceholder": "Search files..."
+            },
             "searching": true
         });
 

@@ -19,7 +19,9 @@ class RequestController extends Controller
     ------------------------------------------------------------
     */
 
-    // ======================= Show View Functions for the three user roles ==================
+    // ======================= Show View Functions for the three user roles ==================\
+
+    // --------------------------- SUPER-ADMIN View --------------------------------
     public function show()
     {
         $requestedDocs = DocRequest::with(['document', 'user'])->get();
@@ -27,6 +29,7 @@ class RequestController extends Controller
         return view('super_admin.request', compact('requestedDocs', 'totalRequests'));
     }
 
+    // --------------------------- ADMIN View --------------------------------
     public function showRequest_adminView()
     {
 
@@ -41,17 +44,18 @@ class RequestController extends Controller
         return view('admin.request', compact('requestedDocs', 'totalRequests'));
     }
 
+    // --------------------------- USER View --------------------------------
     public function show_requestUser()
     {
         $userID = Auth::user()->id;
 
         // $requestedDocs = DocRequest::with(['document', 'user'])->get();
         $requestedDocs = DocRequest::where('user_id', $userID)->get();
-        $totalRequests = DocRequest::where('request_status', false)->count();
 
-        return view('users.request', compact('requestedDocs', 'totalRequests'));
+        return view('users.request', compact('requestedDocs'));
     }
 
+    // --------------APPROVED REQUEST (FOR SUPER-ADMIN AND ADMIN ONLY)----------------------
     public function approveReq($id)
     {
         $requestData = DocRequest::findOrFail($id);
@@ -61,25 +65,46 @@ class RequestController extends Controller
         return back()->with('success', 'Request Approved');
     }
 
+
+    // --------------------FILE STATUS SELECT---------------------------
     public function fileStatus(Request $request)
     {
+        $userRole = Auth::user()->role->role->name;
+        $userDept = Auth::user()->department_id;
+        $userID = Auth::user()->id;
         $docStatus = $request->fileStatus;
 
         if ($request->fileStatus === null) {
-            return redirect(route('to.Request'));
+            if ($userRole == 'super-admin') {
+                return redirect(route('to.Request'));
+            } elseif ($userRole == 'admin') {
+                return redirect(route('to.Request.admin'));
+            }
+            else{
+                return redirect(route('to.request-user'));
+            }
         }
-
         $docStatus = filter_var($docStatus, FILTER_VALIDATE_BOOLEAN);
 
 
-        $requestedDocs = DocRequest::where('request_status', $docStatus)->get();
-        $totalRequests = DocRequest::where('request_status', false)->count();
 
-        $userRole = Auth::user()->role->role->name;
         if ($userRole == 'super-admin') {
-            return view('super_admin.request', compact('requestedDocs', 'totalRequests'));
+            $requestedDocs = DocRequest::where('request_status', $docStatus)->get();
+
+            return view('super_admin.request', compact('requestedDocs'));
         } elseif ($userRole == 'admin') {
-            return view('admin.request', compact('requestedDocs', 'totalRequests'));
+
+            $requestedDocs = DocRequest::wherehas('user', function ($query) use ($userDept) {
+                $query->where('department_id', $userDept);
+            })->where('request_status', $docStatus)->get();
+
+
+            return view('admin.request', compact('requestedDocs'));
+        } else {
+            $requestedDocs = DocRequest::where('user_id', $userID)->where('request_status', $docStatus)->get();
+            return view('users.request', compact('requestedDocs'));
+
+
         }
     }
 
@@ -89,11 +114,11 @@ class RequestController extends Controller
 
         $fileUrlRecheck = str_replace('/', DIRECTORY_SEPARATOR, $document->file_url);
         $filepathFinal = str_replace('storage', '', $fileUrlRecheck);
-        $filepath = storage_path('app\public'. $filepathFinal);
+        $filepath = storage_path('app\public' . $filepathFinal);
         if (!File::exists($filepath)) {
             abort(404);
         }
-        
+
 
         $fileContent = File::get($filepath);
         $fileName = basename($filepath);

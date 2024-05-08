@@ -38,7 +38,7 @@ main {
     height: 100vh;
     position: fixed;
     background-color: #015581;
-    z-index: 99999;
+    z-index: 999;
 }
 
 .nav-menu {
