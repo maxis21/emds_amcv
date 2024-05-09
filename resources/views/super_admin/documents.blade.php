@@ -7,6 +7,9 @@
 @endsection
 
 @section('body-content')
+
+<div id="folderId" data-folder-id="{{ $folderId }}"></div>
+
 <div class="container-fluid d-flex" style="justify-content: space-between;">
     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%">
         <!-- <ul class="breadcrumbs">
@@ -114,6 +117,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script src="{{ asset('js/datatables/jquery.dataTables.js') }}"></script>
+
+
+
 <script>
     $(document).ready(function() {
         // Your code to be executed when the DOM is ready
@@ -133,9 +139,9 @@
                 "orderable": false // Disable sorting for the last column
             }]
         });
+
     });
 </script>
-
 
 <script>
     // Assuming you have jQuery
@@ -166,8 +172,9 @@
 
         });
 
+
         $('.open-cf-modal').click(function() {
-            var currentFolderId = sessionStorage.getItem('current_folder_id');
+            var currentFolderId = $('#folderId').data('folder-id');
             if (currentFolderId != null) {
                 $('#create-file').find('input[name="parent_id"]').val(currentFolderId);
             } else {
@@ -177,7 +184,7 @@
         });
 
         $('.open-ud-modal').click(function() {
-            var currentFolderId = sessionStorage.getItem('current_folder_id');
+            var currentFolderId = $('#folderId').data('folder-id');
             if (currentFolderId != null) {
                 $('#add-doc').find('input[name="parent_id"]').val(currentFolderId);
             } else {
