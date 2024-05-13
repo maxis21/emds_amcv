@@ -55,6 +55,11 @@ main {
     width: 100%;
 }
 
+.text-decoration-none{
+    text-decoration: none;
+    list-style: none;
+}
+
 .menu-content li a {
     text-decoration: none;
     margin-top: 10px;
