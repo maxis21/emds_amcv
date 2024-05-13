@@ -2,8 +2,8 @@
 @section('title', 'Documents')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('css/nav-doc.css') }}">
-<link rel="stylesheet" href="{{ asset('css/datatables/jquery.dataTablesManager.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/nav-doc.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/jquery.dataTablesManager.css') }}">
 @endsection
 
 @section('body-content')
@@ -22,24 +22,30 @@
             @endforeach
         </div>
 
+        </div>
     </div>
-</div>
 
-<div class="nav-box d-flex">
-    <div class="top-box d-flex">
-        <a class="open-cf-modal">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16">
-                <path d="m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z" />
-                <path d="M13.5 9a.5.5 0 0 1 .5.5V11h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V12h-1.5a.5.5 0 0 1 0-1H13V9.5a.5.5 0 0 1 .5-.5" />
-            </svg>Create Folder
-        </a>
-        <a class="open-ud-modal">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
-                <path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707z" />
-                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-            </svg>Upload File
-        </a>
-    </div>
+    <div class="nav-box d-flex">
+        <div class="top-box d-flex">
+            <a class="open-cf-modal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                    class="bi bi-folder-plus" viewBox="0 0 16 16">
+                    <path
+                        d="m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z" />
+                    <path
+                        d="M13.5 9a.5.5 0 0 1 .5.5V11h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V12h-1.5a.5.5 0 0 1 0-1H13V9.5a.5.5 0 0 1 .5-.5" />
+                </svg>Create Folder
+            </a>
+            <a class="open-ud-modal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                    class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
+                    <path
+                        d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707z" />
+                    <path
+                        d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+                </svg>Upload File
+            </a>
+        </div>
 
     <div class="body-box d-flex">
         <div class="file-box">
@@ -108,13 +114,13 @@
 </div>
 
 
-@include('modals.createFolder')
-@include('modals.addDoc')
+    @include('modals.createFolder')
+    @include('modals.addDoc')
 @endsection
 
 
 @section('scripts')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script src="{{ asset('js/datatables/jquery.dataTables.js') }}"></script>
 
@@ -143,24 +149,24 @@
     });
 </script>
 
-<script>
-    // Assuming you have jQuery
-    $(document).ready(function() {
+    <script>
+        // Assuming you have jQuery
+        $(document).ready(function() {
 
-        if (window.location.pathname === '/documents' || window.location.pathname === '/') {
-            sessionStorage.removeItem('current_folder_id');
-        }
+            if (window.location.pathname === '/documents' || window.location.pathname === '/') {
+                sessionStorage.removeItem('current_folder_id');
+            }
 
-        // When a folder is clicked, update the current folder context
-        $('.folder').click(function() {
-            var folderId = $(this).data('folder-id');
-            var url = $(this).data('href');
-            // Store the folderId in the session using an AJAX call or store it in a hidden input field
-            sessionStorage.setItem('current_folder_id', folderId);
+            // When a folder is clicked, update the current folder context
+            $('.folder').click(function() {
+                var folderId = $(this).data('folder-id');
+                var url = $(this).data('href');
+                // Store the folderId in the session using an AJAX call or store it in a hidden input field
+                sessionStorage.setItem('current_folder_id', folderId);
 
-            window.location.href = url;
+                window.location.href = url;
 
-        });
+            });
 
         // When a docu is clicked, update the current folder context
         $('.docu').dblclick(function() {
@@ -168,7 +174,7 @@
             var url = $(this).data('dhref');
             // Store the folderId in the session using an AJAX call or store it in a hidden input field
 
-            window.location.href = url;
+                window.location.href = url;
 
         });
 
@@ -193,77 +199,77 @@
             $('#add-doc').css('display', 'flex');
         });
 
-        $('.modal-close').click(function() {
-            $('#create-file').css('display', 'none');
-            $('#add-doc').css('display', 'none');
-            // Hide modal
+            $('.modal-close').click(function() {
+                $('#create-file').css('display', 'none');
+                $('#add-doc').css('display', 'none');
+                // Hide modal
+            });
+
+
+            // for context Menu
+            // $('tr.folder').on('contextmenu', function(e) {
+            //     e.preventDefault(); // Prevent the default right-click menu
+
+            //     // Calculate position relative to the nearest positioned ancestor
+            //     var posX = e.pageX;
+            //     var posY = e.pageY;
+
+            //     $('.dropdown-content').css({
+            //         display: 'block',
+            //         left: posX + 'px',
+            //         top: posY + 'px'
+            //     });
+
+            //     // // Optional: Update links or actions based on the clicked row
+            //     // var folderId = $(this).data('folder-id');
+            //     // $('#edit').attr('href', '/edit-folder/' + folderId);
+            //     // $('#delete').attr('href', '/delete-folder/' + folderId);
+            //     // $('#move').attr('href', '/move-folder/' + folderId);
+            // });
+
+            // Hide the dropdown when clicking anywhere else on the page
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.folder').length) {
+                    $('.dropdown-content').hide();
+                }
+            });
+
         });
+    </script>
 
 
-        // for context Menu
-        // $('tr.folder').on('contextmenu', function(e) {
-        //     e.preventDefault(); // Prevent the default right-click menu
+    <!-- <script>
+        $(document).on('contextmenu', '.folder', function(e) {
 
-        //     // Calculate position relative to the nearest positioned ancestor
-        //     var posX = e.pageX;
-        //     var posY = e.pageY;
+            e.preventDefault();
 
-        //     $('.dropdown-content').css({
-        //         display: 'block',
-        //         left: posX + 'px',
-        //         top: posY + 'px'
-        //     });
+            $('.dropdown-content').hide();
 
-        //     // // Optional: Update links or actions based on the clicked row
-        //     // var folderId = $(this).data('folder-id');
-        //     // $('#edit').attr('href', '/edit-folder/' + folderId);
-        //     // $('#delete').attr('href', '/delete-folder/' + folderId);
-        //     // $('#move').attr('href', '/move-folder/' + folderId);
-        // });
+            $(this).find('.dropdown-content').css({
+                display: "block",
+                left: e.pageX,
+                top: e.pageY
+            })
+        })
+    </script> -->
 
-        // Hide the dropdown when clicking anywhere else on the page
-        $(document).on('click', function(e) {
-            if (!$(e.target).closest('.folder').length) {
-                $('.dropdown-content').hide();
+    <script>
+        document.querySelector('input[name="docfile"]#doc').addEventListener('change', function(e) {
+            var fileName = e.target.files[0].name.toLowerCase();
+            var allowedExtensions = /(\.pdf)$/i;
+
+            if (!allowedExtensions.exec(fileName)) {
+                alert('Please upload only PDF files.');
+                e.target.value = ''; // Reset the input
             }
         });
+    </script>
 
-    });
-</script>
-
-
-<!-- <script>
-    $(document).on('contextmenu', '.folder', function(e){
-
-        e.preventDefault();
-
-        $('.dropdown-content').hide();
-
-        $(this).find('.dropdown-content').css({
-            display: "block",
-            left: e.pageX,
-            top: e.pageY
-        })
-    })
-</script> -->
-
-<script>
-    document.querySelector('[name="doc"]').addEventListener('change', function(e) {
-        var fileName = e.target.files[0].name.toLowerCase();
-        var allowedExtensions = /(\.pdf)$/i;
-
-        if (!allowedExtensions.exec(fileName)) {
-            alert('Please upload only PDF files.');
-            e.target.value = ''; // Reset the input
-        }
-    });
-</script>
-
-<script>
-    document.getElementById('doc').addEventListener('change', function(event) {
-        var fileName = event.target.files[0].name;
-        document.getElementById('file-chosen').textContent = fileName;
-    });
-</script>
+    <script>
+        document.getElementById('doc').addEventListener('change', function(event) {
+            var fileName = event.target.files[0].name;
+            document.getElementById('file-chosen').textContent = fileName;
+        });
+    </script>
 
 @endsection

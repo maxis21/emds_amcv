@@ -41,13 +41,15 @@
     </header>
     <div class="d-flex">
         <aside>
-            @if(Auth::user()->role->role->name == 'super-admin')
-                @include('super_admin.sidenav')
-            @elseif(Auth::user()->role->role->name == 'admin')
-                @include('admin.sidenav')
-            @else
-                @include('users.sidenav')
-            @endif
+            @auth
+                @if (Auth::user()->role->role->name == 'super-admin')
+                    @include('super_admin.sidenav')
+                @elseif(Auth::user()->role->role->name == 'admin')
+                    @include('admin.sidenav')
+                @else
+                    @include('users.sidenav')
+                @endif
+            @endauth
         </aside>
 
         <main>
@@ -60,6 +62,137 @@
 
     @yield('scripts')
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            var table = document.getElementById('dataTable');
+            var rows = table.getElementsByTagName('tr');
+
+            for (var i = 0; i < rows.length; i++) {
+                rows[i].addEventListener('contextmenu', function(e) {
+                    e.preventDefault(); // Prevent default right-click behavior
+
+                    console.log('Clicked element:', e.target); // Log the clicked element
+
+                    // Find the closest table row from the clicked element
+                    var closestRow = this.closest('tr');
+                    console.log('Closest table row:', closestRow); // Log the closest table row
+
+                    if (closestRow !== null) {
+                        // If a table row is found, retrieve its rowIndex
+                        var rowIndex = closestRow.rowIndex;
+                        /*  alert('Open action triggered for row: ' + rowIndex); */
+                    } else {
+                        // If no table row is found, display an error message
+                        alert(
+                            'Failed to retrieve row index. The clicked element is not within a table row.'
+                        );
+                    }
+
+                    // Remove any existing context menu
+                    var existingContextMenu = document.getElementById('contextMenu');
+                    if (existingContextMenu) {
+                        existingContextMenu.parentNode.removeChild(existingContextMenu);
+                    }
+
+                    var tableRect = table.getBoundingClientRect();
+                    // Get the position of the click relative to the viewport
+                    var clickX = e.clientX;
+                    var clickY = e.clientY;
+
+                    // Account for the scroll position of the table
+                    var tableScrollLeft = table.scrollLeft;
+                    var tableScrollTop = table.scrollTop;
+
+                    // Adjust the click position by subtracting the table's scroll offsets
+                    var adjustedClickX = clickX - tableScrollLeft;
+                    var adjustedClickY = clickY - tableScrollTop;
+
+                    // Calculate the position of the context menu relative to the table
+                    var contextMenuLeft = tableRect.left + adjustedClickX;
+                    var contextMenuTop = tableRect.top + adjustedClickY;
+
+                    // Create a new context menu
+                    var contextMenu = document.createElement('ul');
+                    contextMenu.id = 'contextMenu';
+                    contextMenu.style.position = 'absolute';
+                    contextMenu.style.left = contextMenuLeft +
+                        'px'; // Set left position relative to the table
+                    contextMenu.style.top = contextMenuTop + 'px'; // Set top position relative to the table
+                    contextMenu.style.borderRadius = '10px';
+                    contextMenu.style.backgroundColor = 'white';
+                    contextMenu.style.zIndex = '9999';
+
+                    // Create and append context menu options
+                    var ul = document.createElement('div');
+                    var options = ['Open', 'Delete', 'Move', 'Copy', 'Rename', 'Create new folder',
+                        'Properties'
+                    ];
+                    var optionID = ['view-item', 'delete-item', 'move-item', 'copy-item', 'edit-item',
+                        'new-item', 'info-item'
+                    ];
+                    var count = 0;
+                    options.forEach(function(option) {
+                        var li = document.createElement('div');
+                        li.classList.add('text-decoration-none');
+                        li.classList.add('options');
+                        li.style.padding = "10px";
+                        li.style.borderRadius = "5px";
+                        // Capitalize the first letter of each option
+                        var capitalizedOption = option.charAt(0).toUpperCase() + option.slice(1)
+                            .toLowerCase();
+                        li.textContent = capitalizedOption;
+                        li.id = optionID[count];
+                        li.style.cursor = "pointer";
+
+                        ul.appendChild(li);
+                        count++;
+                    });
+                    contextMenu.appendChild(ul);
+
+                    // Append context menu to document body
+                    document.body.appendChild(contextMenu);
+
+
+                    // Event listeners for context menu options
+                    document.getElementById('view-item').addEventListener('click', function() {
+                        //alert('View action triggered for row: ' + closestRow.rowIndex);
+                    });
+
+                    document.getElementById('delete-item').addEventListener('click', function() {
+                        //alert('Delete action triggered for row: ' + closestRow.rowIndex);
+                    });
+
+                    document.getElementById('move-item').addEventListener('click', function() {
+                        // alert('Move action triggered for row: ' + closestRow.rowIndex);
+                    });
+
+                    document.getElementById('copy-item').addEventListener('click', function() {
+                        // alert('Copy action triggered for row: ' + closestRow.rowIndex);
+                    });
+
+                    document.getElementById('edit-item').addEventListener('click', function() {
+                        //alert('Rename action triggered for row: ' + closestRow.rowIndex);
+                    });
+
+                    document.getElementById('new-item').addEventListener('click', function() {
+                        //alert('Create New Folder action triggered for row: ' + closestRow.rowIndex);
+                    });
+
+                    document.getElementById('info-item').addEventListener('click', function() {
+                        //alert('Properties action triggered for row: ' + closestRow.rowIndex);
+                    });
+                });
+            }
+            // Event listener to close context menu on click outside
+            window.addEventListener('click', function(event) {
+                var contextMenu = document.getElementById('contextMenu');
+                if (contextMenu && !contextMenu.contains(event.target)) {
+                    contextMenu.parentNode.removeChild(contextMenu);
+                }
+            });
+
+        });
+
         function togglePasswordShow() {
             var passwordInput = document.getElementById('password');
             var toggleShow = document.querySelector('.password-show');

@@ -7,6 +7,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DirectoryController;
 use App\Http\Controllers\WebScrapingController;
 
 /*
@@ -30,6 +31,17 @@ Route::post('/user/login', [AuthController::class, 'postLogin'])->name('to.Auth'
 Route::get('/user/logout', [AuthController::class, 'logout'])->name('to.Logout');
 
 
+Route::get('/browse', function () {
+
+    $basePath = 'storage'; // Set the base path to the 'storage' folder in public
+
+    $contents = Storage::allFiles(''); // Get all files recursively
+    $directories = Storage::allDirectories('');
+
+    return view('browse', compact('contents', 'directories'));
+})->name('to.Home');
+
+Route::get('/browse/fetch', [DirectoryController::class, 'fetchFolderContents'])->name('fetchFolderContents');
 
 /*---------------------------------------MIDDLEWARE------------------------------------------*/
 // *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
