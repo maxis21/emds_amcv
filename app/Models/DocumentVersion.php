@@ -15,8 +15,7 @@ class DocumentVersion extends Model
         'name',
         'file_url',
         'document_id',
-        'uploaded_by',
-        'approval_status'
+        'uploaded_by'
     ];
 
     public function document(){

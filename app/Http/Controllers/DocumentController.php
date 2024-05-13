@@ -35,7 +35,7 @@ class DocumentController extends Controller
             $documents = Document::with('document_versions')->whereNull('folder_id')->get();
         }
 
-        return view('super_admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents', 'folderId'));
+        return view('super_admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
     }
 
     public function trackFile($name, $folderId = null)
@@ -43,6 +43,7 @@ class DocumentController extends Controller
         $folders = null;
         $breadcrumbs = [];
         $departments = Department::get();
+
 
         if ($folderId) {
             $currentFolder = Folder::with('department', 'documents.document_versions')->findOrFail($folderId);
@@ -54,7 +55,7 @@ class DocumentController extends Controller
         }
 
 
-        return view('super_admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents', 'folderId'));
+        return view('super_admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
     }
 
     /*
@@ -82,7 +83,7 @@ class DocumentController extends Controller
         }
 
 
-        return view('admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents', 'folderId'));
+        return view('admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
     }
 
     public function adminTrackFile($name, $folderId = null)
@@ -103,7 +104,7 @@ class DocumentController extends Controller
         }
 
 
-        return view('admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents', 'folderId'));
+        return view('admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
     }
 
 
@@ -133,7 +134,7 @@ class DocumentController extends Controller
         }
 
 
-        return view('users.documents', compact('folders', 'breadcrumbs', 'departments', 'documents', 'folderId'));
+        return view('users.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
     }
 
     public function userTrackFile($name, $folderId = null)
@@ -154,7 +155,7 @@ class DocumentController extends Controller
         }
 
 
-        return view('users.documents', compact('folders', 'breadcrumbs', 'departments', 'documents', 'folderId'));
+        return view('users.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
     }
 
     /*
@@ -245,23 +246,12 @@ class DocumentController extends Controller
             $fileURL = Storage::url($filePath);
             // $lastUpdated = $document->document_versions()->latest('updated_at')->first();
 
-
-            if ($userRole == 'user') {
-                DocumentVersion::create([
-                    'name' => $fileName,
-                    'file_url' => $fileURL,
-                    'document_id' => $docID,
-                    'uploaded_by' => $userID,
-                    'approval_status' => 'Pending'
-                ]);
-            } else {
-                DocumentVersion::create([
-                    'name' => $fileName,
-                    'file_url' => $fileURL,
-                    'document_id' => $docID,
-                    'uploaded_by' => $userID
-                ]);
-            }
+            DocumentVersion::create([
+                'name' => $fileName,
+                'file_url' => $fileURL,
+                'document_id' => $docID,
+                'uploaded_by' => $userID
+            ]);
 
             return back()->with('success', 'Document uploaded successfully.');
         } else {

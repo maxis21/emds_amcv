@@ -7,10 +7,6 @@
 @endsection
 
 @section('body-content')
-
-<div id="folderId" data-folder-id="{{ $folderId }}"></div>
-
-
 <div class="container-fluid d-flex" style="justify-content: space-between;">
     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%">
         <!-- <ul class="breadcrumbs">
@@ -176,7 +172,7 @@
         });
 
         $('.open-cf-modal').click(function() {
-            var currentFolderId = $('#folderId').data('folder-id');
+            var currentFolderId = sessionStorage.getItem('current_folder_id');
             if (currentFolderId != null) {
                 $('#create-file').find('input[name="parent_id"]').val(currentFolderId);
             } else {
@@ -186,7 +182,7 @@
         });
 
         $('.open-ud-modal').click(function() {
-            var currentFolderId = $('#folderId').data('folder-id');
+            var currentFolderId = sessionStorage.getItem('current_folder_id');
             if (currentFolderId != null) {
                 $('#add-doc').find('input[name="parent_id"]').val(currentFolderId);
             } else {
