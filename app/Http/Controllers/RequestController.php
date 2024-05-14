@@ -24,7 +24,7 @@ class RequestController extends Controller
     // --------------------------- SUPER-ADMIN View --------------------------------
     public function show()
     {
-        $requestedDocs = DocRequest::with(['document', 'user'])->get();
+        $requestedDocs = DocRequest::with(['document', 'user'])->orderBy('updated_at', 'desc')->get();
         $totalRequests = DocRequest::where('request_status', false)->count();
         return view('super_admin.request', compact('requestedDocs', 'totalRequests'));
     }
@@ -38,7 +38,7 @@ class RequestController extends Controller
         // $requestedDocs = DocRequest::with(['document', 'user'])->get();
         $requestedDocs = DocRequest::wherehas('user', function ($query) use ($userDept) {
             $query->where('department_id', $userDept);
-        })->with(['document', 'user'])->get();
+        })->with(['document', 'user'])->orderBy('updated_at', 'desc')->get();
         $totalRequests = DocRequest::where('request_status', false)->count();
 
         return view('admin.request', compact('requestedDocs', 'totalRequests'));
@@ -50,7 +50,7 @@ class RequestController extends Controller
         $userID = Auth::user()->id;
 
         // $requestedDocs = DocRequest::with(['document', 'user'])->get();
-        $requestedDocs = DocRequest::where('user_id', $userID)->get();
+        $requestedDocs = DocRequest::where('user_id', $userID)->orderBy('updated_at', 'desc')->get();
 
         return view('users.request', compact('requestedDocs'));
     }
@@ -60,6 +60,15 @@ class RequestController extends Controller
     {
         $requestData = DocRequest::findOrFail($id);
         $requestData->request_status = true;
+        $requestData->save();
+
+        return back()->with('success', 'Request Approved');
+    }
+
+    public function declineReq($id)
+    {
+        $requestData = DocRequest::findOrFail($id);
+        $requestData->request_status = 2;
         $requestData->save();
 
         return back()->with('success', 'Request Approved');
@@ -79,35 +88,38 @@ class RequestController extends Controller
                 return redirect(route('to.Request'));
             } elseif ($userRole == 'admin') {
                 return redirect(route('to.Request.admin'));
-            }
-            else{
+            } else {
                 return redirect(route('to.request-user'));
             }
         }
-        $docStatus = filter_var($docStatus, FILTER_VALIDATE_BOOLEAN);
+        $query = DocRequest::query();
+
+        if ($docStatus !== '') {
+            $query->where('request_status', $docStatus);
+        }
 
 
 
         if ($userRole == 'super-admin') {
-            $requestedDocs = DocRequest::where('request_status', $docStatus)->get();
+            $requestedDocs = $query->orderBy('updated_at', 'desc')->get();
 
             return view('super_admin.request', compact('requestedDocs'));
         } elseif ($userRole == 'admin') {
 
-            $requestedDocs = DocRequest::wherehas('user', function ($query) use ($userDept) {
+            $requestedDocs = $query->whereHas('user', function ($query) use ($userDept) {
                 $query->where('department_id', $userDept);
-            })->where('request_status', $docStatus)->get();
+            })->orderBy('updated_at', 'desc')->get();
 
 
             return view('admin.request', compact('requestedDocs'));
         } else {
-            $requestedDocs = DocRequest::where('user_id', $userID)->where('request_status', $docStatus)->get();
+            $requestedDocs = $query->where('user_id', $userID)->orderBy('updated_at', 'desc')->get();
             return view('users.request', compact('requestedDocs'));
-
-
         }
     }
 
+
+    // -------------------------DOWNLOAD DOCUMENT----------------------------
     public function download_document($id)
     {
         $document = DocRequest::findorFail($id);

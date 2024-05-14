@@ -35,7 +35,7 @@ class DocumentController extends Controller
             $documents = Document::with('document_versions')->whereNull('folder_id')->get();
         }
 
-        return view('super_admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
+        return view('super_admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents', 'folderId'));
     }
 
     public function trackFile($name, $folderId = null)
@@ -55,7 +55,7 @@ class DocumentController extends Controller
         }
 
 
-        return view('super_admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
+        return view('super_admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents', 'folderId'));
     }
 
     /*
@@ -83,7 +83,7 @@ class DocumentController extends Controller
         }
 
 
-        return view('admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
+        return view('admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents', 'folderId'));
     }
 
     public function adminTrackFile($name, $folderId = null)
@@ -104,7 +104,7 @@ class DocumentController extends Controller
         }
 
 
-        return view('admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
+        return view('admin.documents', compact('folders', 'breadcrumbs', 'departments', 'documents', 'folderId'));
     }
 
 
@@ -134,7 +134,7 @@ class DocumentController extends Controller
         }
 
 
-        return view('users.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
+        return view('users.documents', compact('folders', 'breadcrumbs', 'departments', 'documents', 'folderId'));
     }
 
     public function userTrackFile($name, $folderId = null)
@@ -155,7 +155,7 @@ class DocumentController extends Controller
         }
 
 
-        return view('users.documents', compact('folders', 'breadcrumbs', 'departments', 'documents'));
+        return view('users.documents', compact('folders', 'breadcrumbs', 'departments', 'documents', 'folderId'));
     }
 
     /*
@@ -246,12 +246,22 @@ class DocumentController extends Controller
             $fileURL = Storage::url($filePath);
             // $lastUpdated = $document->document_versions()->latest('updated_at')->first();
 
-            DocumentVersion::create([
-                'name' => $fileName,
-                'file_url' => $fileURL,
-                'document_id' => $docID,
-                'uploaded_by' => $userID
-            ]);
+            if ($userRole == 'user') {
+                DocumentVersion::create([
+                    'name' => $fileName,
+                    'file_url' => $fileURL,
+                    'document_id' => $docID,
+                    'uploaded_by' => $userID,
+                    'approval_status' => 'Pending'
+                ]);
+            } else {
+                DocumentVersion::create([
+                    'name' => $fileName,
+                    'file_url' => $fileURL,
+                    'document_id' => $docID,
+                    'uploaded_by' => $userID
+                ]);
+            }
 
             return back()->with('success', 'Document uploaded successfully.');
         } else {
@@ -310,5 +320,55 @@ class DocumentController extends Controller
         $filePath = storage_path('app/public/' . $fileUrlEdit);
 
         return response()->file($filePath);
+    }
+
+    /*
+    ------------------------------------------------------------
+    View File
+    ------------------------------------------------------------
+    */
+    public function viewUserUploads()
+    {
+        $departments = Department::get();
+        $documents = Document::with(['document_versions', 'department'])
+        ->whereNull('folder_id')
+        ->leftJoin('tbl_document_versions', 'tbl_documents.id', '=', 'tbl_document_versions.document_id')
+        ->select('tbl_documents.*', \DB::raw('MAX(tbl_document_versions.updated_at) as latest_version_update'))
+        ->groupBy('tbl_documents.id')
+        ->orderBy('latest_version_update', 'desc')
+        ->get();
+        return view('super_admin.user_uploads', compact('documents'));
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    Approve File Upload from the user
+    ------------------------------------------------------------
+    */
+
+    public function approveFile($id)
+    {
+        $uploadedData = DocumentVersion::findOrFail($id);
+        $uploadedData->approval_status = 'Approved';
+        $uploadedData->save();
+
+        return back()->with('success', 'File Approved'); 
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    Decline File Upload from the user
+    ------------------------------------------------------------
+    */
+
+    public function declineFile($id)
+    {
+        $uploadedData = DocumentVersion::findOrFail($id);
+        $uploadedData->approval_status = 'Denied';
+        $uploadedData->save();
+
+        return back()->with('success', 'File Declined'); 
     }
 }

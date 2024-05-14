@@ -61,7 +61,7 @@
     @include('modals.logout')
 
     @yield('scripts')
-    <script>
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', function() {
 
             var table = document.getElementById('dataTable');
@@ -225,7 +225,7 @@
         </svg>
         `;
         }
-    </script>
+    </script> -->
 
 </body>
 

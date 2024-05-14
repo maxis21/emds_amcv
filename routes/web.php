@@ -72,19 +72,18 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin']], function () {
     Route::get('/admin/documents', [DocumentController::class, 'show_docADminview'])->name('to.Documents-admin');
     Route::get('/View/File/{originalFile}', [DocumentController::class, 'viewFile'])->name('view.file');
     Route::get('/admin/documents/{name}/{folderId}', [DocumentController::class, 'adminTrackFile'])->name('adminFolders.show');
+    Route::get('/User-Uploads', [DocumentController::class, 'viewUserUploads'])->name('view.userUploads');
+    Route::put('/uploads/approve-file/{id}', [DocumentController::class, 'approveFile'])->name('approve.file');
+    Route::put('/uploads/decline-file/{id}', [DocumentController::class, 'declineFile'])->name('decline.file');
 
     /*----------------------------------------------------------------------
         Request Routes
     ----------------------------------------------------------------------*/
     Route::get('/request', [RequestController::class, 'show'])->name('to.Request');
     Route::get('/request-admin', [RequestController::class, 'showRequest_adminView'])->name('to.Request.admin');
-
     Route::get('/Dept-Users', [UsersController::class, 'Users_adminView'])->name('display.Users.admins');
-
-    /*----------------------------------------------------------------------
-        Request Routes
-    ----------------------------------------------------------------------*/
     Route::put('/request/approve-request/{id}', [RequestController::class, 'approveReq'])->name('approve.request');
+    Route::put('/request/decline-request/{id}', [RequestController::class, 'declineReq'])->name('decline.request');
 });
 
 // *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*

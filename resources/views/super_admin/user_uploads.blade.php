@@ -12,25 +12,25 @@
 <div class="contentcon">
     <div class="container-fluid d-flex" style="justify-content: space-between;">
         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%">
-            <p style="color: grey"><b>REQUEST</b></p>
+            <p style="color: grey"><b>USER UPLOADS</b></p>
             <ul class="breadcrumbs">
                 <li class="text-white"><a href="{{ route('to.Dashboard') }}">Dashboard</a></li>
-                <li class="text-white active"> Request </li>
+                <li class="text-white"><a href="{{ route('to.Documents') }}">Documents</a></li>
+                <li class="text-white active"> uploads </li>
             </ul>
         </div>
     </div>
     <!-- -->
     <div class="box-con">
         <!-- -->
-        <form action="{{ route('file.Status') }}" method="get">
+        <!-- <form action="{{ route('file.Status') }}" method="get">
             @csrf
             <select name="fileStatus" id="fileStatus" class="form-control statusSelect table-groupBtn d-flex" onchange="this.form.submit()" style="width: 150px;">
                 <option value="">All</option>
                 <option value='1' {{ request('fileStatus') == '1' ? 'selected' : '' }}>Approved</option>
                 <option value='0' {{ request('fileStatus') == '0' ? 'selected' : '' }}>Pending</option>
-                <option value='2' {{ request('fileStatus') == '2' ? 'selected' : '' }}>Declined</option>
             </select>
-        </form>
+        </form> -->
         <div class="table-box bg-light" style="border-radius: 0.5rem; margin-top: 1rem; box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1);">
             <!-- -->
             <div class="table-wrap" style="padding: 1rem;">
@@ -38,31 +38,39 @@
                 <table id="dataTable" class="table-content display">
                     <thead>
                         <tr>
-                            <th>User</th>
+                            <th>Name</th>
                             <th>Department</th>
-                            <th>Document</th>
+                            <th>Uploaded by </th>
                             <th>Status</th>
-                            <!-- <th>URL</th> -->
 
                             <th style="max-width: 10px;"></th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($requestedDocs as $requested)
+                        @foreach($documents as $document)
+                        @php
+                        $originalFile = $document->document_versions()->first();
+                        @endphp
                         <tr>
                             <td>
-                                {{$requested->user->username}}
+                                {{$document->name}}
                             </td>
-                            <td>{{$requested->user->department->name}}</td>
-                            <td>{{$requested->document->name}}</td>
+                            <td>{{$document->department->name}}</td>
                             <td>
-                                @if ($requested->request_status == 1)
-                                <span style="background-color: #28A745; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Approved</span>
-                                @elseif ($requested->request_status == 2)
-                                <span style="background-color: #b44554; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Declined</span>
-                                @else
-                                <span style="background-color: #F17E0E; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Pending</span>
+                                @if($originalFile)
+                                {{$originalFile->uploader->username}}
+                                @endif
+                            </td>
+                            <td>
+                                @if($originalFile)
+                                    @if ($originalFile->approval_status == 'Approved')
+                                    <span style="background-color: #28A745; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Approved</span>
+                                    @elseif ($originalFile->approval_status == 'Denied')
+                                    <span style="background-color: #b44554; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Declined</span>
+                                    @else
+                                    <span style="background-color: #F17E0E; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Pending</span>
+                                    @endif
                                 @endif
                             </td>
                             <!-- <td>Data 4</td> -->
@@ -74,27 +82,29 @@
                                             <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
                                         </svg>
                                     </a>
-                                    @if ($requested->request_status == false)
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="margin-right: 0.5rem; background-color: #e4e4e4;">
-                                        <ul>
-                                            <form action="{{route('approve.request', $requested->id)}}" method="post">
-                                                @csrf
-                                                @method('PUT')
+                                    @if($originalFile)
+                                        @if ($originalFile->approval_status != 'Approved' || $originalFile->approval_status != 'Approved')
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="margin-right: 0.5rem; background-color: #e4e4e4;">
+                                            <ul>
+                                                <form action="{{route('approve.file', $originalFile->id)}}" method="post">
+                                                    @csrf
+                                                    @method('PUT')
 
-                                                <button class="rq-btn" button type="submit" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit;">
-                                                    Approve
-                                                </button>
-                                            </form>
+                                                    <button class="rq-btn" button type="submit" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit;">
+                                                        Approve
+                                                    </button>
+                                                </form>
 
-                                            <form action="{{route('decline.request', $requested->id)}}" method="post">
-                                                @csrf
-                                                @method('PUT')
-                                                <button class="rq-btn" button type="submit" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%;">
-                                                    Decline
-                                                </button>
-                                            </form>
-                                        </ul>
-                                    </div>
+                                                <form action="{{route('decline.file', $originalFile->id)}}" method="post">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button class="rq-btn" button type="submit" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%;">
+                                                        Decline
+                                                    </button>
+                                                </form>
+                                            </ul>
+                                        </div>
+                                        @endif
                                     @endif
                                 </div>
                             </td>
@@ -133,12 +143,12 @@
         $('#dataTable').DataTable({
             "lengthChange": false,
             "pageLength": 10,
+            "ordering": false,
             "language": {
                 "search": "",
                 "searchPlaceholder": "Search files..."
             },
             "searching": true,
-            "ordering": false,
             "stripeClasses": []
         });
 
