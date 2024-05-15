@@ -26,6 +26,7 @@ class User extends Authenticatable
         'mname',
         'lname',
         'department_id',
+        'isOnline',
     ];
 
     /**
