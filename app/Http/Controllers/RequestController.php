@@ -63,6 +63,12 @@ class RequestController extends Controller
         $requestData->request_status = true;
         $requestData->save();
 
+        $userID = $requestData->user_id;
+        Notification::create([
+            'user_id' => $userID,
+            'type' => 'request_approved',
+        ]);
+
         return back()->with('success', 'Request Approved');
     }
 
@@ -71,6 +77,12 @@ class RequestController extends Controller
         $requestData = DocRequest::findOrFail($id);
         $requestData->request_status = 2;
         $requestData->save();
+
+        $userID = $requestData->user_id;
+        Notification::create([
+            'user_id' => $userID,
+            'type' => 'request_denied',
+        ]);
 
         return back()->with('success', 'Request Approved');
     }
