@@ -13,7 +13,9 @@ class AccessLogs extends Model
 
     protected $fillable = [
         'action_taken',
-        'user_id'
+        'user_id',
+        'deleted_at',
+        'created_at'
     ];
 
     public function users(){
