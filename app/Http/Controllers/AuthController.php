@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserRole;
+use App\Events\UserLoggedIn;
+use App\Events\UserLoggedOut;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 
 class AuthController extends Controller
 {
@@ -29,22 +32,27 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             Auth::logoutOtherDevices($request->input('password'));
             $request->session()->regenerate();
+            $user = Auth::user();
+            if (!$user->isActive) {
+                // User is disabled, prevent login
+                Auth::logout();
+                return back()->with('error', 'Your account has been disabled. Please contact support.');
+            }
 
-            if(Auth::user()->role->role->name == 'super-admin'){
+          
+            Event::dispatch(new UserLoggedIn($user));
+
+            if (Auth::user()->role->role->name == 'super-admin') {
                 return redirect()->intended(route('to.Dashboard'));
-            }
-            elseif(Auth::user()->role->role->name == 'admin'){
+            } elseif (Auth::user()->role->role->name == 'admin') {
                 return redirect()->intended(route('to.DashAdmin'));
-            }
-            elseif(Auth::user()->role->role->name == 'user'){
+            } elseif (Auth::user()->role->role->name == 'user') {
                 return redirect()->intended(route('to.DashUser'));
-            }
-            else{
+            } else {
                 return back()->withErrors([
                     'error' => 'There is a problem upon logging in.',
                 ]);
             }
-            
         }
 
         return back()->withErrors([
@@ -52,13 +60,17 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout(){
+    public function logout()
+    {
+        $user = Auth::user();
+        Event::dispatch(new UserLoggedOut($user));
         Auth::logout();
 
         return redirect()->intended('/');
     }
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $this->validate($request, [
             'fname' => 'required',
             'mname' => 'required',
@@ -77,15 +89,15 @@ class AuthController extends Controller
 
 
         // Create the username
-        $username = $firstLetterLastName.'.'. strtolower($firstname).$firstLetterMiddleName;
-        
+        $username = $firstLetterLastName . '.' . strtolower($firstname) . $firstLetterMiddleName;
+
         $user = User::create([
             'fname' => $firstname,
             'mname' => $middlename,
             'lname' => $lastname,
             'username' => $username, // Assign the created username
             'password' => bcrypt('amcv-edms123'),
-            'department_id'=> $request->input('department'),
+            'department_id' => $request->input('department'),
         ]);
 
         $userRole = UserRole::create([
@@ -94,6 +106,6 @@ class AuthController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'User Added Successfully.');
-       
+
     }
 }

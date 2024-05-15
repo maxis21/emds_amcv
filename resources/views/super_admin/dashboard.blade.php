@@ -6,6 +6,14 @@
                                                                                     <link rel="stylesheet" href="{{ asset('css/datatables/datatable_v2.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+
+    <style>
+        .chart-detail {
+            border-radius: 10px;
+            background-color: white;
+            width: 100%;
+        }
+    </style>
 @endsection
 
 @section('body-content')
@@ -65,7 +73,8 @@
                 <div class="chart1">
                     <canvas id="myChart" width="1000" height="525"></canvas>
                 </div>
-                <div class="container row" style="width: 100%; margin: 10px; background-color: white">
+                &nbsp;
+                <div class="container chart-detail row">
                     <div class="container">
                         <p class="fs-2 fw-2">Number of approved request</p>
                         <span> number something something </span>

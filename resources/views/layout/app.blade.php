@@ -61,6 +61,19 @@
     @include('modals.logout')
 
     @yield('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('contextmenu', function(event) {
+                event.preventDefault();
+            });
+            document.addEventListener('keydown', function(event) {
+                // Check if the key pressed is F12
+                if (event.keyCode == 123) {
+                    event.preventDefault(); // Prevent the default action (opening developer tools)
+                }
+            });
+        });
+    </script>
     <!-- <script>
         document.addEventListener('DOMContentLoaded', function() {
 
