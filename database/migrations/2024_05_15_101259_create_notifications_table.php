@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('tbl_users')->onDelete('cascade');
             $table->string('type');
             $table->string('status')->nullable();
-            $table->foreignId('document_id')->nullable()->constrained('tbl_document_versions')->onDelete('cascade');
+            $table->foreignId('document_id')->nullable()->constrained('tbl_documents')->onDelete('cascade');
             $table->text('message')->nullable();
             $table->boolean('is_read')->default(false);
             $table->timestamps();

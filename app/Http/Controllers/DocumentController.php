@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\DocumentVersion;
 use App\Models\DocRequest;
 use App\Models\Folder;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
@@ -254,12 +255,26 @@ class DocumentController extends Controller
                     'uploaded_by' => $userID,
                     'approval_status' => 'Pending'
                 ]);
+
+                Notification::create([
+                    'user_id' => $userID,
+                    'type' => 'file_upload',
+                    'message' => 'A file has been uploaded.',
+                    'document_id' => $docID
+                ]);
             } else {
                 DocumentVersion::create([
                     'name' => $fileName,
                     'file_url' => $fileURL,
                     'document_id' => $docID,
                     'uploaded_by' => $userID
+                ]);
+
+                Notification::create([
+                    'user_id' => $userID,
+                    'type' => 'file_upload',
+                    'message' => 'A file has been uploaded.',
+                    'document_id' => $docID
                 ]);
             }
 
@@ -303,6 +318,11 @@ class DocumentController extends Controller
             'file_url' => $docPath
         ]);
 
+        Notification::create([
+            'user_id' => $userID,
+            'type' => 'file_request',
+        ]);
+
         return back()->with('success', 'Document requested successfully.');
     }
 
@@ -331,12 +351,12 @@ class DocumentController extends Controller
     {
         $departments = Department::get();
         $documents = Document::with(['document_versions', 'department'])
-        ->whereNull('folder_id')
-        ->leftJoin('tbl_document_versions', 'tbl_documents.id', '=', 'tbl_document_versions.document_id')
-        ->select('tbl_documents.*', \DB::raw('MAX(tbl_document_versions.updated_at) as latest_version_update'))
-        ->groupBy('tbl_documents.id')
-        ->orderBy('latest_version_update', 'desc')
-        ->get();
+            ->whereNull('folder_id')
+            ->leftJoin('tbl_document_versions', 'tbl_documents.id', '=', 'tbl_document_versions.document_id')
+            ->select('tbl_documents.*', \DB::raw('MAX(tbl_document_versions.updated_at) as latest_version_update'))
+            ->groupBy('tbl_documents.id')
+            ->orderBy('latest_version_update', 'desc')
+            ->get();
         return view('super_admin.user_uploads', compact('documents'));
     }
 
@@ -353,7 +373,13 @@ class DocumentController extends Controller
         $uploadedData->approval_status = 'Approved';
         $uploadedData->save();
 
-        return back()->with('success', 'File Approved'); 
+        $userID = $uploadedData->uploaded_by;
+        Notification::create([
+            'user_id' => $userID,
+            'type' => 'fileupload_approved',
+        ]);
+
+        return back()->with('success', 'File Approved');
     }
 
 
@@ -369,6 +395,12 @@ class DocumentController extends Controller
         $uploadedData->approval_status = 'Denied';
         $uploadedData->save();
 
-        return back()->with('success', 'File Declined'); 
+        $userID = $uploadedData->uploaded_by;
+        Notification::create([
+            'user_id' => $userID,
+            'type' => 'fileupload_denied',
+        ]);
+
+        return back()->with('success', 'File Declined');
     }
 }
