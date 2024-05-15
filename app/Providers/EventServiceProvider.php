@@ -6,6 +6,8 @@ use App\Events\UserLoggedIn;
 use App\Events\UserLoggedOut;
 use App\Listeners\LogUserLogin;
 use App\Listeners\LogUserLogout;
+use App\Listeners\SessionExpiry;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -28,6 +30,9 @@ class EventServiceProvider extends ServiceProvider
         UserLoggedOut::class => [
             LogUserLogout::class,
         ],
+        Logout::class => [
+            SessionExpiry::class,
+        ]
     ];
 
     /**

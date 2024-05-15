@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IntervalControllers;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
@@ -129,6 +130,11 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin,user']], function
 
     // Test Route ------------------------------------------------------------------------
     Route::get('/phDownload', [WebScrapingController::class, 'phPDF'])->name('try.This');
+
+
+    // Intervals controller 
+    // Intervals 
+    Route::get('/dashboard/show/online', [IntervalControllers::class, 'retrieveOnlineUsers'])->name('intervals.users');
 });
 
 // *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
@@ -147,7 +153,7 @@ Route::group(['middleware' => ['auth', 'role:user']], function () {
     Route::post('/document/requestFile', [DocumentController::class, 'requestFile'])->name('request.File');
     Route::get('/user/documents/{name}/{folderId}', [DocumentController::class, 'userTrackFile'])->name('userFolders.show');
     Route::post('/user/documents/uploadfile/', [DocumentController::class, 'userUploads'])->name('user.upload.file');
-    
+
 
     /*----------------------------------------------------------------------
         Request Routes

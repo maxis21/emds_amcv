@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\UserLoggedOut;
 use App\Models\AccessLogs;
+use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 

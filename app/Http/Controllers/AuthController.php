@@ -63,6 +63,8 @@ class AuthController extends Controller
     public function logout()
     {
         $user = Auth::user();
+        $user->isOnline = 0;
+        $user->save();
         Event::dispatch(new UserLoggedOut($user));
         Auth::logout();
 
