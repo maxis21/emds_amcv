@@ -7,9 +7,10 @@ use App\Models\AccessLogs;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class LogUserLogin
+class LogUserLogin implements ShouldQueue
 {
     use InteractsWithQueue;
+
     /**
      * Handle the event.
      */
@@ -18,7 +19,7 @@ class LogUserLogin
         $user = $event->user;
         // Log user logout activity
         AccessLogs::create([
-            'action_taken' => $user->username . ' has logged out.',
+            'action_taken' => $user->username . ' has logged in.',
             'user_id' => $user->id,
         ]);
     }
