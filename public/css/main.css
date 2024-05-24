@@ -279,6 +279,10 @@ main {
     color: black;
 }
 
+.bg-gray{
+    background-color: #b6b6b6;
+}
+
 .fs-1 {
     font-size: 0.8rem;
 }
