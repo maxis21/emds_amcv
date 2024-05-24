@@ -3,7 +3,7 @@
 
 @section('styles')
     <!-- <link rel="stylesheet" href="{{ asset('css/datatables/jquery.dataTables.css') }}">
-                                                                                    <link rel="stylesheet" href="{{ asset('css/datatables/datatable_v2.css') }}"> -->
+                                                                                            <link rel="stylesheet" href="{{ asset('css/datatables/datatable_v2.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 
@@ -74,19 +74,8 @@
                     <canvas id="myChart" width="1000" height="525"></canvas>
                 </div>
                 &nbsp;
-                <div class="container chart-detail row">
-                    <div class="container">
-                        <p class="fs-2 fw-2">Number of approved request</p>
-                        <span> number something something </span>
-                    </div>
-                    <div class="container">
-                        <p class="fs-2 fw-2">Number of document versions</p>
-                        <span> number something something </span>
-                    </div>
-                    <div class="container">
-                        <p class="fs-2 fw-2">Number of con-current requests</p>
-                        <span> number something something </span>
-                    </div>
+                <div >
+                    <canvas id="myChart2" width="1000" height="525"></canvas>
                 </div>
             </div>
         </div>
@@ -145,15 +134,37 @@
 
         var ctx = document.getElementById('myChart');
 
-        console.log('Labels:', allMonths);
-        console.log('Data:', uploadCounts);
-
         new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: allMonths,
                 datasets: [{
-                    label: {{ $totalUploads->count() }} + ' Total Number of Uploads',
+                    label: 'Total Number of Uploads',
+                    data: Array.from(monthsWithDataMap.values()), // Using values from the map
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: true,
+                legend: {
+                    display: false // Hide the default legend
+                }
+            }
+        });
+
+        var ctx2 = document.getElementById('myChart2');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: allMonths,
+                datasets: [{
+                    label: 'Total Number of Uploads',
                     data: Array.from(monthsWithDataMap.values()), // Using values from the map
                     borderWidth: 1
                 }]

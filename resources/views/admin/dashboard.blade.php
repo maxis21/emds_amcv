@@ -86,6 +86,7 @@
 
                                     });
                                 </script> -->
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
@@ -164,7 +165,7 @@
             }
         });
 
-        var i = 0;
+/*         var i = 0;
         function getOnlineUsers() {
             var span = document.getElementById('onlineUsers');
             $.ajax({
@@ -184,6 +185,6 @@
             // If you intended to refresh the online users every second, you need to use setInterval
             i++;
             setInterval(getOnlineUsers, 30000);
-        }
+        } */
     </script>
 @endsection

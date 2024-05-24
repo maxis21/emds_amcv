@@ -18,11 +18,21 @@ class DashboardController extends Controller
     */
     public function show()
     {
-        $totalreq = DocRequest::where('request_status', false)->count();
-        $totalDpt = Department::count();
-        $totalDocs = Document::count();
+        $docRequests = DocRequest::all();
+        $totalreq = $docRequests->where('request_status', false)->count();
+        $totalDpt = Department::all();
+        $totalDocs = Document::withCount('requests')->get();
         $totalUploads = DocumentVersion::all();
 
+        $deptLabels = $totalDpt->pluck('name');
+        $deptFileCounts = $totalDocs
+            ->pluck('requests_count')
+            ->toArray();
+
+        // Grouping by department_id
+        $deptFileCounts = collect($deptFileCounts)->groupBy('department_id')->toArray();
+
+        dd($deptFileCounts);
         // Retrieve the total uploads grouped by month
         $totalUploadsByMonth = DocumentVersion::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as total_uploads')
             ->groupBy('month')
@@ -40,7 +50,8 @@ class DashboardController extends Controller
                 'totalreq',
                 'totalDocs',
                 'totalUploads',
-                'totalUploadsByMonth'
+                'totalUploadsByMonth',
+                'deptLabels'
             )
         );
     }
