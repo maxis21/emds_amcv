@@ -66,7 +66,7 @@ class RequestController extends Controller
         $userID = $requestData->user_id;
         Notification::create([
             'user_id' => $userID,
-            'type' => 'request_approved',
+            'type' => 'Request Approved',
         ]);
 
         return back()->with('success', 'Request Approved');
@@ -81,7 +81,7 @@ class RequestController extends Controller
         $userID = $requestData->user_id;
         Notification::create([
             'user_id' => $userID,
-            'type' => 'request_denied',
+            'type' => 'Request Denied',
         ]);
 
         return back()->with('success', 'Request Approved');

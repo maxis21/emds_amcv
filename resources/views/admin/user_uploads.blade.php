@@ -14,8 +14,8 @@
         <div style="display: flex; justify-content: space-between; align-items: center; width: 100%">
             <p style="color: grey"><b>USER UPLOADS</b></p>
             <ul class="breadcrumbs">
-                <li class="text-white"><a href="{{ route('to.Dashboard') }}">Dashboard</a></li>
-                <li class="text-white"><a href="{{ route('to.Documents') }}">Documents</a></li>
+                <li class="text-white"><a href="{{ route('to.DashAdmin') }}">Dashboard</a></li>
+                <li class="text-white"><a href="{{ route('to.Documents-admin') }}">Documents</a></li>
                 <li class="text-white active"> uploads </li>
             </ul>
         </div>
@@ -49,20 +49,14 @@
                     </thead>
                     <tbody>
                         @foreach($documents as $document)
-                        @php
-                        $originalFile = $document->document_versions()->first();
-                        $folder = $document->folder_id;
-                        @endphp
+                            @php
+                                $originalFile = $document->document_versions()->first();
+                                $folder = $document->folder_id;
+                            @endphp
                         <tr>
-                            <td>
-                                {{$document->name}}
-                            </td>
+                            <td>{{$document->name}}</td>
                             <td>{{$document->department->name}}</td>
-                            <td>
-                                @if($originalFile)
-                                {{$originalFile->uploader->username}}
-                                @endif
-                            </td>
+                            <td>{{ $originalFile ? $originalFile->uploader->username : '' }}</td>
                             <td>
                                 @if($originalFile)
                                     @if ($originalFile->approval_status == 'Approved')
@@ -84,7 +78,7 @@
                                         </svg>
                                     </a>
                                     @if($originalFile)
-                                        @if ($originalFile->approval_status != 'Approved' || $originalFile->approval_status != 'Approved')
+                                        @if ($originalFile->approval_status != 'Approved' && $originalFile->approval_status != 'Denied')
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="margin-right: 0.5rem; background-color: #e4e4e4;">
                                             <ul>
                                                 <form action="{{route('approve.file', $originalFile->id)}}" method="post">
@@ -103,8 +97,8 @@
                                                         Decline
                                                     </button>
                                                 </form>
-
-                                                <a href="{{$folder ? route('folders.show', ['folderId' => $folder]) : route('folders.show') }}" class="rq-btn" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%; display: block;">
+                                                
+                                                <a href="{{$folder ? route('adminFolders.show', ['folderId' => $folder]) : route('adminFolders.show') }}" class="rq-btn" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%; display: block;">
                                                     Show file location
                                                 </a>
                                             </ul>

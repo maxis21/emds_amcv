@@ -74,7 +74,7 @@
                     @php
                     $originalFile = $document->document_versions()->first();
                     @endphp
-                    <tr class="docu" data-docu-id="{{ $document->id }}" data-dhref="{{ route('view.file', ['originalFile' => $originalFile]) }}" style="cursor: pointer;" target="_blank">
+                    <tr class="docu" data-docu-id="{{ $document->id }}" data-doc-url="{{ $originalFile->file_url }}" data-dhref="{{ route('view.file', ['originalFile' => $originalFile]) }}" style="cursor: pointer;" target="_blank">
                         <td class="tdCustom d-flex" style="position: relative;">
                             <div class="fileIcon" style="border: none; margin: none; padding: none;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
@@ -85,22 +85,16 @@
                         </td>
                         <td>{{ $document->department->name ?? 'No Department' }}</td>
                         <td>
-                                {{$originalFile->uploader->username}}
+                            {{$originalFile->uploader->username}}
                         </td>
+
                         <!-- <td style="display: flex; justify-content: right;">
                             <div class="dropdown">
                                 
                             </div>
                         </td> -->
                     </tr>
-                    <div class="dropdown-content" style="z-index: 99;">
-                        <form id="requestForm" action="{{ route('request.File') }}" method="POST">
-                            @csrf
-                            <input name="docID" value="{{ $document->id }}" hidden>
-                            <input name="docURL" value="{{ $originalFile->file_url }}" hidden>
-                            <button class="context-btn" type="submit" style="background: none; padding: 0.5rem; color: inherit; border: none; margin: 0; font: inherit; outline: inherit; width: 100%;">Request</button>
-                        </form>
-                    </div>
+
                     @endforeach
                 </tbody>
             </table>
@@ -108,6 +102,16 @@
         </div>
     </div>
 </div>
+
+<div class="dropdown-content" style="z-index: 99;">
+    <form id="requestForm" action="{{ route('request.File') }}" method="POST">
+        @csrf
+        <input name="docID" value="" hidden>
+        <input name="docURL" value="" hidden>
+        <button class="context-btn" type="submit" style="background: none; padding: 0.5rem; color: inherit; border: none; margin: 0; font: inherit; outline: inherit; width: 100%;">Request</button>
+    </form>
+</div>
+
 
 
 @include('modals.createFolder')
@@ -201,6 +205,14 @@
         // for context Menu
         $('tr.docu').on('contextmenu', function(e) {
             e.preventDefault(); // Prevent the default right-click menu
+
+            var docId = $(this).data('docu-id');
+            var docUrl = $(this).data('doc-url');
+
+            // Update the hidden form fields with the correct document data
+            var $requestForm = $('#requestForm');
+            $requestForm.find('input[name="docID"]').val(docId);
+            $requestForm.find('input[name="docURL"]').val(docUrl);
 
             // Calculate position relative to the nearest positioned ancestor
             var posX = e.pageX;

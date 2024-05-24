@@ -36,6 +36,12 @@
                 <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
             </svg>Upload File
         </a>
+        <a class="user-uploads" href="{{ route('view.userUploads') }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill-up" viewBox="0 0 16 16">
+                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.854 1.5 1.5a.5.5 0 0 1-.708.708L13 11.707V14.5a.5.5 0 0 1-1 0v-2.793l-.646.647a.5.5 0 0 1-.708-.708l1.5-1.5a.5.5 0 0 1 .708 0M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
+            </svg>User Uploads
+        </a>
     </div>
 
     <div class="body-box d-flex">
@@ -51,7 +57,7 @@
                 </thead>
                 <tbody>
                     @foreach ($folders as $folder)
-                    <tr class="folder" data-folder-id="{{ $folder->id }}" data-href="{{ route('adminFolders.show', ['name' => $folder->name, 'folderId' => $folder->id]) }}" style="cursor: pointer;">
+                    <tr class="folder" data-folder-id="{{ $folder->id }}" data-href="{{ route('adminFolders.show', ['folderId' => $folder->id]) }}" style="cursor: pointer;">
                         <td class="tdCustom d-flex" style="position: relative;">
                             <div class="fileIcon" style="border: none; margin: none; padding: none;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-folder-fill" viewBox="0 0 16 16">

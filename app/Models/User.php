@@ -61,6 +61,8 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class);
     }
 
+    
+
     // public static function boot(){
     //     parent::boot();
 

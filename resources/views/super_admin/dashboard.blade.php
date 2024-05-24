@@ -29,27 +29,6 @@
         </div>
     </div>
 
-    <div class="notif-box d-flex">
-        <div class="notif-content d-flex">
-            <div class="notif-indicator bg-success"></div>
-            <div class="notif-message d-flex">
-                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
-                    <h4>Title</h4>
-                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
-                </div>
-                <a href="">
-                    <h5>Mark as read</h5>
-                </a>
-            </div>
-        </div>
-        <div class="notif-content d-flex">
-            <div class="notif-indicator bg-success"></div>
-            <div class="notif-message">
-                hello world
-            </div>
-        </div>
-    </div>
-    <!-- -->
     <div class="body-container container-fluid d-flex">
         <div class="card-group d-flex">
             <div class="dash-card dash-1">
@@ -78,7 +57,7 @@
             </div>
 
         </div>
-        <div class="body-content d-flex row">
+        <!-- <div class="body-content d-flex row">
             <div class="chart1">
                 <canvas id="myChart" width="1000" height="525"></canvas>
             </div>
@@ -97,11 +76,356 @@
                     <span> number something something </span>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
-    <!-- -->
+
+    <div class="notif-box d-flex">
+        <span style="color: gray;">Notifications</span>
+        @forelse($notifs as $notif)
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>{{$notif->type}}</h4>
+                    <p style="font-size: 14px;">{{$notif->message}}</p>
+                </div>
+                <div class="d-flex" style="gap: 0.5rem;">
+                    <a href="">
+                        <h5>Mark as read</h5>
+                    </a>
+                    <!-- <a href="" class="view-button">
+                        <h5>View</h5>
+                    </a> -->
+                </div>
+            </div>
+        </div>
+        @empty
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">No new notifications.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        @endforelse
+        <!-- <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">Lorem ipsum sit dolor amet.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div> -->
+        
+    </div>
+    
+    
+    
 </div>
 <!-- -->
+
+
+
+
+
+
 @endsection
 
 
@@ -189,4 +513,8 @@
         }
     });
 </script>
+
+
+
+
 @endsection
