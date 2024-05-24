@@ -131,8 +131,13 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin,user']], function
     Route::get('/request/status', [RequestController::class, 'fileStatus'])->name('file.Status');
 
     // Test Route ------------------------------------------------------------------------
-    Route::get('/phDownload', [WebScrapingController::class, 'phPDF'])->name('try.This');
+    Route::get('/sphDownload', [WebScrapingController::class, 'phPDF'])->name('try.This');
 
+
+    /*----------------------------------------------------------------------
+        Notifications Routes
+    ----------------------------------------------------------------------*/
+    Route::post('/mark-as-read', [DashboardController::class, 'markAsRead'])->name('mark.read');
 
     // Intervals controller 
     // Intervals 

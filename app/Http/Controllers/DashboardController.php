@@ -109,6 +109,15 @@ class DashboardController extends Controller
 
     public function show_dashUser()
     {
-        return view('users.dashboard');
+
+        $userID = Auth::user()->id;
+
+        // For the notifications
+        $notifs = Notification::with(['user'])->orderBy('updated_at', 'desc')->where('user_id', $userID)->get();
+
+        return view('users.dashboard', compact('notifs'));
+    }
+
+    public function markAsRead(Request $request){
     }
 }

@@ -107,7 +107,7 @@
                     <h4>Title</h4>
                     <p style="font-size: 14px;">No new notifications.</p>
                 </div>
-                <a href="">
+                <a onclick="markasRead('{{$notif->id}}')">
                     <h5>Mark as read</h5>
                 </a>
             </div>
@@ -123,7 +123,10 @@
 <!-- -->
 
 
-
+<form action="{{route('mark.read')}}" id='markread'>
+    @CSRF
+    <input type="hidden" value="" name="markAsRead" id="markAsRead">
+</form>
 
 
 
@@ -216,6 +219,14 @@
 </script>
 
 
+<script>
+    function markasRead(id){
+        var form = document.getElementById('markread');
+        var inputform = document.getElementById('markAsRead');
 
+        inputform.value = id;
+        form.submit();
+    }
+</script>
 
 @endsection
