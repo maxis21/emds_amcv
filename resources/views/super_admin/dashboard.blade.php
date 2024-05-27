@@ -83,14 +83,18 @@
         <span style="color: gray;">Notifications</span>
         @forelse($notifs as $notif)
         <div class="notif-content d-flex">
+            @if($notif->is_read == true)
             <div class="notif-indicator bg-gray"></div>
+            @else
+            <div class="notif-indicator bg-success"></div>
+            @endif
             <div class="notif-message d-flex">
                 <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
                     <h4 style="color:#252525;">{{$notif->type}}</h4>
                     <p style="font-size: 14px; color: #5c5c5c;">{{$notif->message}}</p>
                 </div>
                 <div class="d-flex" style="gap: 0.5rem;">
-                    <a href="">
+                    <a onclick="markasRead('{{$notif->id}}')">
                         <h5>Mark as read</h5>
                     </a>
                     <!-- <a href="" class="view-button">
@@ -107,7 +111,7 @@
                     <h4>Title</h4>
                     <p style="font-size: 14px;">No new notifications.</p>
                 </div>
-                <a onclick="markasRead('{{$notif->id}}')">
+                <a>
                     <h5>Mark as read</h5>
                 </a>
             </div>
@@ -123,7 +127,7 @@
 <!-- -->
 
 
-<form action="{{route('mark.read')}}" id='markread'>
+<form action="{{route('mark.read')}}" id='markread' method="POST">
     @CSRF
     <input type="hidden" value="" name="markAsRead" id="markAsRead">
 </form>
@@ -136,6 +140,22 @@
 @section('scripts')
 <script src="{{ asset('js/chart.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+@if (session('success'))
+<script>
+    toastr.success('{{session('
+        success ')}}', 'Success');
+</script>
+@endif
+@if (session('fail'))
+<script>
+    toastr.error('{{ session('
+        fail ') }}', $message);
+</script>
+@endif
+
+
 
 <script>
     const monthsWithData = {

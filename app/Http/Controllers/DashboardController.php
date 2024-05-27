@@ -119,5 +119,12 @@ class DashboardController extends Controller
     }
 
     public function markAsRead(Request $request){
+        $requestID = $request->input('markAsRead');
+
+        $notifications = Notification::findorFail($requestID);
+        $notifications->is_read = true;
+        $notifications->save();
+
+        return redirect()->back()->with('success', 'Notification marked as read');
     }
 }
