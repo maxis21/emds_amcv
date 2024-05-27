@@ -52,7 +52,7 @@
                 </div>
                 <div class="dash-card dash-4">
                     <h5 style="display: flex; flex-direction: column; gap: 0.4rem;">ONLINE USERS:<br>
-                        <span style="font-size: 25px;" id="onlineUsers">{{ $totalOnline - 1 }}</span>
+                        <span style="font-size: 25px;" id="onlineUsers">{{ '' }}</span>
                     </h5>
                     <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor"
                         class="bi bi-people-fill" viewBox="0 0 16 16">
@@ -90,9 +90,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        $(document).ready(function() {
+      /*   $(document).ready(function() {
             getOnlineUsers();
-        });
+        }); */
 
         const monthsWithData = {!! json_encode($totalUploadsByMonth->pluck('month')) !!};
         const uploadCounts = {!! json_encode($totalUploadsByMonth->pluck('total_uploads')) !!};

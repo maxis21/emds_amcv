@@ -33,7 +33,7 @@
             <div class="card-group d-flex">
                 <div class="dash-card dash-1">
                     <h5 style="display: flex; flex-direction: column; gap: 0.4rem;">DEPARTMENTS<br><span
-                            style="font-size: 25px;">{{ $totalDpt }}</span> </h5>
+                            style="font-size: 25px;">{{ $totalDpt->count() }}</span> </h5>
                     <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor"
                         class="bi bi-building-fill card-icon" viewBox="0 0 16 16">
                         <path
@@ -51,7 +51,7 @@
                 </div>
                 <div class="dash-card dash-3">
                     <h5 style="display: flex; flex-direction: column; gap: 0.4rem;">DOCUMENTS<br><span
-                            style="font-size: 25px;">{{ $totalDocs }}</span> </h5>
+                            style="font-size: 25px;">{{ $totalDocs->count() }}</span> </h5>
                     <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor"
                         class="bi bi-folder-fill card-icon" viewBox="0 0 16 16">
                         <path

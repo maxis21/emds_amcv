@@ -32,7 +32,7 @@ class DashboardController extends Controller
         // Grouping by department_id
         $deptFileCounts = collect($deptFileCounts)->groupBy('department_id')->toArray();
 
-        dd($deptFileCounts);
+        //dd($deptFileCounts);
         // Retrieve the total uploads grouped by month
         $totalUploadsByMonth = DocumentVersion::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as total_uploads')
             ->groupBy('month')
