@@ -59,7 +59,6 @@
         </main>
     </div>
     @include('modals.logout')
-
     @yield('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -74,8 +73,9 @@
             });
         });
     </script>
-    <!-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
+
+
+        <!-- document.addEventListener('DOMContentLoaded', function() {
 
             var table = document.getElementById('dataTable');
             var rows = table.getElementsByTagName('tr');
@@ -204,8 +204,11 @@
                 }
             });
 
-        });
+        }); -->
 
+
+    <script>
+        
         function togglePasswordShow() {
             var passwordInput = document.getElementById('password');
             var toggleShow = document.querySelector('.password-show');
@@ -238,7 +241,7 @@
         </svg>
         `;
         }
-    </script> -->
+    </script>
 
 </body>
 

@@ -82,13 +82,13 @@
                                                     Approve
                                                 </button>
                                             </form>
-                                            <!-- <form action="{{--route('approve.request', $requested->id)--}}" method="post">
+                                            <form action="{{route('decline.request', $requested->id)}}" method="post">
                                                 @csrf
                                                 @method('PUT')
                                                 <button class="rq-btn" button type="submit" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%;">
-                                                    Deny
+                                                    Decline
                                                 </button>
-                                            </form> -->
+                                            </form>
                                         </ul>
                                     </div>
                                     @endif
@@ -129,6 +129,7 @@
         $('#dataTable').DataTable({
             "lengthChange": false,
             "pageLength": 10,
+            "ordering": false,
             "language": {
                 "search": "",
                 "searchPlaceholder": "Search files..."
@@ -136,7 +137,7 @@
             "searching": true
         });
 
-        $('.action-button').on('click', function(e) {
+        $(document).on('click', '.action-button', function(e) {
             e.preventDefault();
             var $dropdown = $(this).closest('.dropdown');
             var $dropdownMenu = $dropdown.find('.dropdown-menu');

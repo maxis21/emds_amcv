@@ -110,6 +110,7 @@ td {
 .rq-btn {
     margin: 0;
     border-radius: 5px;
+    outline: inherit;
 }
 
 .rq-btn:hover {

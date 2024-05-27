@@ -25,7 +25,7 @@ aside {
 }
 
 main {
-    min-height: 100vh;
+    min-height: 95vh;
     height: 100%;
     width: 100%;
     padding: 1rem;
@@ -277,6 +277,10 @@ main {
 .bg-light {
     background-color: #f8f9fa;
     color: black;
+}
+
+.bg-gray{
+    background-color: #b6b6b6;
 }
 
 .fs-1 {

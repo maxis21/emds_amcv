@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Document;
 use App\Models\DocRequest;
+use App\Models\Notification;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,12 @@ class RequestController extends Controller
         $requestData->request_status = true;
         $requestData->save();
 
+        $userID = $requestData->user_id;
+        Notification::create([
+            'user_id' => $userID,
+            'type' => 'Request Approved',
+        ]);
+
         return back()->with('success', 'Request Approved');
     }
 
@@ -70,6 +77,12 @@ class RequestController extends Controller
         $requestData = DocRequest::findOrFail($id);
         $requestData->request_status = 2;
         $requestData->save();
+
+        $userID = $requestData->user_id;
+        Notification::create([
+            'user_id' => $userID,
+            'type' => 'Request Denied',
+        ]);
 
         return back()->with('success', 'Request Approved');
     }

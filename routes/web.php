@@ -72,10 +72,12 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin']], function () {
     ----------------------------------------------------------------------*/
     Route::get('/admin/documents', [DocumentController::class, 'show_docADminview'])->name('to.Documents-admin');
     Route::get('/View/File/{originalFile}', [DocumentController::class, 'viewFile'])->name('view.file');
-    Route::get('/admin/documents/{name}/{folderId}', [DocumentController::class, 'adminTrackFile'])->name('adminFolders.show');
+    Route::get('/admin/documents/{folderId?}', [DocumentController::class, 'adminTrackFile'])->name('adminFolders.show');
     Route::get('/User-Uploads', [DocumentController::class, 'viewUserUploads'])->name('view.userUploads');
     Route::put('/uploads/approve-file/{id}', [DocumentController::class, 'approveFile'])->name('approve.file');
     Route::put('/uploads/decline-file/{id}', [DocumentController::class, 'declineFile'])->name('decline.file');
+
+    Route::get('File-path/{id}', [DocumentController::class, 'showPath'])->name('show.path');
 
     /*----------------------------------------------------------------------
         Request Routes
@@ -94,7 +96,7 @@ Route::group(['middleware' => ['auth', 'role:super-admin']], function () {
         Dashboard Routes
     ----------------------------------------------------------------------*/
     Route::get('/documents', [DocumentController::class, 'show'])->name('to.Documents');
-    Route::get('/documents/{name}/{folderId}', [DocumentController::class, 'trackFile'])->name('folders.show');
+    Route::get('/documents/{folderId?}', [DocumentController::class, 'trackFile'])->name('folders.show');
 
 
     /*----------------------------------------------------------------------
@@ -129,8 +131,13 @@ Route::group(['middleware' => ['auth', 'role:super-admin,admin,user']], function
     Route::get('/request/status', [RequestController::class, 'fileStatus'])->name('file.Status');
 
     // Test Route ------------------------------------------------------------------------
-    Route::get('/phDownload', [WebScrapingController::class, 'phPDF'])->name('try.This');
+    Route::get('/sphDownload', [WebScrapingController::class, 'phPDF'])->name('try.This');
 
+
+    /*----------------------------------------------------------------------
+        Notifications Routes
+    ----------------------------------------------------------------------*/
+    Route::post('/mark-as-read', [DashboardController::class, 'markAsRead'])->name('mark.read');
 
     // Intervals controller 
     // Intervals 

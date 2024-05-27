@@ -47,13 +47,47 @@
                     <path d="M3 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h3v-3.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V16h3a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm1 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5M4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5" />
                 </svg>
             </div> -->
-
+         
         </div>
-        <div class="body-content">
-            <div class="chart1">
-                <canvas id="myChart"></canvas>
+
+        <div class="notif-box d-flex" style="margin-top: 1rem;">
+        <span style="color: gray;">Notifications</span>
+        @forelse($notifs as $notif)
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4 style="color:#252525;">{{$notif->type}}</h4>
+                    <p style="font-size: 14px; color: #5c5c5c;">{{$notif->message}}</p>
+                </div>
+                <div class="d-flex" style="gap: 0.5rem;">
+                    <a href="">
+                        <h5>Mark as read</h5>
+                    </a>
+                    <!-- <a href="" class="view-button">
+                        <h5>View</h5>
+                    </a> -->
+                </div>
             </div>
         </div>
+        @empty
+        <div class="notif-content d-flex">
+            <div class="notif-indicator bg-success"></div>
+            <div class="notif-message d-flex">
+                <div class="d-flex" style="flex-direction: column; gap: 0.3rem; ">
+                    <h4>Title</h4>
+                    <p style="font-size: 14px;">No new notifications.</p>
+                </div>
+                <a href="">
+                    <h5>Mark as read</h5>
+                </a>
+            </div>
+        </div>
+        @endforelse
+        
+
+    </div>
+        
     </div>
     <!-- -->
 </div>

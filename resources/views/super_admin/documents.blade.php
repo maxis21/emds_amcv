@@ -60,7 +60,7 @@
                 </thead>
                 <tbody>
                     @foreach ($folders as $folder)
-                    <tr class="folder" data-folder-id="{{ $folder->id }}" data-href="{{ route('folders.show', ['name' => $folder->name, 'folderId' => $folder->id]) }}" style="cursor: pointer;">
+                    <tr class="folder" data-folder-id="{{ $folder->id }}" data-href="{{ route('folders.show', ['folderId' => $folder->id]) }}" style="cursor: pointer;">
                         <td class="tdCustom d-flex" style="position: relative;">
                             <div class="fileIcon" style="border: none; margin: none; padding: none;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-folder-fill" viewBox="0 0 16 16">

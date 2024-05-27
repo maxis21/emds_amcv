@@ -7,7 +7,9 @@ use App\Models\Department;
 use App\Models\DocRequest;
 use App\Models\Document;
 use App\Models\DocumentVersion;
+use App\Models\Notification;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -43,6 +45,10 @@ class DashboardController extends Controller
         // Now $totalUploadsByMonth contains an array of objects, where each object has 'month' and 'total_uploads' properties
 
         // Pass the $totalUploadsByMonth data to your view
+
+
+        // For the notifications
+        $notifs = Notification::orderBy('updated_at', 'desc')->get();
         return view(
             'super_admin.dashboard',
             compact(
@@ -51,13 +57,17 @@ class DashboardController extends Controller
                 'totalDocs',
                 'totalUploads',
                 'totalUploadsByMonth',
-                'deptLabels'
+                'deptLabels',
+                'notifs'
             )
         );
     }
 
     public function show_dashAdmin()
     {
+
+        $authDept = Auth::user()->department_id;
+
         $totalreq = DocRequest::with('document')
             ->whereHas('document', function ($query) {
                 $query->where('department_id', auth()->user()->department_id);
@@ -86,6 +96,15 @@ class DashboardController extends Controller
         // Now $totalUploadsByMonth contains an array of objects, where each object has 'month' and 'total_uploads' properties
 
         // Pass the $totalUploadsByMonth data to your view
+
+
+        // For the notifications
+        $notifs = Notification::whereHas('user', function ($query) use ($authDept) {
+            $query->where('department_id', $authDept);
+        })->with(['user'])->orderBy('updated_at', 'desc')->get();
+
+
+        
         return view(
             'admin.dashboard',
             compact(
@@ -93,13 +112,30 @@ class DashboardController extends Controller
                 'totalDocs',
                 'totalUploads',
                 'totalUploadsByMonth',
-                'totalOnline'
+                'totalOnline',
+                'notifs'
             )
         );
     }
 
     public function show_dashUser()
     {
-        return view('users.dashboard');
+
+        $userID = Auth::user()->id;
+
+        // For the notifications
+        $notifs = Notification::with(['user'])->orderBy('updated_at', 'desc')->where('user_id', $userID)->get();
+
+        return view('users.dashboard', compact('notifs'));
+    }
+
+    public function markAsRead(Request $request){
+        $requestID = $request->input('markAsRead');
+
+        $notifications = Notification::findorFail($requestID);
+        $notifications->is_read = true;
+        $notifications->save();
+
+        return redirect()->back()->with('success', 'Notification marked as read');
     }
 }
