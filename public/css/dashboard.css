@@ -122,4 +122,5 @@
 
 .notif-message a:hover{
     background-color: lightblue;
+    cursor: pointer;
 }

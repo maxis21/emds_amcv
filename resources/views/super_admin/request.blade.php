@@ -86,13 +86,11 @@
                                                 </button>
                                             </form>
 
-                                            <form action="{{route('decline.request', $requested->id)}}" method="post">
-                                                @csrf
-                                                @method('PUT')
-                                                <button class="rq-btn" button type="submit" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%;">
-                                                    Decline
-                                                </button>
-                                            </form>
+
+                                            <a class="open-message-modal rq-btn" button type="submit" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%; display: block;" data-id="{{ $requested->id }}">
+                                                Decline
+                                            </a>
+
                                         </ul>
                                     </div>
                                     @endif
@@ -113,6 +111,8 @@
     <!-- -->
 </div>
 <!-- -->
+
+@include('modals.message')
 @endsection
 
 
@@ -159,6 +159,24 @@
                     $dropdownMenu.removeClass('show');
                 }
             });
+        });
+
+
+        $(document).on('click','.open-message-modal',function() {
+
+            var requestId = $(this).data('id');
+            var modal = $('#create-message');
+
+            // Set the form action URL with the request ID
+            modal.find('form').attr('action', '/request/decline-request/' + requestId);
+
+
+            $('#create-message').css('display', 'flex');
+
+        });
+
+        $('.modal-close').click(function() {
+            $('#create-message').css('display', 'none');
         });
     });
 </script>

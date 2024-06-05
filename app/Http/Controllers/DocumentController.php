@@ -321,6 +321,8 @@ class DocumentController extends Controller
         Notification::create([
             'user_id' => $userID,
             'type' => 'File Request',
+            'document_id' => $docuID,
+            'message' => 'A file has been requested.'
         ]);
 
         return back()->with('success', 'Document requested successfully.');
@@ -390,7 +392,8 @@ class DocumentController extends Controller
 
     public function approveFile($id)
     {
-        $uploadedData = DocumentVersion::findOrFail($id);
+        $uploadedData = DocumentVersion::with('document')->findOrFail($id);
+        $documentID = $uploadedData->document->id;
         $uploadedData->approval_status = 'Approved';
         $uploadedData->save();
 
@@ -398,6 +401,8 @@ class DocumentController extends Controller
         Notification::create([
             'user_id' => $userID,
             'type' => 'File Upload Approved',
+            'document_id' => $documentID,
+            'message' => 'A file had been approved.'
         ]);
 
         return back()->with('success', 'File Approved');
@@ -410,28 +415,24 @@ class DocumentController extends Controller
     ------------------------------------------------------------
     */
 
-    public function declineFile($id)
+    public function declineFile(Request $request, $id)
     {
-        $uploadedData = DocumentVersion::findOrFail($id);
+        $uploadedData = DocumentVersion::with('document')->findOrFail($id);
+        $documentID = $uploadedData->document->id;
         $uploadedData->approval_status = 'Denied';
         $uploadedData->save();
+
+        $message = $request->input('message');
 
         $userID = $uploadedData->uploaded_by;
         Notification::create([
             'user_id' => $userID,
             'type' => 'File Upload Denied',
+            'document_id' => $documentID,
+            'message' => $message
         ]);
 
         return back()->with('success', 'File Declined');
     }
 
-    /*
-    ------------------------------------------------------------
-    Open file path
-    ------------------------------------------------------------
-    */
-    public function showPath($id)
-    {
-        $folderPath = '';
-    }
 }

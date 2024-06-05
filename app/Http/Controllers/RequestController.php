@@ -59,7 +59,8 @@ class RequestController extends Controller
     // --------------APPROVED REQUEST (FOR SUPER-ADMIN AND ADMIN ONLY)----------------------
     public function approveReq($id)
     {
-        $requestData = DocRequest::findOrFail($id);
+        $requestData = DocRequest::with('document')->findOrFail($id);
+        $requestDataID = $requestData->document->id;
         $requestData->request_status = true;
         $requestData->save();
 
@@ -67,21 +68,27 @@ class RequestController extends Controller
         Notification::create([
             'user_id' => $userID,
             'type' => 'Request Approved',
+            'document_id' => $requestDataID,
+            'message' => 'A file request had been approved.'
         ]);
 
         return back()->with('success', 'Request Approved');
     }
 
-    public function declineReq($id)
+    public function declineReq(Request $request, $id)
     {
-        $requestData = DocRequest::findOrFail($id);
+        $requestData = DocRequest::with('document')->findOrFail($id);
+        $requestDataID = $requestData->document->id;
         $requestData->request_status = 2;
         $requestData->save();
+        $message = $request->input('message'); 
 
         $userID = $requestData->user_id;
         Notification::create([
             'user_id' => $userID,
             'type' => 'Request Denied',
+            'document_id' => $requestDataID,
+            'message' => $message
         ]);
 
         return back()->with('success', 'Request Approved');

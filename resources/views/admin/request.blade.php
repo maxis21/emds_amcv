@@ -28,6 +28,7 @@
                 <option value="">All</option>
                 <option value='1' {{ request('fileStatus') == '1' ? 'selected' : '' }}>Approved</option>
                 <option value='0' {{ request('fileStatus') == '0' ? 'selected' : '' }}>Pending</option>
+                <option value='2' {{ request('fileStatus') == '2' ? 'selected' : '' }}>Declined</option>
             </select>
         </form>
         <div class="table-box bg-light" style="border-radius: 1rem; margin-top: 1rem;">
@@ -56,10 +57,12 @@
                             <td>{{$requested->user->department->name}}</td>
                             <td>{{$requested->document->name}}</td>
                             <td>
-                                @if ($requested->request_status == true)
+                                @if ($requested->request_status == 1)
                                 <span style="background-color: #28A745; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Approved</span>
+                                @elseif ($requested->request_status == 2)
+                                <span style="background-color: #b44554; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Declined</span>
                                 @else
-                                <span style="background-color: #b44554; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Pending</span>
+                                <span style="background-color: #F17E0E; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Pending</span>
                                 @endif
                             </td>
                             <!-- <td>Data 4</td> -->
@@ -82,13 +85,10 @@
                                                     Approve
                                                 </button>
                                             </form>
-                                            <form action="{{route('decline.request', $requested->id)}}" method="post">
-                                                @csrf
-                                                @method('PUT')
-                                                <button class="rq-btn" button type="submit" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%;">
-                                                    Decline
-                                                </button>
-                                            </form>
+                                            <a class="open-message-modal rq-btn" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%; display: block;" 
+                                                data-id="{{ $requested->id }}">
+                                                Decline
+                                            </a>
                                         </ul>
                                     </div>
                                     @endif
@@ -109,6 +109,9 @@
     <!-- -->
 </div>
 <!-- -->
+
+
+@include('modals.message')
 @endsection
 
 
@@ -155,6 +158,24 @@
                 }
             });
         });
+
+        $(document).on('click', '.open-message-modal', function(){ 
+
+            var requestId = $(this).data('id');
+            var modal = $('#create-message');
+
+            // Set the form action URL with the request ID
+            modal.find('form').attr('action', '/request/decline-request/' + requestId);
+
+
+            $('#create-message').css('display', 'flex');
+
+        });
+
+        $('.modal-close').click(function() {
+            $('#create-message').css('display', 'none');
+        });
+
     });
 </script>
 @endsection

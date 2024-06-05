@@ -48,7 +48,7 @@ class DashboardController extends Controller
 
 
         // For the notifications
-        $notifs = Notification::orderBy('updated_at', 'desc')->get();
+        $notifs = Notification::orderBy('created_at', 'desc')->with(['user', 'documents'])->get();
         return view(
             'super_admin.dashboard',
             compact(
@@ -101,7 +101,7 @@ class DashboardController extends Controller
         // For the notifications
         $notifs = Notification::whereHas('user', function ($query) use ($authDept) {
             $query->where('department_id', $authDept);
-        })->with(['user'])->orderBy('updated_at', 'desc')->get();
+        })->with(['user'])->orderBy('created_at', 'desc')->get();
 
 
         
@@ -124,7 +124,7 @@ class DashboardController extends Controller
         $userID = Auth::user()->id;
 
         // For the notifications
-        $notifs = Notification::with(['user'])->orderBy('updated_at', 'desc')->where('user_id', $userID)->get();
+        $notifs = Notification::with(['user', 'documents'])->orderBy('created_at', 'desc')->where('user_id', $userID)->get();
 
         return view('users.dashboard', compact('notifs'));
     }

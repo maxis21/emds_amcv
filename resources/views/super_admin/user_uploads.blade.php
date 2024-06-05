@@ -65,13 +65,13 @@
                             </td>
                             <td>
                                 @if($originalFile)
-                                    @if ($originalFile->approval_status == 'Approved')
-                                    <span style="background-color: #28A745; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Approved</span>
-                                    @elseif ($originalFile->approval_status == 'Denied')
-                                    <span style="background-color: #b44554; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Declined</span>
-                                    @else
-                                    <span style="background-color: #F17E0E; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Pending</span>
-                                    @endif
+                                @if ($originalFile->approval_status == 'Approved')
+                                <span style="background-color: #28A745; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Approved</span>
+                                @elseif ($originalFile->approval_status == 'Denied')
+                                <span style="background-color: #b44554; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Declined</span>
+                                @else
+                                <span style="background-color: #F17E0E; color: white; padding: 0.5rem; border-radius: 1rem; margin: 0;">Pending</span>
+                                @endif
                                 @endif
                             </td>
                             <!-- <td>Data 4</td> -->
@@ -84,32 +84,28 @@
                                         </svg>
                                     </a>
                                     @if($originalFile)
-                                        @if ($originalFile->approval_status != 'Approved' || $originalFile->approval_status != 'Approved')
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="margin-right: 0.5rem; background-color: #e4e4e4;">
-                                            <ul>
-                                                <form action="{{route('approve.file', $originalFile->id)}}" method="post">
-                                                    @csrf
-                                                    @method('PUT')
+                                    @if ($originalFile->approval_status != 'Approved' || $originalFile->approval_status != 'Approved')
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="margin-right: 0.5rem; background-color: #e4e4e4;">
+                                        <ul>
+                                            <form action="{{route('approve.file', $originalFile->id)}}" method="post">
+                                                @csrf
+                                                @method('PUT')
 
-                                                    <button class="rq-btn" button type="submit" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%;">
-                                                        Approve
-                                                    </button>
-                                                </form>
+                                                <button class="rq-btn" button type="submit" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%;">
+                                                    Approve
+                                                </button>
+                                            </form>
 
-                                                <form action="{{route('decline.file', $originalFile->id)}}" method="post">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button class="rq-btn" button type="submit" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%;">
-                                                        Decline
-                                                    </button>
-                                                </form>
+                                            <a class="open-message-modal rq-btn" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%; display: block; text-align: center;" data-id="{{$originalFile->id}}">
+                                                Decline
+                                            </a>
 
-                                                <a href="{{$folder ? route('folders.show', ['folderId' => $folder]) : route('folders.show') }}" class="rq-btn" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%; display: block;">
-                                                    Show file location
-                                                </a>
-                                            </ul>
-                                        </div>
-                                        @endif
+                                            <a href="{{$folder ? route('folders.show', ['folderId' => $folder]) : route('folders.show') }}" class="rq-btn" style="background: none; color: inherit; border: none; padding: 1rem; margin: 0; font: inherit; cursor: pointer; outline: inherit; width: 100%; display: block;">
+                                                Show file location
+                                            </a>
+                                        </ul>
+                                    </div>
+                                    @endif
                                     @endif
                                 </div>
                             </td>
@@ -128,6 +124,9 @@
     <!-- -->
 </div>
 <!-- -->
+
+
+@include('modals.message')
 @endsection
 
 
@@ -175,6 +174,28 @@
                 }
             });
         });
+
+        
+        $('.open-message-modal').click(function() {
+
+            var uploadId = $(this).data('id');
+            var modal = $('#create-message');
+
+            // Set the form action URL with the request ID
+            modal.find('form').attr('action', '/uploads/decline-file/' + uploadId);
+
+
+            $('#create-message').css('display', 'flex');
+
+        });
+
+        $('.modal-close').click(function() {
+            $('#create-message').css('display', 'none');
+        });
+
+
     });
+
+
 </script>
 @endsection
