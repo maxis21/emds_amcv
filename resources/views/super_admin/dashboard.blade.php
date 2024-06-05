@@ -78,14 +78,15 @@
                         &nbsp;
                         <p style="font-size: 14px; color: #5c5c5c; align-self: left;">user: {{$notif->user->lname}}, {{$notif->user->fname}}</p>
                     </div>
-                    <div class="d-flex" style="flex-direction: column; gap: 0.3rem; justify-content: left; text-align: left; width: 200px; flex-wrap: wrap;">
+                    <!-- TEST ONLY -->
+                    {{-- <div class="d-flex" style="flex-direction: column; gap: 0.3rem; justify-content: left; text-align: left; width: 200px; flex-wrap: wrap;">
                         &nbsp;
-                        @if($notif->documents->document)
+                        @if(isset($notif->documents->document))
                         <p style="font-size: 14px; color: #5c5c5c; align-self: left;">Document: {{$notif->documents->document->id}}</p>
                         @else
                         <p style="font-size: 14px; color: #5c5c5c; align-self: left;">No document associated</p>
                         @endif
-                    </div>
+                    </div> --}}
                     <div class="d-flex" style="gap: 0.5rem;">
                         <a onclick="markasRead('{{ $notif->id }}')">
                             <h5>Mark as read</h5>
