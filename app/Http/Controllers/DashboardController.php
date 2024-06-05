@@ -29,7 +29,7 @@ class DashboardController extends Controller
             $totalreq = $docRequests
             ->with('user.department')
             ->where('user.department.id', auth()->user()->department_id)
-            ->where('request_status', false)->count();
+            ->where('request_status', false)->count(); 
         }
 
         $deptLabels = $totalDpt->pluck('name');
