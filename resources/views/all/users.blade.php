@@ -209,7 +209,6 @@
                 console.error('Error fetching user data:', error);
             }
         });
-
     }
 </script>
 
